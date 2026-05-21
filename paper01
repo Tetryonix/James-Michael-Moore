@@ -1,0 +1,680 @@
+\documentclass[12pt,a4paper]{article}
+
+% --- Packages ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{setspace}
+\usepackage{parskip}
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage{lmodern}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+\usepackage{mdframed}
+\usepackage{enumitem}
+
+% --- Page Geometry ---
+\geometry{
+  top=1.2in,
+  bottom=1.2in,
+  left=1.25in,
+  right=1.25in
+}
+
+% --- Header / Footer ---
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\small Moore --- \textit{Paper Zero-One: Vacuum Frequency Theory}}
+\lhead{\small Tetryonic Quantum Gauge Theory}
+\cfoot{\thepage}
+
+% --- Section Formatting ---
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries}{}{0em}{}
+
+% --- Theorem Environments ---
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{conjecture}{Conjecture}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+% --- Hyperref Setup ---
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  urlcolor=blue,
+  citecolor=blue,
+  pdftitle={Paper Zero-One: Vacuum Frequency Theory},
+  pdfauthor={James M. Moore}
+}
+
+% --- Custom Commands ---
+\newcommand{\lq}{\lambda_{q}}
+\newcommand{\lb}{\lambda_{b}}
+\newcommand{\nuvac}{\nu_{\mathrm{vac}}}
+\newcommand{\nuz}{\nu_{z}}
+\newcommand{\mz}{m_{z}}
+\newcommand{\Aq}{A_{q}}
+\newcommand{\hgeo}{h_{\mathrm{geo}}}
+\newcommand{\hsi}{h_{\mathrm{SI}}}
+
+% --- Framed Box for Open Problems ---
+\newmdenv[
+  linecolor=black,
+  linewidth=1pt,
+  topline=true,
+  bottomline=true,
+  leftline=true,
+  rightline=true,
+  innertopmargin=10pt,
+  innerbottommargin=10pt,
+  innerrightmargin=10pt,
+  innerleftmargin=10pt,
+  backgroundcolor=gray!8
+]{problembox}
+
+% ================================================================
+\begin{document}
+% ================================================================
+
+% --- Title Block ---
+\begin{center}
+  {\LARGE\bfseries Paper Zero-One: Vacuum Frequency Theory}\\[0.5em]
+  {\large A Speculative Framework for Quantum Gauge Theory\\
+  Within Tetryonic Theory}\\[1em]
+  {\large James M.\ Moore}\\[0.3em]
+  {\normalsize The Tetryonic Theory Think Tank}\\[0.3em]
+  {\normalsize Richard A.\ Blankenship, Advisor}\\[1.5em]
+  {\small \textit{Submitted to the public record as an open problem in theoretical physics.}\\
+  \textit{Not peer reviewed. Intended for scientific scrutiny and falsification.}}\\[1em]
+\end{center}
+
+\hrule
+\vspace{1em}
+
+% ================================================================
+\section*{Preface: What This Paper Is}
+% ================================================================
+
+This paper is designated \textit{Paper Zero-One} because it precedes formal proof. It is a
+speculative theoretical framework --- a structured conjecture --- built upon the geometric
+physics of Kelvin C.\ Abraham's \textit{Principa Geometrica} \cite{abraham2021} and the
+zero-point mass derivation presented in \textit{Determining an Exact Value for Planck's
+Constant} \cite{abraham_planck}. It articulates a single central claim, identifies the
+conditions under which that claim would be proven or disproven, and presents the open
+problem to the scientific community.
+
+The claim is this: \textbf{there exists exactly one combination of wavelength and propagation
+frequency in the speed of light wave equation that is consistent with the conservation of all
+electromagnetic universal constants simultaneously. That combination is:}
+
+\begin{equation}
+  c = \lq \cdot \nuvac
+  \qquad
+  \lq = 1 \times 10^{-15}\,\mathrm{m},
+  \quad
+  \nuvac = 2.99792458 \times 10^{23}\,\mathrm{Hz}
+\end{equation}
+
+This scale --- the femtometre --- is identified herein as the \textbf{Moore Scale}, the
+\textbf{Fermi Gauge}, or the \textbf{Vacuum Frequency Gauge}. The propagation frequency
+$\nuvac$ is designated the \textbf{Vacuum Frequency}: the number of equilateral gauge bosons
+that fit within one light-second, and the natural clock-rate of electromagnetic energy
+propagation in a perfect vacuum.
+
+% ================================================================
+\section*{Abstract}
+% ================================================================
+
+\begin{mdframed}[backgroundcolor=gray!8]
+A geometric quantum gauge theory is proposed within the framework of Tetryonic Theory,
+originating in the work of Kelvin C.\ Abraham. A fundamental gauge length
+$\lq = 1 \times 10^{-15}$\,m is identified from the topology of the proton as described in
+\textit{Principa Geometrica}, correlated with the measured proton charge radius. When this
+gauge length is substituted into the speed of light wave equation $c = \lq \cdot \nuvac$, a
+vacuum propagation frequency $\nuvac = 2.99792458 \times 10^{23}$\,Hz is uniquely
+determined. This frequency is designated the \textbf{Vacuum Frequency}. It is shown that the
+zero-point mass $\mz$, derived independently from Carbon-12 geometry and Compton
+frequency by Abraham, produces Planck's constant exactly when multiplied by $c^{2}$ at
+unit time: $h = \mz \cdot c^{2}$. The equilateral geometry of the gauge boson --- an
+equilateral triangle with height $\lq$ --- is shown to be the unique geometry consistent with
+the Pythagorean law, planar tessellation, and the dimensional structure of Planck's action.
+All electromagnetic quanta are proposed to be integer multiples of the invariant gauge area
+$\Aq = \lq^{2}/\sqrt{3}$, with higher-energy quanta consisting of superposed gauge bosons
+over the same invariant domain, not smaller quanta. The central open problem --- whether
+$\lq = 1 \times 10^{-15}$\,m is the unique electromagnetic gauge cutoff --- is formally
+stated, and conditions for proof and disproof are given.
+\end{mdframed}
+
+\vspace{1em}
+\hrule
+\vspace{1.5em}
+
+% ================================================================
+\section{Background: Tetryonic Theory and Kelvin C.\ Abraham}
+% ================================================================
+
+Tetryonic Theory is a geometric framework for mass, energy, and matter developed by Kelvin
+C.\ Abraham of Australia, presented comprehensively in \textit{Principa Geometrica}
+\cite{abraham2021}, registered with the National Library of Australia (ISBN:
+978-0-6450565-0-1, January 24, 2021). The theory proposes that all physical phenomena
+arise from the charged geometry of equilateral triangular quanta --- designated
+\textit{tetryons} --- which tile spacetime on a flat A2 hexagonal lattice. Matter particles are
+three-dimensional electrostatic standing waves formed by the topological closure of tetryonic
+faces. Electromagnetic radiation consists of planar travelling waves of gauge bosons
+propagating at $c$.
+
+Abraham's framework makes several claims that distinguish it from the Standard Model:
+
+\begin{enumerate}[leftmargin=2em]
+  \item The proton is not spherical but a specific three-dimensional tetrahedral topology
+        of 36 triangular quanta faces, visible in its orthographic projection as a hexagonal
+        structure.
+  \item Planck's constant $h$ has a corrected geometric value of
+        $6.629432672 \times 10^{-34}$\,J$\cdot$s, differing from the CODATA value
+        $6.62607015 \times 10^{-34}$\,J$\cdot$s by approximately 0.051\%.
+  \item The zero-point mass $\mz = 7.376238634 \times 10^{-51}$\,kg is derivable from the
+        Compton frequency and mass of Carbon-12 through platonic topology, independently
+        of Planck's constant.
+  \item Spacetime is flat (spatial curvature parameter $\Omega_{k} = 0$), as required by
+        the equilateral tessellation condition: six equilateral triangles meeting at a point
+        subtend exactly $360^{\circ}$, leaving zero angular deficit.
+\end{enumerate}
+
+The present paper builds upon these foundations and introduces one new element: the
+identification of the vacuum frequency $\nuvac$ as the fundamental propagation rate of the
+electromagnetic gauge.
+
+% ================================================================
+\section{The Zero-Point Mass: An Independent Derivation}
+% ================================================================
+
+The zero-point mass was derived by Abraham \cite{abraham_planck} from the Compton
+frequency of the hydrogen atom and the mass of Carbon-12, using platonic tetrahedral
+geometry. The derivation does not use Planck's constant as an input. The result is:
+
+\begin{equation}
+  \mz = 7.376238634 \times 10^{-51}\,\mathrm{kg}
+\end{equation}
+
+This value satisfies the mass-energy equivalence at unit frequency:
+
+\begin{equation}
+  \mz = \frac{h \cdot \nuz}{c^{2}}
+  \qquad \text{where } \nuz = 1\,\mathrm{Hz}
+\end{equation}
+
+Since $\mz$ is determined geometrically without reference to $h$, the equation
+$h = \mz \cdot c^{2}$ constitutes a \textbf{genuine derivation} of Planck's constant from
+mass geometry, not a circular identity. The zero-point frequency $\nuz = 1\,\mathrm{Hz}$
+defines the ground state: one cycle of action per second, the minimum possible oscillation
+of the electromagnetic field.
+
+\begin{remark}
+The relationship $\nuz = \tfrac{1}{2} f_{\mathrm{photon}}$ implies that the photon consists
+of two gauge bosons, each contributing one half-cycle. A photon of frequency
+$f = 1\,\mathrm{Hz}$ is composed of two gauge bosons each oscillating at $\nuz =
+1\,\mathrm{Hz}$. This is consistent with Abraham's geometric model of the photon as a
+two-boson structure.
+\end{remark}
+
+% ================================================================
+\section{The Vacuum Frequency: Derivation and Physical Meaning}
+% ================================================================
+
+\begin{definition}[Vacuum Frequency]
+The \textbf{Vacuum Frequency} $\nuvac$ is the propagation frequency of a gauge boson of
+physical height $\lq$ travelling at $c$ in a perfect vacuum. It is the number of gauge boson
+lengths that fit within one light-second:
+\begin{equation}
+  \nuvac = \frac{c}{\lq}
+\end{equation}
+\end{definition}
+
+The vacuum frequency is categorically distinct from the zero-point oscillation frequency
+$\nuz$. Two kinds of frequency exist in this framework:
+
+\begin{enumerate}[leftmargin=2em]
+  \item \textbf{Internal oscillation frequency} $\nuz$: the rate at which a gauge boson
+        completes one cycle of its own electromagnetic oscillation. For a zero-point boson,
+        $\nuz = 1\,\mathrm{Hz}$.
+  \item \textbf{Propagation frequency} $\nuvac$: the rate at which gauge bosons of physical
+        length $\lq$ pass a fixed point when travelling at $c$. This is a counting frequency,
+        not an oscillation frequency.
+\end{enumerate}
+
+The conflation of these two frequencies in standard quantum field theory is, within this
+framework, the source of the apparent paradox whereby a $1\,\mathrm{Hz}$ quantum would
+have a wavelength of $299{,}792{,}458\,\mathrm{m}$ --- larger than the Earth --- while
+neutrinos with fascia of $1\,\mathrm{Hz}$ are detected as point-like particles in underground
+detectors. The resolution is that $1\,\mathrm{Hz}$ is the \textit{internal} frequency of the
+boson, while its \textit{physical} size is determined by $\lq$, and its propagation rate by
+$\nuvac$.
+
+\subsection{Numerical Evaluation}
+
+Given $\lq = 1 \times 10^{-15}$\,m:
+
+\begin{equation}
+  \nuvac = \frac{2.99792458 \times 10^{8}\,\mathrm{m/s}}{1 \times 10^{-15}\,\mathrm{m}}
+  = 2.99792458 \times 10^{23}\,\mathrm{Hz}
+\end{equation}
+
+The leading digits of $\nuvac$ are identical to the leading digits of $c$. This is not a
+numerical coincidence but an algebraic consequence of $\lq$ being an exact power of ten
+in SI units. The significance is that the vacuum frequency \textit{encodes} the speed of
+light in its own digits: the electromagnetic vacuum is self-referential at this scale.
+
+% ================================================================
+\section{The Equilateral Gauge: Geometric Necessity of $\sqrt{3}$}
+% ================================================================
+
+\begin{theorem}[Geometric Necessity of the Equilateral Quantum]
+The equilateral triangle with height $\lq$ is the unique planar polygon consistent with all
+of the following simultaneously:
+\begin{enumerate}[label=(\roman*)]
+  \item The Pythagorean law: $(L/2)^{2} + \lq^{2} = L^{2}$
+  \item Perfect planar tessellation without gaps or overlaps
+  \item Dimensional conservation of Planck's action $h = \mathrm{kg} \cdot m^{2}/s$
+  \item The mass-energy relation $h = \mz \cdot c^{2}$
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+From the Pythagorean law for the equilateral triangle:
+\begin{equation}
+  \lq^{2} = L^{2} - \frac{L^{2}}{4} = \frac{3L^{2}}{4}
+  \qquad \Longrightarrow \qquad
+  L = \frac{2}{\sqrt{3}}\lq
+\end{equation}
+This ratio is unique to the equilateral triangle. The gauge area is therefore:
+\begin{equation}
+  \Aq = \frac{1}{2} \cdot L \cdot \lq
+  = \frac{1}{2} \cdot \frac{2}{\sqrt{3}}\lq \cdot \lq
+  = \frac{\lq^{2}}{\sqrt{3}}
+  \qquad \Longrightarrow \qquad
+  \lq^{2} = \sqrt{3}\,\Aq
+\end{equation}
+Expressing $c^{2}$ geometrically via $c = \lq/s$:
+\begin{equation}
+  c^{2} = \frac{\lq^{2}}{s^{2}} = \frac{\sqrt{3}\,\Aq}{s^{2}}
+\end{equation}
+Substituting into $h = \mz \cdot c^{2} \cdot T$:
+\begin{equation}
+  h = \mz \cdot \frac{\sqrt{3}\,\Aq}{s^{2}} \cdot T
+\end{equation}
+For any other polygon, the height-to-side ratio differs from $\sqrt{3}/2$:
+\begin{itemize}
+  \item \textbf{Square} (90°): ratio $= 1$, giving $h = \mz \cdot \lq^{2}/s^{2} = \mz \cdot c^{2}$,
+        which has units of joules, not joule-seconds. \textit{Dimensional failure.}
+  \item \textbf{Right isoceles} (45°-45°-90°): ratio $= \sqrt{2}/2$, giving
+        $h = \mz \cdot \sqrt{2}\Aq/s^{2}$, which deviates from the measured $h$ by factor
+        $\sqrt{2}/\sqrt{3}$. \textit{Conservation failure.}
+  \item \textbf{General triangle} ($\theta \neq 60°$): $2\sin\theta \neq \sqrt{3}$, breaking
+        the numerical value of $h$. \textit{Conservation failure.}
+\end{itemize}
+Only $\theta = 60°$ produces the $\sqrt{3}$ factor that conserves $h$ dimensionally and
+numerically. Furthermore, only the equilateral triangle tiles a flat plane with six faces at
+each vertex summing to $360°$. No other triangle achieves this with a single tile type.
+\end{proof}
+
+% ================================================================
+\section{The Gauge Invariance of $A_q$: All Quanta Are the Same Size}
+% ================================================================
+
+\begin{conjecture}[Universal Gauge Invariance]
+All electromagnetic quanta in the universe share the same invariant gauge area:
+\begin{equation}
+  \Aq = \frac{\lq^{2}}{\sqrt{3}} = \frac{(10^{-15}\,\mathrm{m})^{2}}{\sqrt{3}}
+  \approx 5.774 \times 10^{-31}\,\mathrm{m}^{2}
+\end{equation}
+Higher-energy quanta are not physically smaller. They consist of $N$ gauge bosons
+superposed over the same invariant domain $\Aq$, where $N$ scales as:
+\begin{equation}
+  E = N \cdot h\nuz = N \cdot \mz c^{2}
+  \qquad
+  N \in \mathbb{Z}^{+}
+\end{equation}
+\end{conjecture}
+
+This conjecture has the following consequences. For a photon of internal frequency $f$:
+
+\begin{equation}
+  f = N \cdot \nuz
+  \qquad \Longrightarrow \qquad
+  N = \frac{f}{\nuz}
+\end{equation}
+
+The physical gauge area occupied by each constituent boson remains $\Aq$ regardless of
+$N$. The energy scales with count, not with size. Therefore:
+
+\begin{equation}
+  \frac{1\,h\nuz}{c^{2}} = 1\,\Aq, \qquad
+  \frac{1\,h(2^{2}\nuz)}{c^{2}} = 1\,\Aq, \qquad
+  \frac{2\,h\nuz}{c^{2}} = 2\,\Aq
+\end{equation}
+
+A boson with internal frequency $4\nuz$ is not half the size of a boson at $\nuz$. It is one
+boson at the same size $\Aq$, carrying four times the energy. A field with energy
+$2h\nuz$ consists of two bosons, each of area $\Aq$.
+
+\begin{remark}
+This resolves the apparent paradox of gamma rays. Gamma radiation at frequencies of
+order $10^{20}$\,Hz does not consist of quanta smaller than the proton. It consists of
+approximately $10^{20}$ gauge bosons per second, each of physical size $\Aq$, superposed
+within the same gauge domain. The size of the quantum is invariant; only the occupation
+number changes.
+\end{remark}
+
+% ================================================================
+\section{The Fermi Gauge: Why $10^{-15}$\,m and No Other Value}
+% ================================================================
+
+The central claim of this paper is that $\lq = 10^{-15}$\,m is the \textit{only} value of the
+gauge length consistent with the simultaneous conservation of $h$, $\mz$, $c$, and the
+proton topology of Tetryonic Theory.
+
+The argument is conditional and has two components.
+
+\subsection{Component 1: Zero Degrees of Freedom}
+
+Given $\lq$ as the sole input, every other quantity in the framework is uniquely determined
+with no remaining freedom:
+
+\begin{align}
+  \nuvac &= \frac{c}{\lq} \quad &\text{(no freedom)} \\
+  s &= \frac{\lq}{c} \quad &\text{(no freedom)} \\
+  \Aq &= \frac{\lq^{2}}{\sqrt{3}} \quad &\text{(Pythagorean forced, no freedom)} \\
+  \mz &= \frac{h_{\mathrm{geo}} \cdot 1\,\mathrm{Hz}}{c^{2}} \quad
+       &\text{(fixed by Carbon-12 topology)} \\
+  h &= \mz \cdot c^{2} \cdot T \quad &\text{(no freedom)}
+\end{align}
+
+The system has \textbf{zero free parameters} once $\lq$ is fixed. No fitting, tuning, or
+renormalization is possible or required. This is a stronger constraint than any current
+formulation of the Standard Model, which contains 19 free parameters.
+
+\subsection{Component 2: The Proton Topology Anchor}
+
+The value $\lq = 10^{-15}$\,m is not derived from algebra. It was identified visually by the
+first author from Abraham's proton diagram in \textit{Principa Geometrica}, by observing
+that the diameter of the proton in Abraham's topology is approximately equal to the
+wavelength of a gauge boson, and that counting the number of such bosons along one
+light-second produces a frequency whose digits mirror those of $c$:
+
+\begin{equation}
+  \nuvac = \frac{c}{\lq}
+  = \frac{2.99792458 \times 10^{8}}{1 \times 10^{-15}}
+  = 2.99792458 \times 10^{23}\,\mathrm{Hz}
+\end{equation}
+
+This numerical self-similarity --- $\nuvac$ and $c$ sharing identical significant digits ---
+is the observational anchor. It is not a proof; it is the \textit{sign} that the correct scale
+has been identified. The algebra then confirms that at this scale and no other (among
+integer powers of ten in SI units), $\mz \cdot c^{2}$ recovers Abraham's geometric $h$
+exactly.
+
+\subsection{Component 3: The Balance Scale Argument}
+
+Consider the scale equation:
+
+\begin{equation}
+  h = \mz \cdot \frac{\sqrt{3}\,\Aq}{s^{2}} \cdot T
+\end{equation}
+
+This may be viewed as a balance scale with $\Aq$ and $s^{2}$ on one side and $h/\mz$ on
+the other. Since $\Aq = \lq^{2}/\sqrt{3}$ and $s = \lq/c$:
+
+\begin{equation}
+  \frac{\sqrt{3}\,\Aq}{s^{2}}
+  = \frac{\sqrt{3} \cdot \lq^{2}/\sqrt{3}}{\lq^{2}/c^{2}}
+  = c^{2}
+\end{equation}
+
+The $\lq$ cancels algebraically. This means \textit{any} gauge length satisfies this
+equation --- the balance scale is always level regardless of $\lq$.
+
+\textbf{This is the honest mathematical situation.} The uniqueness of $\lq = 10^{-15}$\,m
+cannot be proven from conservation laws alone. It is fixed by one physical input: the proton
+exists, it has a measurable size, and Abraham's topology describes that size geometrically.
+The open problem is therefore whether Abraham's proton topology independently and
+uniquely demands $\lq = 10^{-15}$\,m.
+
+% ================================================================
+\section{The Discrepancy in Planck's Constant: A KEM Field Hypothesis}
+% ================================================================
+
+The CODATA value $\hsi = 6.62607015 \times 10^{-34}$\,J$\cdot$s differs from the
+geometric value $\hgeo = 6.629432672 \times 10^{-34}$\,J$\cdot$s by:
+
+\begin{equation}
+  \frac{\hgeo - \hsi}{\hsi} \approx 5.075 \times 10^{-4}
+  \quad (\approx 0.051\%)
+  \quad (\approx 75{,}000\,\sigma)
+\end{equation}
+
+The discrepancy is structural, not experimental. It is proposed here that the source is the
+\textbf{KEM field}: the kinetic electromagnetic field associated with the motion of matter
+particles. In Tetryonic Theory, matter particles are three-dimensional electrostatic standing
+waves. Their rest mass is purely geometric. However, any residual motion --- including
+zero-point motion at temperatures approaching absolute zero --- generates a KEM field that
+Lorentz-modifies the effective action measured by electromagnetic instruments.
+
+The Kibble balance derives $h$ by combining two quantum electromagnetic effects:
+
+\begin{enumerate}[leftmargin=2em]
+  \item \textbf{Josephson effect}: voltage measured via Cooper pair tunneling ---
+        an electromagnetic wave phenomenon (KEM field interaction).
+  \item \textbf{Quantum Hall effect}: transverse resistance under magnetic field ---
+        also a KEM field interaction.
+\end{enumerate}
+
+Both effects measure $h$ through electromagnetic field interactions, not through geometric
+rest mass directly. The conjecture is therefore:
+
+\begin{conjecture}[KEM Field Hypothesis]
+The Kibble balance measures $\hsi = \hgeo \cdot \sqrt{1 - v_{\mathrm{ZP}}^{2}/c^{2}}$,
+where $v_{\mathrm{ZP}}$ is the residual zero-point velocity of the atoms in the apparatus.
+Since zero-point motion cannot be eliminated --- it persists at $T = 0$ --- no Kibble
+balance measurement can recover $\hgeo$.
+\end{conjecture}
+
+The temperature-dependent prediction follows:
+
+\begin{equation}
+  \hsi(T) = \hgeo \cdot \sqrt{1 - \frac{h\nu + k_{B}T}{mc^{2}}}
+\end{equation}
+
+As $T \to 0$, $\hsi$ approaches an asymptotic floor below $\hgeo$, not $\hgeo$ itself. If
+Kibble balance measurements are repeated at progressively lower temperatures, the measured
+$h$ should increase monotonically toward but never reach $\hgeo$. This is a
+\textbf{falsifiable experimental prediction}.
+
+% ================================================================
+\section{Planck Units and the Electromagnetic Gauge}
+% ================================================================
+
+The Planck length $\ell_{P} = \sqrt{\hbar G/c^{3}} \approx 1.616 \times 10^{-35}$\,m is
+derived by dimensional analysis incorporating Newton's gravitational constant $G$. In
+Tetryonic Theory, planar electromagnetic waves are rank-2 topological structures. Gravity
+arises from rank-4 topological closure --- the full $4\pi$ tetrahedral enclosure of matter
+particles displacing the surrounding zero-point field. Planar waves do not gravitate. They
+are not subject to $G$.
+
+Therefore, the Planck length --- which encodes $G$ --- has no physical meaning at the
+electromagnetic gauge scale. The Planck length is the \textbf{gravitational gauge unit}. The
+Tetryonic gauge length $\lq = 10^{-15}$\,m is the \textbf{electromagnetic gauge unit}. They
+are not the same quantity, and conflating them constitutes a category error.
+
+The Planck units are an exercise in dimensional analysis. They represent the scale at which
+gravitational and quantum effects are naively expected to converge under the assumption that
+$G$ is relevant to electromagnetism. The Tetryonic framework suggests this assumption is
+false at the level of planar wave propagation.
+
+% ================================================================
+\section{The Open Problem: Prove or Disprove the Fermi Gauge}
+% ================================================================
+
+\begin{problembox}
+\textbf{Open Problem (The Fermi Gauge / Moore Scale)}\\[0.5em]
+Let $\lq = 10^{-15}$\,m and $\nuvac = c/\lq = 2.99792458 \times 10^{23}$\,Hz.
+Let $\mz = 7.376238634 \times 10^{-51}$\,kg be the zero-point mass derived by Abraham
+from Carbon-12 geometry and Compton frequency, independently of Planck's constant.
+Let $\Aq = \lq^{2}/\sqrt{3}$ be the invariant gauge area of the equilateral quantum.\\[0.5em]
+\textbf{Prove or disprove the following conjecture:}\\[0.5em]
+\textit{The gauge length $\lq = 10^{-15}$\,m is the unique electromagnetic gauge cutoff
+such that all electromagnetic quanta are integer multiples of $\Aq$, such that the
+propagation frequency $\nuvac$ is the natural clock-rate of light in a perfect vacuum,
+and such that the zero-point mass $\mz$ and geometric Planck's constant $\hgeo$ are
+simultaneously conserved with zero free parameters. No other gauge length satisfies all
+four conditions simultaneously when anchored to the proton topology of Tetryonic Theory.}\\[0.5em]
+\textbf{Conditions for proof:}
+\begin{enumerate}[leftmargin=2em]
+  \item Derive $\lq = 10^{-15}$\,m from Abraham's proton topology without reference to
+        the measured proton radius.
+  \item Show that the proton fascia geometry of \textit{Principa Geometrica} uniquely
+        demands this scale.
+  \item Demonstrate that any other gauge length $\lq' \neq \lq$ produces a vacuum
+        frequency incommensurate with $c$ under the constraint that $\mz$ is fixed
+        by Carbon-12 geometry.
+\end{enumerate}
+\textbf{Conditions for disproof:}
+\begin{enumerate}[leftmargin=2em]
+  \item Identify a second gauge length $\lq' \neq \lq$ that simultaneously conserves
+        $h$, $\mz$, $c$, and the proton topology.
+  \item Show that Abraham's proton topology is geometrically consistent with a gauge
+        length other than $10^{-15}$\,m.
+  \item Demonstrate that the CODATA value of $h$ is not attributable to KEM field
+        Lorentz modification of the geometric $\hgeo$.
+\end{enumerate}
+\end{problembox}
+
+% ================================================================
+\section{Implications If the Conjecture Is True}
+% ================================================================
+
+If the Fermi Gauge conjecture is proven, the implications are as follows.
+
+\textbf{Metrology.} The kilogram, defined since 2019 by fixing $\hsi$, encodes a systematic
+geometric error of $5.075 \times 10^{-4}$. Every SI mass measurement requires correction
+by the factor $\hgeo/\hsi \approx 1.0005075$. The kilogram would be redefined in terms
+of $\mz$ and $c$.
+
+\textbf{Atomic physics.} Corrected atomic mass units cascade through nuclear binding
+energy calculations, isotope mass measurements, and chemical stoichiometry.
+
+\textbf{Vacuum physics.} The vacuum has a minimum time resolution $s = \lq/c =
+3.335 \times 10^{-24}$\,s and a minimum spatial resolution $\lq = 10^{-15}$\,m. Spacetime
+is discrete at the Fermi scale. The vacuum frequency $\nuvac$ is the maximum information
+transfer rate of the electromagnetic field.
+
+\textbf{Proton radius puzzle.} The discrepancy between electron scattering
+($r_{p} \approx 0.877$\,fm) and muonic hydrogen spectroscopy ($r_{p} \approx 0.841$\,fm)
+is explained by Lorentz contraction of KEM fields in the electron scattering measurement.
+The geometric proton radius is the inscribed radius of the tetrahedral topology, which
+equals $\lq$ on the orthographic Z-axis. The circumscribed radius is
+$L = (2/\sqrt{3})\lq \approx 1.155 \times 10^{-15}$\,m. The classical average of
+measurements at various angles produces the observed spread.
+
+\textbf{Foundations of quantum mechanics.} The uncertainty principle, in this framework,
+is not fundamental but emergent from the measurement of KEM fields rather than geometric
+rest mass. A deterministic geometric substrate underlies the probabilistic predictions of
+standard QM.
+
+\textbf{Quantum field theory.} All EM fields are quantised over the invariant domain $\Aq$.
+The renormalisation procedure --- introduced to handle ultraviolet divergences from summing
+over arbitrarily small scales --- becomes unnecessary. There is a natural ultraviolet cutoff
+at $\lq = 10^{-15}$\,m below which no electromagnetic mode can exist.
+
+% ================================================================
+\section{Conclusion}
+% ================================================================
+
+This paper presents a structured conjecture, not a proof. The Vacuum Frequency Theory
+proposes that the speed of light $c$ is not merely a propagation velocity but a geometric
+counting rate: the number of invariant equilateral gauge bosons of physical height
+$\lq = 10^{-15}$\,m that pass a fixed point per second in a perfect vacuum.
+
+The zero-point mass $\mz$, derived independently from Carbon-12 geometry, recovers
+Planck's constant exactly when multiplied by $c^{2}$. The equilateral triangle is the unique
+geometry consistent with planar tessellation, the Pythagorean law, and the dimensional
+structure of Planck's action. All electromagnetic quanta are integer multiples of the
+invariant gauge area $\Aq$.
+
+The open problem is stated precisely: prove or disprove that $\lq = 10^{-15}$\,m is the
+unique electromagnetic gauge cutoff. Until this is resolved in either direction, the framework
+stands as a mathematically self-consistent, zero-free-parameter geometric theory of the
+electromagnetic vacuum.
+
+The framework is offered to the scientific community for scrutiny. The authors welcome
+attempts at falsification.
+
+% ================================================================
+\section*{Acknowledgements}
+% ================================================================
+
+The authors acknowledge Kelvin C.\ Abraham as the principal architect of Tetryonic Theory
+and the source of all geometric foundations used herein. Richard A.\ Blankenship provided
+dimensional analysis and mentorship. Diego Borges-Riviera and Ren\'{e} Cormier provided
+three-dimensional geometric models of Tetryonic topology. The first author's identification
+of the Fermi gauge was made possible by Abraham's proton diagrams in
+\textit{Principa Geometrica}.
+
+% ================================================================
+\begin{thebibliography}{9}
+% ================================================================
+
+\bibitem{abraham2021}
+Abraham, K.\ C.
+\textit{Principa Geometrica}.
+January 24, 2021.
+Digital National Library of Australia.
+ISBN: 978-0-6450565-0-1.
+
+\bibitem{abraham_planck}
+Abraham, K.\ C.
+\textit{Determining an Exact Value for Planck's Constant}.
+Published via the International Journal of Scientific and Research Publications (IJSRP).
+\url{https://ijsrp.org}
+
+\bibitem{moore2025}
+Moore, J.\ M.
+\textit{The Final Solution to Planck's Constant: A Mathematical Proof of Zero-Point Field
+Geometry Using Tetryonic Theory}.
+The Tetryonic Theory Think Tank, 2025.
+
+\bibitem{codata2018}
+Tiesinga, E., Mohr, P.\ J., Newell, D.\ B., Taylor, B.\ N.
+\textit{CODATA Recommended Values of the Fundamental Physical Constants: 2018}.
+Reviews of Modern Physics, 93, 025010 (2021).
+
+\bibitem{proton_radius}
+Antognini, A.\ et al.
+\textit{Proton Structure from the Measurement of $2S$--$2P$ Transition Frequencies of
+Muonic Hydrogen}.
+Science, 339(6118), 417--420 (2013).
+
+\end{thebibliography}
+
+\vspace{2em}
+\hrule
+\vspace{0.5em}
+\begin{center}
+  \small
+  Correspondence: James M.\ Moore, The Tetryonic Theory Think Tank.\\
+  \textit{This document is submitted to the public record as Paper Zero-One.\\
+  It is a speculative framework, not a peer-reviewed proof.\\
+  The authors invite rigorous scrutiny and falsification attempts.}
+\end{center}
+
+\end{document}
