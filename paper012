@@ -1,0 +1,446 @@
+# Vacuum Frequency Theory: A Geometric Framework for Quantum Gauge Theory in Tetryonic Physics
+
+**James M. Moore**
+The Tetryonic Theory Think Tank
+
+**Richard A. Blankenship, Advisor**
+Official Ambassador of Tetryonic Theory
+
+*Submitted to the public record as a contribution to the geometric foundations of theoretical physics.*
+*Not peer reviewed. Intended for scientific scrutiny and falsification.*
+
+---
+
+## Preface: What This Paper Is
+
+This paper is designated a speculative theoretical framework --- a structured conjecture --- built upon the geometric physics of Kelvin C. Abraham's *Principa Geometrica* [1] and the zero-point mass derivation presented in *Determining an Exact Value for Planck's Constant* [2]. It articulates a single central claim, identifies the conditions under which that claim would be proven or disproven, and presents the open problem to the scientific community.
+
+The claim is this: **there exists exactly one combination of wavelength and propagation frequency in the speed of light wave equation that is consistent with the conservation of all electromagnetic universal constants simultaneously. That combination is:**
+
+$$c = \lambda_q \cdot \nu_{\mathrm{vac}} \qquad \lambda_q = 1 \times 10^{-15}\,\mathrm{m}, \quad \nu_{\mathrm{vac}} = 2.99792458 \times 10^{23}\,\mathrm{Hz}$$
+
+This scale --- the femtometre --- is identified herein as the **Moore Scale**, the **Fermi Gauge**, or the **Vacuum Frequency Gauge**. The propagation frequency $\nu_{\mathrm{vac}}$ is designated the **Vacuum Frequency**: the number of equilateral gauge bosons that fit within one light-second, and the natural clock-rate of electromagnetic energy propagation in a perfect vacuum.
+
+---
+
+## Abstract
+
+A geometric quantum gauge theory is proposed within the framework of Tetryonic Theory, originating in the work of Kelvin C. Abraham. A fundamental gauge length $\lambda_q = 1 \times 10^{-15}$\,m is identified from the topology of the proton as described in *Principa Geometrica*, correlated with the measured proton charge radius. When this gauge length is substituted into the speed of light wave equation $c = \lambda_q \cdot \nu_{\mathrm{vac}}$, a vacuum propagation frequency $\nu_{\mathrm{vac}} = 2.99792458 \times 10^{23}$\,Hz is uniquely determined. This frequency is designated the **Vacuum Frequency**. It is shown that the zero-point mass $m_z$, derived independently from Carbon-12 geometry and Compton frequency by Abraham, produces Planck's constant exactly when multiplied by $c^{2}$ at unit time: $h = m_z \cdot c^{2}$. The equilateral geometry of the gauge boson --- an equilateral triangle with height $\lambda_q$ --- is shown to be the unique geometry consistent with the Pythagorean law, planar tessellation, and the dimensional structure of Planck's action. All electromagnetic quanta are proposed to be integer multiples of the invariant gauge area $A_q = \lambda_q^{2}/\sqrt{3}$, with higher-energy quanta consisting of superposed gauge bosons over the same invariant domain, not smaller quanta. The central open problem --- whether $\lambda_q = 1 \times 10^{-15}$\,m is the unique electromagnetic gauge cutoff --- is formally stated, and conditions for proof and disproof are given. A companion derivation of the h discrepancy via galactic scattering plane geometry is described separately. The Tetryonic Gnomon Matrix is introduced as the computational architecture for deterministic field addressing in the Tetryonic vacuum lattice.
+
+---
+
+## 1. Background: Tetryonic Theory and Kelvin C. Abraham
+
+Tetryonic Theory is a geometric framework for mass, energy, and matter developed by Kelvin C. Abraham of Australia, presented comprehensively in *Principa Geometrica* [1], registered with the National Library of Australia (ISBN: 978-0-6450565-0-1, January 24, 2021). The theory proposes that all physical phenomena arise from the charged geometry of equilateral triangular quanta --- designated *tetryons* --- which tile spacetime on a flat A2 hexagonal lattice. Matter particles are three-dimensional electrostatic standing waves formed by the topological closure of tetryonic faces. Electromagnetic radiation consists of planar travelling waves of gauge bosons propagating at $c$.
+
+Abraham's framework makes several claims that distinguish it from the Standard Model:
+
+1. The proton is not spherical but a specific three-dimensional tetrahedral topology of 36 triangular quanta faces, visible in its orthographic projection as a hexagonal structure.
+2. Planck's constant $h$ has a corrected geometric value of $6.629432672 \times 10^{-34}$\,J$\cdot$s, differing from the CODATA value $6.62607015 \times 10^{-34}$\,J$\cdot$s by approximately 0.051%.
+3. The zero-point mass $m_z = 7.376238634 \times 10^{-51}$\,kg is derivable from the Compton frequency and mass of Carbon-12 through platonic topology, independently of Planck's constant.
+4. Spacetime is flat (spatial curvature parameter $\Omega_{k} = 0$), as required by the equilateral tessellation condition: six equilateral triangles meeting at a point subtend exactly $360^{\circ}$, leaving zero angular deficit.
+
+### Richard A. Blankenship
+
+Richard A. Blankenship is the official ambassador of Tetryonic Theory and has been a central collaborator in the development of the theoretical and mathematical structures presented in this paper. Blankenship presented Tetryonic Theory alongside Kelvin C. Abraham at the 2016 Tesla Tech Conference, and has been working diligently on the theory ever since. His mentorship in geometric algebra and dimensional analysis was essential to the derivations presented here. Most significantly, it was Blankenship who urged the first author to examine the spatial vectors and dimensions of the equilateral triangle with rigour --- an instruction that directly led to the identification of the $\sqrt{3}$ theorem and the geometric necessity of the equilateral quantum. Blankenship also inserted the Tetryonic palindrome form into the Pythagorean Gnomon grid, an act that immediately revealed the Compton Matrix architecture described in Section 12 of this paper. His contributions are foundational and are acknowledged throughout.
+
+The present paper builds upon these foundations and introduces one new element: the identification of the vacuum frequency $\nu_{\mathrm{vac}}$ as the fundamental propagation rate of the electromagnetic gauge.
+
+---
+
+## 2. The Zero-Point Mass: An Independent Derivation
+
+The zero-point mass was derived by Abraham [2] from the Compton frequency of the hydrogen atom and the mass of Carbon-12, using platonic tetrahedral geometry. The derivation does not use Planck's constant as an input. The result is:
+
+$$m_z = 7.376238634 \times 10^{-51}\,\mathrm{kg}$$
+
+This value satisfies the mass-energy equivalence at unit frequency:
+
+$$m_z = \frac{h \cdot \nu_{z}}{c^{2}} \qquad \text{where } \nu_{z} = 1\,\mathrm{Hz}$$
+
+Since $m_z$ is determined geometrically without reference to $h$, the equation $h = m_z \cdot c^{2}$ constitutes a **genuine derivation** of Planck's constant from mass geometry, not a circular identity. The zero-point frequency $\nu_z = 1\,\mathrm{Hz}$ defines the ground state: one cycle of action per second, the minimum possible oscillation of the electromagnetic field.
+
+> **Remark.** The relationship $\nu_z = \tfrac{1}{2} f_{\mathrm{photon}}$ implies that the photon consists of two gauge bosons, each contributing one half-cycle. A photon of frequency $f = 1\,\mathrm{Hz}$ is composed of two gauge bosons each oscillating at $\nu_z = 1\,\mathrm{Hz}$. This is consistent with Abraham's geometric model of the photon as a two-boson structure.
+
+---
+
+## 3. The Vacuum Frequency: Derivation and Physical Meaning
+
+> **Definition (Vacuum Frequency).** The **Vacuum Frequency** $\nu_{\mathrm{vac}}$ is the propagation frequency of a gauge boson of physical height $\lambda_q$ travelling at $c$ in a perfect vacuum. It is the number of gauge boson lengths that fit within one light-second:
+>
+> $$\nu_{\mathrm{vac}} = \frac{c}{\lambda_q}$$
+
+The vacuum frequency is categorically distinct from the zero-point oscillation frequency $\nu_z$. Two kinds of frequency exist in this framework:
+
+1. **Internal oscillation frequency** $\nu_z$: the rate at which a gauge boson completes one cycle of its own electromagnetic oscillation. For a zero-point boson, $\nu_z = 1\,\mathrm{Hz}$.
+2. **Propagation frequency** $\nu_{\mathrm{vac}}$: the rate at which gauge bosons of physical length $\lambda_q$ pass a fixed point when travelling at $c$. This is a counting frequency, not an oscillation frequency.
+
+The conflation of these two frequencies in standard quantum field theory is, within this framework, the source of the apparent paradox whereby a $1\,\mathrm{Hz}$ quantum would have a wavelength of $299{,}792{,}458\,\mathrm{m}$ --- larger than the Earth --- while neutrinos with fascia of $1\,\mathrm{Hz}$ are detected as point-like particles in underground detectors. The resolution is that $1\,\mathrm{Hz}$ is the *internal* frequency of the boson, while its *physical* size is determined by $\lambda_q$, and its propagation rate by $\nu_{\mathrm{vac}}$.
+
+### Numerical Evaluation
+
+Given $\lambda_q = 1 \times 10^{-15}$\,m:
+
+$$\nu_{\mathrm{vac}} = \frac{2.99792458 \times 10^{8}\,\mathrm{m/s}}{1 \times 10^{-15}\,\mathrm{m}} = 2.99792458 \times 10^{23}\,\mathrm{Hz}$$
+
+The leading digits of $\nu_{\mathrm{vac}}$ are identical to the leading digits of $c$. This is not a numerical coincidence but an algebraic consequence of $\lambda_q$ being an exact power of ten in SI units. The significance is that the vacuum frequency *encodes* the speed of light in its own digits: the electromagnetic vacuum is self-referential at this scale.
+
+---
+
+## 4. The Equilateral Gauge: Geometric Necessity of $\sqrt{3}$
+
+> **Theorem (Geometric Necessity of the Equilateral Quantum).** The equilateral triangle with height $\lambda_q$ is the unique planar polygon consistent with all of the following simultaneously:
+> 1. The Pythagorean law: $(L/2)^{2} + \lambda_q^{2} = L^{2}$
+> 2. Perfect planar tessellation without gaps or overlaps
+> 3. Dimensional conservation of Planck's action $h = \mathrm{kg} \cdot m^{2}/s$
+> 4. The mass-energy relation $h = m_z \cdot c^{2}$
+
+**Proof.** From the Pythagorean law for the equilateral triangle:
+
+$$\lambda_q^{2} = L^{2} - \frac{L^{2}}{4} = \frac{3L^{2}}{4} \qquad \Longrightarrow \qquad L = \frac{2}{\sqrt{3}}\lambda_q$$
+
+This ratio is unique to the equilateral triangle. The gauge area is therefore:
+
+$$A_q = \frac{1}{2} \cdot L \cdot \lambda_q = \frac{1}{2} \cdot \frac{2}{\sqrt{3}}\lambda_q \cdot \lambda_q = \frac{\lambda_q^{2}}{\sqrt{3}} \qquad \Longrightarrow \qquad \lambda_q^{2} = \sqrt{3}\,A_q$$
+
+Expressing $c^{2}$ geometrically via $c = \lambda_q/s$:
+
+$$c^{2} = \frac{\lambda_q^{2}}{s^{2}} = \frac{\sqrt{3}\,A_q}{s^{2}}$$
+
+Substituting into $h = m_z \cdot c^{2} \cdot T$:
+
+$$h = m_z \cdot \frac{\sqrt{3}\,A_q}{s^{2}} \cdot T$$
+
+For any other polygon, the height-to-side ratio differs from $\sqrt{3}/2$:
+
+- **Square** (90°): ratio $= 1$, giving $h = m_z \cdot \lambda_q^{2}/s^{2} = m_z \cdot c^{2}$, which has units of joules, not joule-seconds. *Dimensional failure.*
+- **Right isoceles** (45°-45°-90°): ratio $= \sqrt{2}/2$, giving $h = m_z \cdot \sqrt{2}A_q/s^{2}$, which deviates from the measured $h$ by factor $\sqrt{2}/\sqrt{3}$. *Conservation failure.*
+- **General triangle** ($\theta \neq 60°$): $2\sin\theta \neq \sqrt{3}$, breaking the numerical value of $h$. *Conservation failure.*
+
+Only $\theta = 60°$ produces the $\sqrt{3}$ factor that conserves $h$ dimensionally and numerically. Furthermore, only the equilateral triangle tiles a flat plane with six faces at each vertex summing to $360°$. No other triangle achieves this with a single tile type. $\blacksquare$
+
+> **Note on attribution.** The identification of the $\sqrt{3}$ theorem as the necessary geometric constraint of the Tetryonic quantum was reached by the first author following Richard A. Blankenship's explicit instruction to examine the spatial vectors and dimensions of the equilateral triangle. This theorem would not exist without that direction.
+
+---
+
+## 5. The Gauge Invariance of $A_q$: All Quanta Are the Same Size
+
+> **Conjecture (Universal Gauge Invariance).** All electromagnetic quanta in the universe share the same invariant gauge area:
+>
+> $$A_q = \frac{\lambda_q^{2}}{\sqrt{3}} = \frac{(10^{-15}\,\mathrm{m})^{2}}{\sqrt{3}} \approx 5.774 \times 10^{-31}\,\mathrm{m}^{2}$$
+>
+> Higher-energy quanta are not physically smaller. They consist of $N$ gauge bosons superposed over the same invariant domain $A_q$, where $N$ scales as:
+>
+> $$E = N \cdot h\nu_z = N \cdot m_z c^{2} \qquad N \in \mathbb{Z}^{+}$$
+
+This conjecture has the following consequences. For a photon of internal frequency $f$:
+
+$$f = N \cdot \nu_z \qquad \Longrightarrow \qquad N = \frac{f}{\nu_z}$$
+
+The physical gauge area occupied by each constituent boson remains $A_q$ regardless of $N$. The energy scales with count, not with size. Therefore:
+
+$$\frac{1\,h\nu_z}{c^{2}} = 1\,A_q, \qquad \frac{1\,h(2^{2}\nu_z)}{c^{2}} = 1\,A_q, \qquad \frac{2\,h\nu_z}{c^{2}} = 2\,A_q$$
+
+A boson with internal frequency $4\nu_z$ is not half the size of a boson at $\nu_z$. It is one boson at the same size $A_q$, carrying four times the energy. A field with energy $2h\nu_z$ consists of two bosons, each of area $A_q$.
+
+> **Remark.** This resolves the apparent paradox of gamma rays. Gamma radiation at frequencies of order $10^{20}$\,Hz does not consist of quanta smaller than the proton. It consists of approximately $10^{20}$ gauge bosons per second, each of physical size $A_q$, superposed within the same gauge domain. The size of the quantum is invariant; only the occupation number changes.
+
+---
+
+## 6. The Fermi Gauge: Why $10^{-15}$\,m and No Other Value
+
+The central claim of this paper is that $\lambda_q = 10^{-15}$\,m is the *only* value of the gauge length consistent with the simultaneous conservation of $h$, $m_z$, $c$, and the proton topology of Tetryonic Theory.
+
+The argument is conditional and has two components.
+
+### Component 1: Zero Degrees of Freedom
+
+Given $\lambda_q$ as the sole input, every other quantity in the framework is uniquely determined with no remaining freedom:
+
+$$\nu_{\mathrm{vac}} = \frac{c}{\lambda_q} \qquad \text{(no freedom)}$$
+
+$$s = \frac{\lambda_q}{c} \qquad \text{(no freedom)}$$
+
+$$A_q = \frac{\lambda_q^{2}}{\sqrt{3}} \qquad \text{(Pythagorean forced, no freedom)}$$
+
+$$m_z = \frac{h_{\mathrm{geo}} \cdot 1\,\mathrm{Hz}}{c^{2}} \qquad \text{(fixed by Carbon-12 topology)}$$
+
+$$h = m_z \cdot c^{2} \cdot T \qquad \text{(no freedom)}$$
+
+The system has **zero free parameters** once $\lambda_q$ is fixed. No fitting, tuning, or renormalization is possible or required. This is a stronger constraint than any current formulation of the Standard Model, which contains 19 free parameters.
+
+### Component 2: The Proton Topology Anchor
+
+The value $\lambda_q = 10^{-15}$\,m is not derived from algebra. It was identified visually by the first author from Abraham's proton diagram in *Principa Geometrica*, by observing that the diameter of the proton in Abraham's topology is approximately equal to the wavelength of a gauge boson, and that counting the number of such bosons along one light-second produces a frequency whose digits mirror those of $c$:
+
+$$\nu_{\mathrm{vac}} = \frac{c}{\lambda_q} = \frac{2.99792458 \times 10^{8}}{1 \times 10^{-15}} = 2.99792458 \times 10^{23}\,\mathrm{Hz}$$
+
+This numerical self-similarity --- $\nu_{\mathrm{vac}}$ and $c$ sharing identical significant digits --- is the observational anchor. It is not a proof; it is the *sign* that the correct scale has been identified. The algebra then confirms that at this scale and no other (among integer powers of ten in SI units), $m_z \cdot c^{2}$ recovers Abraham's geometric $h$ exactly.
+
+### Component 3: The Balance Scale Argument
+
+Consider the scale equation:
+
+$$h = m_z \cdot \frac{\sqrt{3}\,A_q}{s^{2}} \cdot T$$
+
+This may be viewed as a balance scale with $A_q$ and $s^{2}$ on one side and $h/m_z$ on the other. Since $A_q = \lambda_q^{2}/\sqrt{3}$ and $s = \lambda_q/c$:
+
+$$\frac{\sqrt{3}\,A_q}{s^{2}} = \frac{\sqrt{3} \cdot \lambda_q^{2}/\sqrt{3}}{\lambda_q^{2}/c^{2}} = c^{2}$$
+
+The $\lambda_q$ cancels algebraically. This means *any* gauge length satisfies this equation --- the balance scale is always level regardless of $\lambda_q$.
+
+**This is the honest mathematical situation.** The uniqueness of $\lambda_q = 10^{-15}$\,m cannot be proven from conservation laws alone. It is fixed by one physical input: the proton exists, it has a measurable size, and Abraham's topology describes that size geometrically. The open problem is therefore whether Abraham's proton topology independently and uniquely demands $\lambda_q = 10^{-15}$\,m.
+
+---
+
+## 7. The Discrepancy in Planck's Constant: Two Hypotheses
+
+The CODATA value $h_{\mathrm{SI}} = 6.62607015 \times 10^{-34}$\,J$\cdot$s differs from the geometric value $h_{\mathrm{geo}} = 6.629432672 \times 10^{-34}$\,J$\cdot$s by:
+
+$$\frac{h_{\mathrm{geo}} - h_{\mathrm{SI}}}{h_{\mathrm{SI}}} \approx 5.075 \times 10^{-4} \quad (\approx 0.051\%) \quad (\approx 75{,}000\,\sigma)$$
+
+The discrepancy is structural, not experimental. Its origin is the central open question of this framework. Two distinct hypotheses have been developed, and they are presented here as separate companion theories.
+
+### Hypothesis A: The KEM Field / Kibble Balance Argument
+
+It is proposed that the Kibble balance --- the instrument used to define $h_{\mathrm{SI}}$ since 2019 --- measures $h$ through two purely electromagnetic quantum effects:
+
+1. **Josephson effect**: voltage measured via Cooper pair tunneling --- an electromagnetic wave phenomenon (KEM field interaction).
+2. **Quantum Hall effect**: transverse resistance under magnetic field --- also a KEM field interaction.
+
+In Tetryonic Theory, matter particles are three-dimensional electrostatic standing waves. Their rest mass is purely geometric. Any residual motion --- including irreducible zero-point motion at temperatures approaching absolute zero --- generates a kinetic electromagnetic field (KEM field) that Lorentz-modifies the effective action measured by these electromagnetic instruments.
+
+> **Conjecture (KEM Field Hypothesis).** The Kibble balance measures $h_{\mathrm{SI}} = h_{\mathrm{geo}} \cdot \sqrt{1 - v_{\mathrm{ZP}}^{2}/c^{2}}$, where $v_{\mathrm{ZP}}$ is the residual zero-point velocity of the atoms in the apparatus. Since zero-point motion cannot be eliminated --- it persists at $T = 0$ --- no Kibble balance measurement can recover $h_{\mathrm{geo}}$.
+
+The temperature-dependent prediction follows:
+
+$$h_{\mathrm{SI}}(T) = h_{\mathrm{geo}} \cdot \sqrt{1 - \frac{h\nu + k_{B}T}{mc^{2}}}$$
+
+As $T \to 0$, $h_{\mathrm{SI}}$ approaches an asymptotic floor below $h_{\mathrm{geo}}$, not $h_{\mathrm{geo}}$ itself. If Kibble balance measurements are repeated at progressively lower temperatures, the measured $h$ should increase monotonically toward but never reach $h_{\mathrm{geo}}$. This is a **falsifiable experimental prediction**.
+
+The precise velocity component responsible for the observed 0.051% discrepancy corresponds to a residual $v/c \approx 0.032$, which is approximately three times the fine structure constant. Whether this corresponds to a specific characteristic velocity in the Tetryonic framework --- such as the KEM field contribution from zero-point orbital motion --- is an open question.
+
+### Hypothesis B: The Galactic Tilt / CMB Scattering Plane Argument
+
+A separate and independent derivation has been developed in a companion paper [3]. That derivation proposes that the discrepancy arises from the compound angular offset between Earth's laboratory measurement frame and the scattering geometry defined by the Cosmic Microwave Background (CMB) dipole.
+
+The formula is:
+
+$$h_{\mathrm{lab}} = h_{\mathrm{geo}} \cdot \cos(\Theta)$$
+
+where $\Theta = 1.824958°$ is determined by Earth's compound kinematic and geometric position relative to the CMB scattering geometry. The angle decomposes by the Pythagorean theorem into two orthogonal components:
+
+$$\Theta = \sqrt{i_{\mathrm{emb}}^{2} + \mathrm{CompB}^{2}}$$
+
+where $i_{\mathrm{emb}} = 1.5717°$ is the static structural tilt of Earth's orbital plane from the Solar System's invariable plane, and CompB $= 0.9275°$ is the kinematic projection built from seven independently sourced astronomical constants.
+
+The dominant contribution is the galactic-ecliptic tilt $\psi_{\mathrm{tilt}} = 60.1885°$ --- the angle between Earth's orbital plane and the galactic plane. This 60-degree misalignment from the galactic disc is identified as the primary geometric origin of the difference between the Tetryonic vacuum constant and the laboratory measurement.
+
+The companion derivation reproduces the CODATA 2018 value of Planck's constant to **eight significant figures**, with zero free parameters and all inputs drawn from independent published astronomical sources. The precise physical derivation of which velocity component enters the kinematic term from Tetryonic first principles remains future work and is stated honestly as an open question in that paper.
+
+**Relationship between the two hypotheses:** Hypothesis A (KEM field) and Hypothesis B (galactic tilt) are not mutually exclusive. It is possible that both effects contribute: the KEM field modification sets an irreducible floor below $h_{\mathrm{geo}}$, while the galactic tilt accounts for the dominant angular projection. Resolving which mechanism is primary --- or whether they are aspects of the same underlying geometric phenomenon --- is the central open question for this line of research.
+
+---
+
+## 8. Planck Units and the Electromagnetic Gauge
+
+The Planck length $\ell_{P} = \sqrt{\hbar G/c^{3}} \approx 1.616 \times 10^{-35}$\,m is derived by dimensional analysis incorporating Newton's gravitational constant $G$. In Tetryonic Theory, planar electromagnetic waves are rank-2 topological structures. Gravity arises from rank-4 topological closure --- the full $4\pi$ tetrahedral enclosure of matter particles displacing the surrounding zero-point field. Planar waves do not gravitate. They are not subject to $G$.
+
+Therefore, the Planck length --- which encodes $G$ --- has no physical meaning at the electromagnetic gauge scale. The Planck length is the **gravitational gauge unit**. The Tetryonic gauge length $\lambda_q = 10^{-15}$\,m is the **electromagnetic gauge unit**. They are not the same quantity, and conflating them constitutes a category error.
+
+The Planck units are an exercise in dimensional analysis. They represent the scale at which gravitational and quantum effects are naively expected to converge under the assumption that $G$ is relevant to electromagnetism. The Tetryonic framework suggests this assumption is false at the level of planar wave propagation.
+
+---
+
+## 9. The Open Problem: Prove or Disprove the Fermi Gauge
+
+---
+
+> **Open Problem (The Fermi Gauge / Moore Scale)**
+>
+> Let $\lambda_q = 10^{-15}$\,m and $\nu_{\mathrm{vac}} = c/\lambda_q = 2.99792458 \times 10^{23}$\,Hz. Let $m_z = 7.376238634 \times 10^{-51}$\,kg be the zero-point mass derived by Abraham from Carbon-12 geometry and Compton frequency, independently of Planck's constant. Let $A_q = \lambda_q^{2}/\sqrt{3}$ be the invariant gauge area of the equilateral quantum.
+>
+> **Prove or disprove the following conjecture:**
+>
+> *The gauge length $\lambda_q = 10^{-15}$\,m is the unique electromagnetic gauge cutoff such that all electromagnetic quanta are integer multiples of $A_q$, such that the propagation frequency $\nu_{\mathrm{vac}}$ is the natural clock-rate of light in a perfect vacuum, and such that the zero-point mass $m_z$ and geometric Planck's constant $h_{\mathrm{geo}}$ are simultaneously conserved with zero free parameters. No other gauge length satisfies all four conditions simultaneously when anchored to the proton topology of Tetryonic Theory.*
+>
+> **Conditions for proof:**
+> 1. Derive $\lambda_q = 10^{-15}$\,m from Abraham's proton topology without reference to the measured proton radius.
+> 2. Show that the proton fascia geometry of *Principa Geometrica* uniquely demands this scale.
+> 3. Demonstrate that any other gauge length $\lambda_q' \neq \lambda_q$ produces a vacuum frequency incommensurate with $c$ under the constraint that $m_z$ is fixed by Carbon-12 geometry.
+>
+> **Conditions for disproof:**
+> 1. Identify a second gauge length $\lambda_q' \neq \lambda_q$ that simultaneously conserves $h$, $m_z$, $c$, and the proton topology.
+> 2. Show that Abraham's proton topology is geometrically consistent with a gauge length other than $10^{-15}$\,m.
+> 3. Demonstrate that the CODATA value of $h$ is not attributable to KEM field Lorentz modification or galactic scattering plane projection of the geometric $h_{\mathrm{geo}}$.
+
+---
+
+## 10. Implications If the Conjecture Is True
+
+If the Fermi Gauge conjecture is proven, the implications are as follows.
+
+**Metrology.** The kilogram, defined since 2019 by fixing $h_{\mathrm{SI}}$, encodes a systematic geometric error of $5.075 \times 10^{-4}$. Every SI mass measurement requires correction by the factor $h_{\mathrm{geo}}/h_{\mathrm{SI}} \approx 1.0005075$. The kilogram would be redefined in terms of $m_z$ and $c$.
+
+**Atomic physics.** Corrected atomic mass units cascade through nuclear binding energy calculations, isotope mass measurements, and chemical stoichiometry.
+
+**Vacuum physics.** The vacuum has a minimum time resolution $s = \lambda_q/c = 3.335 \times 10^{-24}$\,s and a minimum spatial resolution $\lambda_q = 10^{-15}$\,m. Spacetime is discrete at the Fermi scale. The vacuum frequency $\nu_{\mathrm{vac}}$ is the maximum information transfer rate of the electromagnetic field.
+
+**Proton radius puzzle.** The discrepancy between electron scattering ($r_{p} \approx 0.877$\,fm) and muonic hydrogen spectroscopy ($r_{p} \approx 0.841$\,fm) is explained by Lorentz contraction of KEM fields in the electron scattering measurement. The geometric proton radius is the inscribed radius of the tetrahedral topology, which equals $\lambda_q$ on the orthographic Z-axis. The circumscribed radius is $L = (2/\sqrt{3})\lambda_q \approx 1.155 \times 10^{-15}$\,m. The classical average of measurements at various angles produces the observed spread.
+
+**Foundations of quantum mechanics.** The uncertainty principle, in this framework, is not fundamental but emergent from the measurement of KEM fields rather than geometric rest mass. A deterministic geometric substrate underlies the probabilistic predictions of standard QM.
+
+**Quantum field theory.** All EM fields are quantised over the invariant domain $A_q$. The renormalisation procedure --- introduced to handle ultraviolet divergences from summing over arbitrarily small scales --- becomes unnecessary. There is a natural ultraviolet cutoff at $\lambda_q = 10^{-15}$\,m below which no electromagnetic mode can exist.
+
+---
+
+## 11. Conclusion
+
+This paper presents a structured conjecture, not a proof. The Vacuum Frequency Theory proposes that the speed of light $c$ is not merely a propagation velocity but a geometric counting rate: the number of invariant equilateral gauge bosons of physical height $\lambda_q = 10^{-15}$\,m that pass a fixed point per second in a perfect vacuum.
+
+The zero-point mass $m_z$, derived independently from Carbon-12 geometry, recovers Planck's constant exactly when multiplied by $c^{2}$. The equilateral triangle is the unique geometry consistent with planar tessellation, the Pythagorean law, and the dimensional structure of Planck's action. All electromagnetic quanta are integer multiples of the invariant gauge area $A_q$.
+
+The open problem is stated precisely: prove or disprove that $\lambda_q = 10^{-15}$\,m is the unique electromagnetic gauge cutoff. Until this is resolved in either direction, the framework stands as a mathematically self-consistent, zero-free-parameter geometric theory of the electromagnetic vacuum.
+
+The framework is offered to the scientific community for scrutiny. The authors welcome attempts at falsification.
+
+---
+
+## 12. The Tetryonic Gnomon Matrix: A Computational Architecture for Deterministic Field Addressing
+
+### 12.1 Origin and Attribution
+
+The Tetryonic Gnomon Matrix arose from a specific act of mathematical insight by Richard A. Blankenship. Kelvin C. Abraham had already established the palindromic form of Tetryonic energy distributions. Blankenship then inserted the Tetryonic palindrome form into the square cells of the Pythagorean Gnomon grid. When the first author observed this insertion method applied to the sequence 1, 2, 3, 4, it was immediately apparent that this was the solution to mapping Tetryonic geometry into standard computational architecture --- enabling both particle and wave interactions to be represented as stereographic projections in a discrete integer matrix.
+
+The Pythagoreans used the Gnomon matrix to prove that adding an odd number to a square always results in the next square:
+
+$$n^2 + (2n+1) = (n+1)^2$$
+
+Mathematics has come full-circle in history. The Pythagoreans existed thousands of years ago with no empirical knowledge of the discrete nature of electromagnetic fields, yet they derived the principal mechanism used to quantize it. It proves that the triangular energy units of Tetryonics can be perfectly mapped into square matrices without losing numerical integrity. This is significant because it enables standard programming development and signal processing in Tetryonic quantum fields.
+
+### 12.2 The Gnomon Matrix Structure
+
+The Pythagoreans assigned each position a number based on the arrangement of energy quanta in gnomonic shells. A standard linear assignment (row by row) does not maintain energy level coherence. The correct assignment follows the serpentine gnomonic path:
+
+| $r,c$ | 1 | 2 | 3 | 4 | 5 |
+|--------|---|---|---|---|---|
+| **1** | 1 | 4 | 9 | 16 | 25 |
+| **2** | 2 | 3 | 8 | 15 | 24 |
+| **3** | 5 | 6 | 7 | 14 | 23 |
+| **4** | 10 | 11 | 12 | 13 | 22 |
+| **5** | 17 | 18 | 19 | 20 | 21 |
+
+Each diagonal shell $L$ contains exactly $2L - 1$ new entries, and the total entries through shell $L$ is exactly $L^2$. This is not incidental --- it is the direct geometric expression of the Tetryonic law that energy exists in perfect square quanta: $E = nh\nu$ where $n$ is always a perfect square.
+
+The difference between two consecutive shells is always an odd number:
+
+$$\Delta E = (n+1)^2 - n^2 = 2n + 1$$
+
+To move from energy level $n$ to the next $n+1$, exactly $2n+1$ units of energy must be added. This is the gnomonic accretion law.
+
+### 12.3 The Gnomon Indexing Formula
+
+The position of any gauge boson $V$ within the field is given by the **Gnomon Indexing Formula**:
+
+Let $(r, c)$ be the row and column coordinates. Let $L = \max(r, c)$ be the shell level. Then:
+
+$$V = (L-1)^2 + c + (L - r)$$
+
+This formula assigns a unique, non-repeating integer to every coordinate $(r, c)$. Unlike standard linear indexing, this serpentine path maintains the energy level coherence required by Tetryonics.
+
+**Proof of concept:**
+
+| Row $(r)$ | Col $(c)$ | $L$ | Calculation: $(L-1)^2 + c + (L-r)$ | Result $V$ |
+|-----------|-----------|-----|--------------------------------------|------------|
+| 1 | 1 | 1 | $(0)^2 + 1 + 0$ | **1** |
+| 1 | 2 | 2 | $(1)^2 + 2 + 1$ | **4** |
+| 2 | 2 | 2 | $(1)^2 + 2 + 0$ | **3** |
+| 2 | 1 | 2 | $(1)^2 + 1 + 1$ | **2** |
+| 1 | 3 | 3 | $(2)^2 + 3 + 2$ | **9** |
+| 3 | 3 | 3 | $(2)^2 + 3 + 0$ | **7** |
+
+An equivalent closed-form expression is:
+
+$$V = \begin{cases} c^2 - r + 1 & \text{if } c \geq r \\ r^2 - 2r + c + 1 & \text{if } r > c \end{cases}$$
+
+In both forms, $V$ is the **unique deterministic address** of a single $1\pi$ equilateral quantum (Planck-quoin) within the Tetryonic vacuum lattice.
+
+### 12.4 Physical Interpretation of the Address
+
+In standard quantum mechanics, position $x$ is a probabilistic quantity described by a wavefunction. In the Tetryonic Matrix, $x$ is a **fixed vertex** because the Gnomon formula satisfies the square law of energy:
+
+- The formula $V = (L-1)^2 + c + (L - r)$ ensures that for any shell $L$, the total number of addressed units is exactly $L^2$.
+- This perfectly matches the Tetryonic requirement that $E = nh\nu$, where $n$ is always a perfect square ($1, 4, 9, 16\ldots$).
+
+The address $V$ is not merely a label. It is the physical address of a quantum of energy in the vacuum fascia. When you write $r, c = \mu\nu = x$, you are mapping the topological location of energy in the Eisenstein lattice. This mapping is not symbolic --- it is physical.
+
+The **Surface-Mass Identity** follows: in this framework, there is no centre of mass as defined in Newtonian physics. The mass is not inside the volume. The surface is the mass. The position of a three-dimensional tetryon is defined by the state vector of its four bounding matrices:
+
+$$X_{\mathrm{Vol}} = \{ M_{\mathrm{face1}}, M_{\mathrm{face2}}, M_{\mathrm{face3}}, M_{\mathrm{face4}} \}$$
+
+Each matrix is a Gnomon-indexed grid where every cell is an integer representing a quantum of action. The orientation and collective values of these four surfaces *become* the position of the particle. To locate the object, the system calculates the quanta within the faces rather than a singular point in a void.
+
+### 12.5 Energy Scaling in the Matrix
+
+Three distinct modes of energy increase exist within the Tetryonic Matrix:
+
+**Mode 1 --- Frequency Shift** ($n=1$, $\nu > \nu_z$): Staying within a single gauge cell but contracting more energy into that specific area. The formula is $E = 1h(k^2\nu_z)$ where $k$ is the frequency multiplier. The matrix remains a $1 \times 1$ scalar scaled by $k^2$.
+
+**Mode 2 --- Area Shift** ($\nu = \nu_z$, $n > 1$): The frequency per cell remains at ground state. More gauge bosons are added, increasing the area. For $n = 4$:
+
+$$\begin{pmatrix} 1 & 4 \\ 2 & 3 \end{pmatrix}$$
+
+Each cell contains exactly $1\,m_z$. The total energy is $4\,m_z$ spread over four times the area $A_q$.
+
+**Mode 3 --- Both** ($n > 1$, $\nu > \nu_z$): Area and frequency per boson both increase. For $n=2$, $k=2$:
+
+$$\begin{pmatrix} 1 \cdot 2^2 & 4 \cdot 2^2 \\ 2 \cdot 2^2 & 3 \cdot 2^2 \end{pmatrix} = \begin{pmatrix} 4 & 16 \\ 8 & 12 \end{pmatrix}$$
+
+The total energy is $16\,m_z$. Total Area ($2^2 = 4$) $\times$ Frequency per Area ($2^2 = 4$) $= 16$.
+
+### 12.6 The Palindromic Amplitude
+
+Richard Blankenship demonstrated that the Tetryonic palindrome, established by Abraham as:
+
+$$K = 1, \quad 1\,2\,1, \quad 1\,2\,3\,2\,1, \quad \ldots$$
+
+can be embedded within the Cartesian Gnomon matrix. Each shell $L$ carries a palindromic weight $P(L)$. The total energy at any coordinate is then:
+
+$$E(r, c) = S(r, c) \times P(L)$$
+
+where $S(r,c)$ is the Gnomon address $V$ providing the phase and location, and $P(L)$ is the palindrome value for that shell providing the mass-density and amplitude.
+
+This nested structure --- the palindrome as the enveloping wave and the serpentine matrix as the local frequency inside each peak --- represents a **nested resonance**. The palindrome is the Tetryonic replacement for the Gaussian and normal distributions, the Bell curve, and the probabilistic weights of the Schrödinger equation. It converts every computational problem in the electromagnetic field into a deterministic geometric one.
+
+### 12.7 Significance
+
+Quantizing the electromagnetic field in this way turns every computational problem into a geometric one. By defining the vacuum with an invariant structure, the need for operators is eliminated and all statistical weights are replaced with constants of nature, making all calculations deterministic.
+
+The Gnomon formula $V = (L-1)^2 + c + (L-r)$ is the deterministic positional operator for a single Planck-quoin within the equilateral electromagnetic lattice. It converts geometric shells into perfect-square energy levels and provides the true physical meaning of the quantum coordinate $x$. In standard QM, $x$ is a probability. In the Tetryonic Matrix, $x$ is a fixed vertex.
+
+The Tetryonic Matrix is the computational architecture that enables Tetryonic Theory to be implemented in standard digital hardware, since the triangular equilateral geometry of the vacuum lattice maps perfectly and without loss of numerical integrity into the square matrices of conventional computing.
+
+---
+
+## Acknowledgements
+
+The authors acknowledge Kelvin C. Abraham as the principal architect of Tetryonic Theory and the source of all geometric foundations used herein. Richard A. Blankenship provided dimensional analysis, mentorship, the palindrome-gnomon insertion that revealed the Compton Matrix, and the explicit instruction to examine the spatial vectors of the equilateral triangle that led to the $\sqrt{3}$ theorem. Diego Borges-Riviera and René Cormier provided three-dimensional geometric models of Tetryonic topology. The first author's identification of the Fermi gauge was made possible by Abraham's proton diagrams in *Principa Geometrica*.
+
+---
+
+## References
+
+[1] Abraham, K. C. *Principa Geometrica*. January 24, 2021. Digital National Library of Australia. ISBN: 978-0-6450565-0-1.
+
+[2] Abraham, K. C. *Determining an Exact Value for Planck's Constant*. Published via the International Journal of Scientific and Research Publications (IJSRP). https://ijsrp.org
+
+[3] Moore, J. M. *A Geometric Derivation of the Planck Constant from CMB Scattering Plane Geometry*. The Tetryonic Theory Think Tank, May 2026. Submitted to Zenodo.
+
+[4] Blankenship, R. A. Personal correspondence and mentorship, 2025--2026. Official Ambassador of Tetryonic Theory. Presented Tetryonic Theory with Kelvin C. Abraham at the Tesla Tech Conference, 2016.
+
+---
+
+*Correspondence: James M. Moore, The Tetryonic Theory Think Tank.*
+*This document is submitted to the public record.*
+*It is a speculative framework, not a peer-reviewed proof.*
+*The authors invite rigorous scrutiny and falsification attempts.*
