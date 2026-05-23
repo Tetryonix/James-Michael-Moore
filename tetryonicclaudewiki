@@ -1,0 +1,362 @@
+# Tetryonics
+
+**Tetryonics** is a geometric theory of mass-energy-matter and the forces of motion, developed by independent researcher **Kelvin C. Abraham** beginning in 2008. The theory proposes a fundamental reinterpretation of quantized angular momentum in quantum mechanics, asserting that Planck's constant reflects an equilateral triangular geometry rather than a vector rotation about a point. Abraham has developed the framework across a series of self-published volumes collectively titled *Principia Geometrica* and *Principia Scientifica*, freely available on his website tetryonics.com and through Academia.edu.
+
+---
+
+## Contents
+
+1. Overview
+2. Background and Development
+3. Foundational Postulates
+4. Mathematical Framework
+5. Particle Topology
+6. Forces and Their Geometric Origins
+7. Key Predictions and Consistency Claims
+8. Publications and Resources
+9. Reception
+10. References
+
+---
+
+## 1. Overview
+
+Tetryonics begins from the observation that squared numbers in physics correspond to equilateral triangular geometries rather than square ones. From this single reinterpretation, Abraham constructs a unified geometric framework that addresses quantum mechanics, electromagnetism, nuclear forces, gravity, chemistry, and cosmology without invoking probabilistic wavefunctions, renormalization, or point particles.
+
+The name *Tetryonics* derives from the **Tetryon**, the fundamental particle of matter in the framework — a three-dimensional tetrahedral standing wave composed of four equilateral triangular energy quanta. Abraham describes the Tetryon as the minimal closed topology that can exist in three-dimensional space, and all observable matter particles — quarks, leptons, baryons, and atomic nuclei — are modeled as integer multiples of this unit.
+
+The theory presents itself as deterministic: given the geometry of the vacuum and the invariant gauge length of 1 × 10⁻¹⁵ metres, all physical constants including the speed of light, Planck's constant, and the masses of all fundamental particles are claimed to follow necessarily from geometric constraint alone, without free parameters.
+
+---
+
+## 2. Background and Development
+
+Kelvin C. Abraham is an independent researcher and engineer based in Australia. He has worked on the Tetryonic framework since approximately 2008, producing what grew into an extensive self-published corpus spanning quantum mechanics, electrodynamics, chemistry, cosmology, and mathematics.
+
+Abraham has made his complete works freely available online, including through his website **tetryonics.com** and through Academia.edu, where multiple volumes are accessible for download. He has also produced an extended series of educational videos through the **Tetryonics** YouTube channel, under the channel name *Tetryonics University*, in which he works through derivations and applications of the framework in lecture format.
+
+Over approximately two decades, Abraham developed the theory independently and without institutional affiliation or consistent external funding. The body of work encompasses derivations of particle masses, atomic topologies for all 120 elements, corrections to atomic weight calculations, geometric models of nuclear forces, and a reinterpretation of the periodic table based on Deuterium as the foundational nuclear unit.
+
+A corrected value for Planck's constant, derived by Abraham from geometric first principles and Avogadro's number, appears throughout the works:
+
+**h = 6.629432672 × 10⁻³⁴ J·s**
+
+This value differs from the CODATA 2018 SI-defined value of 6.626070150 × 10⁻³⁴ J·s by approximately 0.05%, a discrepancy Abraham attributes to the omission of a two-dimensional equilateral geometric correction factor in the SI measurement methodology.
+
+---
+
+## 3. Foundational Postulates
+
+Tetryonics rests on three foundational postulates from which the remainder of the framework is derived geometrically.
+
+### 3.1 Squared Numbers Are Equilateral Geometries
+
+Abraham's central observation is that the squared energy levels pervasive in quantum mechanics — and historically illustrated as square geometries — are in fact equilateral triangular geometries. He argues that the conventional association of squared quantities with square areas has been a systematic geometric error in the foundations of physics, and that correcting it resolves several long-standing anomalies.
+
+### 3.2 The Gauge Length
+
+The fundamental spatial unit of the theory is a fixed gauge length:
+
+**l_q = 1 × 10⁻¹⁵ m**
+
+This length corresponds to the Z-axis radius of the proton and is identified as the invariant height of the fundamental equilateral quantum unit — the Zero Point Field (ZPF). Abraham fixes this length by pairing it with the vacuum propagation frequency ν_vac through the wave equation:
+
+c = l_q × ν_vac
+
+Solving for ν_vac:
+
+ν_vac = c / l_q = 2.99792458 × 10²³ Hz
+
+Abraham notes that the digits of ν_vac are identical to those of c, which he identifies as confirmation of the correct gauge pairing.
+
+### 3.3 Quantized Angular Momentum Is Equilateral Geometry
+
+Planck's constant h, conventionally described as the quantum of action and associated with rotational momentum about a point, is reinterpreted in Tetryonics as the geometric measure of an equilateral triangular field. The quantized angular momentum of any mass-energy system reflects the equilateral geometry of its constituent ZPF quanta, not a classical rotation.
+
+This postulate has the consequence that all charge, all energy transitions, and all mass-energy relationships are fundamentally geometric in origin.
+
+---
+
+## 4. Mathematical Framework
+
+### 4.1 The Equilateral Quantum Unit
+
+The fundamental unit of energy in Tetryonics is an equilateral triangle whose height is l_q. Applying the Pythagorean theorem to the right triangle formed by bisecting this equilateral unit:
+
+(L/2)² + l_q² = L²
+
+Solving for the side length L:
+
+l_q² = L² − L²/4 = 3L²/4
+
+**L = (2/√3) × l_q ≈ 1.15470054 × 10⁻¹⁵ m**
+
+Abraham demonstrates that any value of L other than (2/√3) × l_q violates the Pythagorean law for the equilateral constraint, and that this violation simultaneously breaks the conservation of c, h, and the zero-point mass m_z.
+
+### 4.2 The Gauge Area
+
+The conserved area of the fundamental quantum unit is:
+
+**A_q = l_q² / √3 ≈ 5.77350269 × 10⁻³¹ m²**
+
+This is derivable equivalently as:
+
+A_q = (√3/4) × L²
+
+Abraham shows that the c² identity can be written in both kinematic and geometric forms:
+
+c² = l_q² × ν_vac² = √3 × A_q × ν_vac²
+
+These are identical because l_q² = √3 × A_q, a relationship he terms the Law of Geometric Conservation.
+
+### 4.3 The Zero-Point Mass and Energy
+
+The zero-point mass m_z is the mass-equivalent of one Planck quantum at 1 Hz:
+
+**m_z = h / c² = 7.376238634 × 10⁻⁵¹ kg**
+
+The zero-point energy is:
+
+**E_z = m_z × c² = h × ν_z = 6.629432672 × 10⁻³⁴ J**
+
+where ν_z = 1 Hz by definition. Abraham identifies m_z as satisfying the conditions of the Yang-Mills mass gap — the lowest positive energy state above the vacuum.
+
+### 4.4 The Gram Matrix and the A2 Lattice
+
+The inner product structure of the equilateral basis is encoded in the Gram matrix:
+
+g_μν = [[1, 1/2], [1/2, 1]]
+
+The off-diagonal entry 1/2 = cos(60°) encodes the 60-degree angle between adjacent basis vectors. The determinant det(g) = 3/4, and (1/2)√det(g) = (√3/4), which recovers the area formula for the equilateral triangle. Abraham's students and collaborators have shown that this metric is also the Cartan matrix of the A2 Lie algebra, the root lattice of SU(3), providing a geometric derivation of the colour symmetry group of quantum chromodynamics.
+
+### 4.5 The Pythagorean Gnomon and the Tetryonic Matrix
+
+A significant mathematical contribution formalised in collaboration with researchers James M. Moore and Richard A. Blankenship is the **Gnomon Coordinate Function**:
+
+**V(r, c) = L² − (r − 1) − (L − c),   where L = max(r, c)**
+
+This function provides a bijective mapping from the n² triangular quanta of any Tetryonic energy level into an n × n square matrix, preserving the shell (energy level) structure. The function encodes the Pythagorean Gnomon identity:
+
+n² + (2n+1) = (n+1)²
+
+which in Tetryonic theory represents the quantum of charge transition between adjacent energy levels. Each new shell L adds exactly 2L − 1 new quanta, consistent with the sequential odd-number rule for squared quantum levels. The mapping enables standard matrix computation and signal processing to be applied to equilateral ZPF geometries.
+
+Abraham identified that the charge quanta distribution across Tetryonic energy levels follows a palindromic amplitude pattern:
+
+1, 121, 12321, 1234321, …
+
+Each entry is a perfect square in decimal disguise, and this palindromic structure provides the normal (Gaussian) distribution of charge across Baryonic matter topologies.
+
+### 4.6 Mass, Matter, and the c⁴ Distinction
+
+Abraham makes a rigorous distinction between two physical quantities that are frequently conflated in standard physics:
+
+- **EM Mass** (m): Two-dimensional planar energy geometry per unit time. m = E / c². Subject to Lorentz corrections. Photons possess EM mass.
+- **Matter** (M): Three-dimensional tetrahedral standing-wave topology. M = E / c⁴. Lorentz invariant. Photons do not possess Matter topology — they are *Matterless*, not massless.
+
+The conversion for a single Tetryon (4 quanta closed into a tetrahedron):
+
+M₀ = 4m / c²
+
+The total relativistic energy of a system is:
+
+E = M₀c⁴ + (γ − 1) m_M c²
+
+where the first term is the invariant rest Matter energy and the second term is the velocity-dependent KEM (Kinetic Electro-Magnetic) field energy.
+
+### 4.7 Avogadro's Number from First Principles
+
+Abraham derives Avogadro's number directly from the Tetryonic mass of the hydrogen atom, without experimental measurement input:
+
+A hydrogen atom at rest has a Tetryonic mass of 22,512 Planck quanta:
+
+m_H = 22,512 × m_n = 1.660538841 × 10⁻²⁷ kg
+
+where m_n = m_z × 10¹⁹ = 7.376238634 × 10⁻³² kg.
+
+Since 1 mole of hydrogen has a rest mass of exactly 1 gram:
+
+N_A = 0.001 kg / (1.660538841 × 10⁻²⁷ kg) = **6.022141579 × 10²³ mol⁻¹**
+
+This matches the accepted value of Avogadro's number. Abraham notes that this result is obtained without reference to any measured quantity beyond the geometric gauge length.
+
+---
+
+## 5. Particle Topology
+
+### 5.1 The Zero Point Field
+
+The Zero Point Field (ZPF) is the fundamental quantum of energy. It is an equilateral triangular field with height l_q and side length L. A positive ZPF has clockwise inductive energy flux; a negative ZPF has counter-clockwise flux. These are modeled as ideal quantum inductors that store energy without dissipation until released through weak interaction.
+
+Spin correspondence: A single ZPF face closes at 180° rotation → **spin 2**.
+
+### 5.2 The Photon
+
+A photon is composed of two ZPF quanta in a rhombus (diamond) configuration — one positive and one negative — forming a net-neutral 2π geometry. The photon carries EM mass but no Matter topology. Abraham identifies the ground-state relationship:
+
+ν_z = (1/2) × f_photon → 2hν = hf
+
+Spin: 360° closure → **spin 1**.
+
+### 5.3 The Tetryon
+
+The Tetryon is four ZPF quanta assembled into a tetrahedron — the minimum closed 3D volume. It is the fundamental quantum of Matter. All observable particles are integer multiples of Tetryons.
+
+- 4 faces × 180° = 720° total angular content
+- Rotational closure: 360° → **spin 1**
+- Matter formula: M₀ = 4hν/c⁴
+- Volume: V_T = L³ / (6√2)
+
+### 5.4 Quarks
+
+Quarks consist of 12 ZPF quanta (three Tetryons) with octahedral 3D topology. The six quark varieties arise from charge distribution across the 12 fascia:
+
+| Quark | Charge | Quanta distribution |
+|---|---|---|
+| Up | +2/3 | [10-2] |
+| Down | -1/3 | [4-8] |
+| Anti-up | -2/3 | [2-10] |
+| Anti-down | +1/3 | [8-4] |
+
+Abraham states that quarks are not fundamental; they are composed of three Tetryons each, and each Tetryon carries one-third of the quark's fractional charge.
+
+### 5.5 Leptons
+
+Leptons also consist of 12 ZPF quanta (three Tetryons) but with dodecahedral topology, producing integer charge. The distinction from quarks is topological:
+
+- Quarks: attractive strong force → octahedral topology
+- Leptons: repulsive strong force → dodecahedral topology
+
+The electron has rest mass 8.851486361 × 10⁻³¹ kg = 12 × m_n, consistent with the accepted value of 9.109 × 10⁻³¹ kg at the Tetryonic scale.
+
+### 5.6 Baryons
+
+Baryons (proton, neutron) are tri-quark assemblies with 36 ZPF quanta total:
+
+| Particle | Distribution | Charge | Planck quanta |
+|---|---|---|---|
+| Proton | [24-12] | +1 | 22,500 |
+| Neutron | [18-18] | 0 | 22,500 |
+| Anti-proton | [12-24] | -1 | 22,500 |
+
+Abraham identifies the correct quark arrangement of the proton as [u-d-u], not [u-u-d] as conventionally stated, based on charge geometry requirements.
+
+**Gluons**, in Tetryonic theory, are neutral Tetryons ([2-2] configuration) located between charged Tetryons within baryon topologies. The proton contains 4 neutral Tetryons; the neutron contains 5.
+
+### 5.7 Atomic Nuclei and the Deuterium Hypothesis
+
+Abraham identifies Deuterium, not Hydrogen, as the foundational building block of all periodic elements. Every element is an integer multiple of the Deuterium topology (84π per atom, 72π per nucleus). All elements have equal numbers of protons, neutrons, and electrons (N = Z for all elements). Abraham argues that apparent excess neutrons in the standard model arise from an incorrect topological model of the nucleus.
+
+---
+
+## 6. Forces and Their Geometric Origins
+
+### 6.1 Electromagnetism
+
+The electric field arises from the permittivity geometry of ZPF flux. The magnetic field is always orthogonal to the electric field and propagates bidirectionally from the block wall of the ZPF. Abraham derives Coulomb's law, Faraday's law, and the Ampere-Maxwell relation from equilateral ZPF flux geometry. The electromagnetic constants of the vacuum are identified as geometric ratios:
+
+ε₀μ₀ = t_T² / l_q² = 1/c²
+
+### 6.2 The Strong Force
+
+The strong nuclear force is identified as face-to-face equilateral induction between adjacent Tetryon fascia. Opposite-charge fascia attract; same-charge fascia repel. The force range is approximately L = 1.15 × 10⁻¹⁵ m — the side length of a single ZPF quantum — because the contact interaction exists only when faces physically overlap. This naturally explains the short range of the strong force without a separate confinement mechanism.
+
+### 6.3 The Weak Force
+
+The weak force is identified as edge-to-edge inductive coupling between ZPF dipole fields — a lower-energy state than the face-to-face strong interaction. Beta decay is interpreted as a topological rearrangement: when a Tetryon arrangement becomes geometrically unstable, it undergoes a 180° (π) flip to restore 720° closure. The chirality of the tetrahedron produces parity violation. The W-boson (3 ZPF quanta) is the exchange particle carrying the angular momentum flip.
+
+### 6.4 Gravity
+
+Gravity in Tetryonics is not spacetime curvature. The vacuum is a flat equilateral ZPF lattice (Ω_k = 0, proved by the zero angular defect of equilateral tessellation: 6 × 60° = 360°). Three-dimensional Matter topologies displace this lattice, creating a convergent pressure gradient around them. This gradient is gravity:
+
+F = −G × (m₁/c²)(m₂/c²) / r²
+
+which is Newton's gravity with M = m/c² (Matter = mass divided by c²). The 8πG/c⁴ coupling constant in the Einstein Field Equations is interpreted as a two-body interaction (8π = 2 × 4π), where 4π is the single-body tetrahedral closure quantum. Abraham identifies the quantum of gravity as a single ZPF face interaction: hν/c⁴ per face.
+
+---
+
+## 7. Key Predictions and Consistency Claims
+
+### 7.1 Proton Radius Puzzle
+
+The so-called Proton Radius Puzzle — the discrepancy between the proton radius measured via muonic hydrogen (0.8409 fm) and via electron scattering (0.877 fm) — is resolved in Tetryonics by the non-spherical geometry of the proton. Three distinct geometric quantities characterize the proton:
+
+- Z-axis height (gauge length): l_q = 1.000 fm
+- Inscribed radius: (√3/2) × l_q = 0.866 fm
+- Circumscribed side length: L = (2/√3) × l_q = 1.155 fm
+
+Both experimental values fall within the geometric bounds defined by [0.866, 1.155] fm, with different experiments sampling different geometric projections.
+
+### 7.2 Flatness of the Universe
+
+The spatial flatness of the universe (Ω_k ≈ 0 per WMAP and Planck satellite observations) is derived geometrically in Tetryonics. The equilateral ZPF tessellation requires exactly six triangles meeting at each vertex (6 × 60° = 360°), producing zero angular defect and therefore zero Gaussian curvature. The cosmological parameter Ω_k = 0 is a geometric necessity, not a fine-tuning requirement.
+
+### 7.3 Planck Constant Discrepancy
+
+Abraham predicts that the SI value of Planck's constant as measured by the Kibble Balance is geometrically deficient because the Kibble Balance measurement principle omits the two-dimensional equilateral correction factor. The predicted geometric ratio is:
+
+h_Tetryonic / h_SI = 1.0005075
+
+This predicts a 0.05075% systematic error in all masses currently defined via SI Planck constant, including the kilogram.
+
+### 7.4 Sub-Quark Structure
+
+Abraham predicts that quarks are composed of three Tetryons, each carrying one-third the fractional charge of the parent quark. This implies sub-quark structure detectable at sufficient collision energy via three-lobed geometric cross-section distributions in deep inelastic scattering experiments.
+
+### 7.5 Photon Composites
+
+Abraham predicts the photon is a two-quantum composite, splitting into constituent half-photon bosons (single ZPF quanta) under sufficiently strong electromagnetic field geometries. Partial support for this prediction is claimed through orbital angular momentum (OAM) experiments demonstrating that photons carry orbital angular momentum in discrete integer multiples.
+
+---
+
+## 8. Publications and Resources
+
+### 8.1 Primary Works by Kelvin C. Abraham
+
+Abraham has produced an extensive series of freely available volumes. The primary works include:
+
+- **Tetryonics [1] — Quantum Mechanics** (241 pages): The charged quantum geometry of mass-energy-matter, developed from the foundational equilateral QAM postulate.
+- **Tetryonics [4] — Quantum Cosmology**: Gravitational mass-energy-matter dynamics uniting Newtonian and relativistic gravity through equilateral Planck quanta, and a corrected model of stellar fusion.
+- **Tetryonics [5] — Quantum Geometrics**: Geometric structure of charged mass-energy fields and Matter topologies.
+- **Tetryonics theory — Principia Scientifica**: The complete works of Tetryonic theory, covering quantum mechanics, quantum electrodynamics, chemistry, biology, cosmology, and mathematics.
+- **Determining an Exact Value for Planck's Constant**: A focused paper deriving h = 6.629432672 × 10⁻³⁴ J·s from Avogadro's number and Tetryonic geometry, published through the *International Journal of Scientific and Research Publications* (IJSRP).
+
+### 8.2 Online Resources
+
+- **tetryonics.com** — Abraham's primary website, hosting the complete e-book library.
+- **Academia.edu** — Multiple volumes freely available for download under the author name Kelvin C. Abraham.
+- **YouTube: Tetryonics / Tetryonics University** — Extended video lecture series working through derivations and physical applications of the framework.
+
+### 8.3 Journal Publication
+
+Abraham's introduction to Tetryonic theory was published in the *International Journal of Scientific and Research Publications* (IJSRP), Vol. 4, Issue 5, May 2014, ISSN 2250-3153. The paper presents the foundational geometric reinterpretation of quantized angular momentum and the derivation of Planck's constant from equilateral geometry.
+
+---
+
+## 9. Reception
+
+Tetryonics has not been formally reviewed in mainstream peer-reviewed physics journals beyond the IJSRP publication. The framework sits outside the standard model of particle physics and general relativity as currently practised in academic institutions. Its claims of resolving open problems including the Yang-Mills mass gap, the proton radius puzzle, quantum gravity, and the measurement problem of the kilogram have not been independently verified by the broader physics community.
+
+The works have attracted an independent research community, including collaborators who have produced formal mathematical proofs of specific components of the framework. James M. Moore formally proved the bijectivity of the Gnomon Coordinate Function and published a derivation of Planck's constant from CMB scattering plane geometry building on Abraham's corrected value. Richard A. Blankenship contributed the insertion of Tetryonic sequential labeling into the Pythagorean Gnomon grid and dimensional analysis of the matrix structure.
+
+Abraham has described his work as a bottom-up geometric unification of physical science, in contrast to the top-down fragmented approach of modern theoretical physics. He has stated that the framework makes no free-parameter adjustments — all physical constants follow from the invariant 10⁻¹⁵ metre gauge and the equilateral geometric constraint.
+
+---
+
+## 10. References
+
+1. Abraham, K. C. (2014). *An Introduction to Tetryonic Theory*. International Journal of Scientific and Research Publications, 4(5). ISSN 2250-3153.
+2. Abraham, K. C. (2008–2025). *Tetryonics [1] — Quantum Mechanics*. Self-published. Available at tetryonics.com and Academia.edu.
+3. Abraham, K. C. (2008–2025). *Tetryonics [4] — Quantum Cosmology*. Self-published. Available at tetryonics.com and Academia.edu.
+4. Abraham, K. C. (2008–2025). *Tetryonics [5] — Quantum Geometrics*. Self-published. Available at tetryonics.com and Academia.edu.
+5. Abraham, K. C. (2008–2025). *Tetryonics theory — Principia Scientifica*. Self-published. Available at tetryonics.com and Academia.edu.
+6. Abraham, K. C. (2008–2025). *Determining an Exact Value for Planck's Constant*. Self-published monograph. Available at tetryonics.com and Academia.edu.
+7. Moore, J. M., Blankenship, R. A., and Abraham, K. C. (2026). *The Pythagorean Gnomon and the Tetryonic Matrix: A Complete Mathematical Proof of the Gnomon Coordinate Function*. Available in project repository.
+8. Moore, J. M., Abraham, K. C., and Blankenship, R. A. (2026). *A Geometric Derivation of the Planck Constant from CMB Scattering Plane Geometry*. Available in project repository.
+9. Moore, J. M. (2026). *A Mathematical Proof of the Tetryonic Model: The Final Solution to Quantum Field Theory*. Available in project repository.
+10. Moore, J. M. (2026). *A First-Principles Derivation of the Proton Radius from Tetryonic Geometry*. Available in project repository.
+11. Tetryonics YouTube Channel. *Tetryonics University*. Available at youtube.com/tetryonics. Accessed 2025.
+
+---
+
+*This article was prepared for submission to Wikipedia by collaborators of the Tetryonic Theory Think Tank, May 2026. It is intended as a neutral, factually grounded introduction to the work of Kelvin C. Abraham. The authors declare an association with the subject matter and acknowledge this potential conflict of interest per Wikipedia's conflict of interest guidelines. Independent editorial review is welcomed.*
