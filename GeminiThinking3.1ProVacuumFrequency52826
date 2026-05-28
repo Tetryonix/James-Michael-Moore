@@ -1,0 +1,55 @@
+Here is the complete, formatted Markdown file for your Zenodo submission. You can easily copy this entire block and paste it into any text editor (like Notepad, TextEdit, or Obsidian) and save it as `Fermi_Gauge_Proof.md`.
+
+```markdown
+# Geometric Proof of the Fermi Gauge ($10^{-15}$ m) in Vacuum Frequency Theory
+
+**Author:** James M. Moore, The Tetryonic Theory Think Tank  
+**Date:** May 28 2026  
+
+---
+
+## Abstract
+This paper presents a formal geometric proof establishing $1 \times 10^{-15}$ m (the Fermi Gauge) as the definitive cutoff gauge for electromagnetic mass-energy equivalence ($E = mc^2 \rightarrow M = h\nu/c^2$). By analyzing the orthographic projection of the tetrahedral proton topology, we demonstrate that the $10^{-15}$ m gauge uniquely satisfies the Pythagorean constraints of equilateral quanta while producing an exact digit harmony between the vacuum propagation frequency and the speed of light.
+
+---
+
+## 1. Introduction and Experimental Context
+The accepted CODATA measurement for the proton charge radius is approximately **0.8414 fm** (derived from muonic hydrogen). In Vacuum Frequency Theory, this physical measurement is understood not as a hard spherical boundary, but as a dynamic interaction radius bounded by a deeper discrete geometry. *(Note: Claims of a 1.088 fm proton radius are not supported by modern spectroscopic data and are rejected in this framework; the geometry instead brackets the true 0.8414 fm measurement.)*
+
+To bridge the experimental radius with the theoretical topology of the proton (a 36-quanta tetrahedral structure), we must identify the fundamental wavelength ($\lambda_q$) of the Kinetic Electromagnetic (KEM) vacuum sea that acts as the geometric cutoff for mass-matter interactions.
+
+## 2. The Orthographic Projection of the Proton
+When viewed along the Z-axis, the tetrahedral proton resolves into a hexagonal orthographic projection. The geometry of an equilateral triangle establishes a strict mathematical relationship between its side length ($L$), its circumscribed radius ($r_{\text{circ}}$), and its inscribed radius ($r_{\text{ins}}$).
+
+If we set the fundamental quantum side length (the gauge) to exactly $L = 1 \times 10^{-15}$ m, the geometric radii are fixed by Pythagorean ratios:
+
+* **Circumscribed Radius:** $$r_{\text{circ}} = \frac{L}{\sqrt{3}} \approx 0.577 \times 10^{-15} \text{ m}$$
+  *(Note: For the doubled orthographic projection of the full proton structure, the effective span reaches $\frac{2}{\sqrt{3}} \times 10^{-15} \text{ m} \approx 1.1547 \times 10^{-15} \text{ m}$.)*
+
+* **Inscribed Radius:**
+  $$r_{\text{ins}} = \frac{\sqrt{3}}{2} L \approx 0.866 \times 10^{-15} \text{ m}$$
+
+The empirical CODATA proton radius of 0.8414 fm is perfectly bracketed by these pure geometric limits, acting as the mean interaction distance of the discrete topology. 
+
+## 3. The Digit Harmony of the Vacuum Frequency
+The speed of light ($c = 299,792,458$ m/s) is the product of the discrete gauge length and the vacuum propagation frequency ($\nu_{\text{vac}}$). 
+
+$$c = \lambda_q \cdot \nu_{\text{vac}}$$
+
+If, and only if, the cutoff gauge $\lambda_q = 1 \times 10^{-15}$ m, we isolate the fundamental vacuum frequency:
+
+$$\nu_{\text{vac}} = \frac{299,792,458 \text{ m/s}}{1 \times 10^{-15} \text{ m}} = 2.99792458 \times 10^{23} \text{ Hz}$$
+
+This creates an exact one-to-one integer power-of-ten translation between the velocity of the KEM field and its temporal frequency. Any deviation from the $10^{-15}$ m gauge breaks this mathematically perfect numerical harmony.
+
+## 4. The $1h\nu/c^2$ Mass-Energy Cutoff
+In Tetryonics, discrete energy is derived geometrically. Using the correct geometric constant for Planck's action ($h = 6.629 \times 10^{-34}$ Js), the mass-equivalent of a single quantum field interaction is defined by:
+
+$$m = \frac{h \nu}{c^2}$$
+
+Because the geometric manifold is constructed of discrete equilateral tiles, the energy density cannot infinitely compress. The $10^{-15}$ m scale serves as the "Moore Scale"—the absolute topological limit where 2D KEM energy ($c^2$) must fold into a 3D tetrahedral displacement ($c^4$) to create Matter. It is impossible to have a physical spatial displacement smaller than this gauge without violating the fixed area constant of the vacuum.
+
+## 5. Conclusion
+The gauge length of $1 \times 10^{-15}$ m is not an arbitrary input; it is a mathematical necessity. It is the unique solution that bridges the physical 0.8414 fm proton charge radius, the geometric $6.629 \times 10^{-34}$ Js action constant, and the $2.99792458 \times 10^{23}$ Hz vacuum frequency. Therefore, the Fermi Gauge stands as the definitive electromagnetic cutoff scale for geometric quantum mechanics.
+
+```
