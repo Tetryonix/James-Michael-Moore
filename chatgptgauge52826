@@ -1,0 +1,510 @@
+# Core Statement of Vacuum Frequency Theory
+
+Vacuum Frequency Theory proposes that the electromagnetic vacuum possesses a fundamental geometric propagation scale determined by the equilateral topology of the proton.
+
+Within the Tetryonic framework of Kelvin C. Abraham, the proton is modeled not as a sphere but as a tetrahedral structure composed of 36 equilateral triangular faces. The orthographic projection of this topology produces a regular hexagonal geometry whose circumscribed radius is:
+
+[
+r_{\mathrm{circ}}=\frac{2}{\sqrt3}\times10^{-15},\mathrm{m}
+]
+
+The corresponding equilateral face altitude is therefore:
+
+[
+\lambda_q = 1\times10^{-15},\mathrm{m}
+]
+
+This quantity is proposed as the invariant electromagnetic gauge length.
+
+Substitution into the light-wave equation,
+
+[
+c=\lambda_q\nu_{\mathrm{vac}}
+]
+
+yields the vacuum propagation frequency
+
+[
+\nu_{\mathrm{vac}}=2.99792458\times10^{23},\mathrm{Hz}
+]
+
+which preserves the significant digits of the speed of light exactly.
+
+The theory further proposes that electromagnetic quanta are not smaller than the proton scale, but instead consist of integer superpositions of invariant equilateral gauge bosons occupying a fixed gauge domain
+
+[
+A_q=\frac{\lambda_q^2}{\sqrt3}
+]
+
+A photon is modeled as two equilateral gauge bosons joined base-to-base, forming a rhombic structure geometrically commensurate with the proton topology itself.
+
+The central open problem is whether the femtometre gauge
+
+[
+\lambda_q=10^{-15},\mathrm{m}
+]
+
+is uniquely required by the combined conservation of electromagnetic constants, proton topology, and equilateral lattice geometry.
+
+The mathematical heart of the proposal is the equilateral constraint:
+
+(
+2
+L
+	​
+
+)
+2
++λ
+q
+2
+	​
+
+=L
+2
+
+which gives
+
+L=
+3
+	​
+
+2
+	​
+
+λ
+q
+	​
+
+
+and ties together the proton geometry, photon geometry, and gauge area construction.
+
+
+
+---
+---
+---
+
+# Vacuum Frequency Theory and the Fermi Gauge Conjecture
+
+## A Geometric Conjecture for Electromagnetic Gauge Structure from Proton Topology
+
+**James Michael Moore**
+The Tetryonic Theory Think Tank
+
+Advisory influence from the geometric framework of Kelvin C. Abraham (*Principa Geometrica*) and Richard A. Blankenship.
+
+---
+
+# Abstract
+
+A geometric conjecture is proposed in which the electromagnetic vacuum possesses a fundamental propagation gauge determined by equilateral proton topology. A characteristic gauge length
+
+[
+\lambda_q = 1 \times 10^{-15},\mathrm{m}
+]
+
+is identified from the orthographic tetrahedral proton geometry described in Tetryonic Theory. The associated propagation frequency
+
+[
+\nu_{\mathrm{vac}} = \frac{c}{\lambda_q}
+= 2.99792458 \times 10^{23},\mathrm{Hz}
+]
+
+is designated the **Vacuum Frequency**.
+
+The conjecture proposes that electromagnetic quanta are constructed from invariant equilateral gauge bosons possessing fixed area
+
+[
+A_q = \frac{\lambda_q^2}{\sqrt3}
+]
+
+and that higher-energy quanta correspond to superposition density rather than smaller spatial extent.
+
+A geometric derivation is presented showing that the proton circumscribed radius, equilateral side-length, and gauge altitude are mutually constrained by the Pythagorean relation for equilateral geometry. It is further shown that the gauge altitude occupies the exact geometric mean between the proton inscribed and circumscribed radii.
+
+The central open problem is stated formally:
+
+> Does the topology of the proton uniquely determine an invariant electromagnetic gauge cutoff at the femtometre scale?
+
+Conditions required for proof or falsification are explicitly defined.
+
+---
+
+# 1. Introduction
+
+Modern quantum field theory treats the vacuum as a dynamical field possessing quantized excitations but no fixed geometric gauge scale. In contrast, Tetryonic Theory proposes that electromagnetic structure originates from equilateral geometric quanta arranged on a flat hexagonal lattice.
+
+The present work investigates whether a unique electromagnetic gauge length emerges naturally from proton geometry itself.
+
+The conjecture is motivated by three observations:
+
+1. The proton topology proposed by Abraham produces a regular hexagonal orthographic projection.
+2. The geometry of this projection implies a natural equilateral side-length and altitude relation.
+3. The resulting altitude equals exactly (10^{-15},\mathrm{m}), producing a propagation frequency numerically identical in significant digits to the speed of light when substituted into
+
+[
+c = \lambda_q \nu_{\mathrm{vac}}
+]
+
+The purpose of this paper is not to claim completed proof of a new physical theory, but to establish:
+
+* the geometric derivation,
+* the mathematical consistency conditions,
+* the conjectured physical interpretation,
+* and the experimental requirements necessary to test or falsify the framework.
+
+---
+
+# 2. The Proton Geometry
+
+The tetrahedral proton topology proposed in *Principa Geometrica* possesses 36 equilateral triangular faces.
+
+When projected orthographically along the Z-axis, the proton appears as a regular hexagonal structure.
+
+The circumscribed radius of this hexagonal projection is:
+
+[
+r_{\mathrm{circ}} = 1.15470054 \times 10^{-15},\mathrm{m}
+]
+
+Recognizing the geometric identity:
+
+[
+\frac{2}{\sqrt3} = 1.15470054\ldots
+]
+
+we obtain:
+
+[
+r_{\mathrm{circ}} =
+\frac{2}{\sqrt3}\times10^{-15},\mathrm{m}
+]
+
+The corresponding inscribed radius is:
+
+[
+r_{\mathrm{ins}} =
+\frac{\sqrt3}{2}\times10^{-15},\mathrm{m}
+]
+
+or numerically:
+
+[
+r_{\mathrm{ins}} =
+0.86602540\times10^{-15},\mathrm{m}
+]
+
+These radii define the natural geometric bounds of the proton cross-section.
+
+---
+
+# 3. Equilateral Constraint and Gauge Length
+
+For an equilateral triangle of side-length (L) and altitude (\lambda_q),
+
+[
+\left(\frac{L}{2}\right)^2 + \lambda_q^2 = L^2
+]
+
+which gives
+
+[
+\lambda_q^2 = \frac{3L^2}{4}
+]
+
+and therefore
+
+[
+\lambda_q = \frac{\sqrt3}{2}L
+]
+
+equivalently,
+
+[
+L = \frac{2}{\sqrt3}\lambda_q
+]
+
+If the proton circumscribed radius equals the equilateral side-length,
+
+[
+L = r_{\mathrm{circ}}
+]
+
+then substitution yields:
+
+[
+\lambda_q =
+\frac{\sqrt3}{2}
+\left(
+\frac{2}{\sqrt3}\times10^{-15}
+\right)
+]
+
+which reduces exactly to
+
+[
+\boxed{
+\lambda_q = 1\times10^{-15},\mathrm{m}
+}
+]
+
+This quantity is designated the **Fermi Gauge** or **Vacuum Gauge Length**.
+
+---
+
+# 4. The Geometric Mean Identity
+
+The gauge length occupies the exact geometric mean between the proton inscribed and circumscribed radii.
+
+[
+\sqrt{
+r_{\mathrm{circ}}r_{\mathrm{ins}}
+}
+=
+
+\sqrt{
+\frac{2}{\sqrt3}
+\cdot
+\frac{\sqrt3}{2}
+}
+\times10^{-15}
+]
+
+Since
+
+[
+\frac{2}{\sqrt3}
+\cdot
+\frac{\sqrt3}{2}
+=1
+]
+
+it follows that
+
+[
+\boxed{
+\sqrt{
+r_{\mathrm{circ}}r_{\mathrm{ins}}
+}
+=
+
+1\times10^{-15},\mathrm{m}
+}
+]
+
+The gauge length therefore lies at the exact geometric center of the proton topology.
+
+---
+
+# 5. Vacuum Frequency
+
+Define the propagation frequency of the vacuum gauge boson as
+
+[
+\nu_{\mathrm{vac}} = \frac{c}{\lambda_q}
+]
+
+Substituting
+
+[
+c = 2.99792458\times10^8,\mathrm{m/s}
+]
+
+and
+
+[
+\lambda_q = 10^{-15},\mathrm{m}
+]
+
+gives
+
+[
+\boxed{
+\nu_{\mathrm{vac}}
+==================
+
+2.99792458\times10^{23},\mathrm{Hz}
+}
+]
+
+This is numerically equivalent to shifting the decimal place of (c) by fifteen orders of magnitude.
+
+The conjecture interprets this as evidence that the femtometre gauge encodes the natural propagation rate of electromagnetic structure.
+
+---
+
+# 6. Gauge Area
+
+The invariant equilateral gauge area is defined as
+
+[
+A_q =
+\frac{\lambda_q^2}{\sqrt3}
+]
+
+which yields
+
+[
+A_q
+===
+
+5.77350269\times10^{-31},\mathrm{m}^2
+]
+
+The conjecture proposes that all electromagnetic quanta occupy integer multiples of this invariant area rather than possessing continuously smaller physical dimensions.
+
+---
+
+# 7. Photon Geometry
+
+In the Tetryonic framework, a photon consists of two equilateral gauge bosons joined base-to-base, forming a rhombus.
+
+The rhombus width is
+
+[
+L =
+\frac{2}{\sqrt3}\lambda_q
+=========================
+
+1.15470054\times10^{-15},\mathrm{m}
+]
+
+The rhombus height is
+
+[
+2\lambda_q
+==========
+
+2.0000\times10^{-15},\mathrm{m}
+]
+
+The long diagonal becomes
+
+[
+d_{\mathrm{long}}
+=================
+
+# \sqrt3L
+
+2\lambda_q
+]
+
+The photon geometry therefore shares the same fundamental gauge as the proton topology.
+
+---
+
+# 8. Mathematical Status of the Conjecture
+
+The following statements are mathematically established within Euclidean geometry:
+
+1. The equilateral altitude relation
+2. The circumscribed and inscribed radius identities
+3. The geometric mean identity
+4. The propagation frequency arithmetic
+5. The gauge area relation
+
+The following statements remain physical conjectures:
+
+1. That the proton possesses tetrahedral topology
+2. That (10^{-15},\mathrm{m}) is a fundamental vacuum cutoff
+3. That photons consist of paired equilateral gauge bosons
+4. That quantum energy scales via superposition count rather than spatial contraction
+5. That the vacuum frequency is physically fundamental
+
+---
+
+# 9. Conditions Required for Proof
+
+The theory would gain strong support if one or more of the following were experimentally verified:
+
+## 9.1 Proton Anisotropy
+
+High-energy scattering experiments should reveal measurable non-spherical tetrahedral structure in the proton.
+
+Observable consequences may include:
+
+* orientation-dependent scattering,
+* hexagonal projection signatures,
+* or preferred angular resonances.
+
+---
+
+## 9.2 Gauge Resonance Structure
+
+If the vacuum possesses a fixed geometric propagation scale, electromagnetic fields may exhibit resonance structures near harmonics or subharmonics of
+
+[
+\nu_{\mathrm{vac}}
+==================
+
+2.99792458\times10^{23},\mathrm{Hz}
+]
+
+---
+
+## 9.3 Non-Spherical Radius Measurements
+
+Different proton radius experiments should converge toward distinct geometric radii rather than a single spherical radius.
+
+Specifically:
+
+* muonic hydrogen measurements may probe inscribed geometry,
+* while scattering experiments may probe projected or circumscribed geometry.
+
+---
+
+## 9.4 Quantized Gauge Area
+
+If electromagnetic quanta possess invariant area rather than variable size, deviations from standard renormalization assumptions may emerge at ultra-high energy density.
+
+---
+
+# 10. Conditions for Falsification
+
+The conjecture would be falsified if:
+
+1. Proton structure is conclusively shown to be incompatible with tetrahedral geometry.
+2. No geometric interpretation of the proton radii remains viable.
+3. Experimental evidence demonstrates continuous sub-femtometre contraction of electromagnetic quanta.
+4. The proposed gauge relations produce contradictions with established electromagnetic conservation laws.
+5. The framework fails to generate any experimentally distinguishable predictions from standard quantum field theory.
+
+---
+
+# 11. Conclusion
+
+A geometric electromagnetic gauge conjecture has been presented in which:
+
+[
+\lambda_q = 10^{-15},\mathrm{m}
+]
+
+emerges naturally from equilateral proton topology.
+
+The conjecture links:
+
+* proton geometry,
+* equilateral lattice structure,
+* vacuum propagation frequency,
+* photon topology,
+* and invariant gauge area
+
+within a single geometric framework.
+
+Whether this structure represents genuine physical law or merely a mathematically elegant coincidence remains an open scientific problem.
+
+The burden of proof now shifts to experiment.
+
+---
+
+# References
+
+1. Kelvin C. Abraham, *Principa Geometrica*, National Library of Australia, 2021.
+2. Kelvin C. Abraham, *Determining an Exact Value for Planck's Constant*.
+3. CODATA Recommended Values of the Fundamental Physical Constants.
+4. Muonic Hydrogen Proton Radius Measurements.
+
+
+---
+
