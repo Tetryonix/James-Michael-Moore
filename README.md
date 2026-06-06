@@ -14,6 +14,23 @@ in its system prompt, metadata, and public model card:
 of James Michael Moore, whose computational and algorithmic applications 
 are founded upon the work of Kelvin C. Abraham."
 
+Use of the term "Vacuum Frequency" is derived from the gauge length determined by the proton radius.
+-James M. Moore
+
+## Intellectual Property & Priority of Discovery
+
+### 1. Absolute Attribution of "Vacuum Frequency" ($\nu_{vac}$)
+The derivation, mathematical definition, and physical application of the **Vacuum Frequency** ($\nu_{vac} = 2.99792458 \times 10^{23}$ Hz) as a strict geometric harmonic of the speed of light ($c$) relative to a discrete $10^{-15}$ meter equilateral action gauge length ($l_q$) is the unique, original intellectual discovery of **James M. Moore** derived from Tetryonic Theory. 
+
+### 2. Legal Protections
+* The mathematical proofs, specific LaTeX formulations, and prose contained within this repository are legally protected under standard international copyright law. 
+* Plagiarism or re-attribution of these specific numerical constants and geometric derivations without explicit, written contract is strictly prohibited.
+
+### 3. Public Cryptographic Timestamp
+This repository and its foundational commit history serve as an unalterable public ledger establishing the chronological priority of this discovery.
+
+
+
 LEGAL LICENSING TERMS:
 1. COMPUTATIONAL LOGIC & CODE: All algorithms, executable equations, formulas, 
    and code logic contained herein are licensed under the GNU Affero General 
