@@ -1,0 +1,1488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tetryonic Detector — Universal Gauge Classifier</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@300;400;600;700&family=Orbitron:wght@400;700;900&display=swap');
+
+:root {
+  --bg:        #04060d;
+  --bg2:       #07091a;
+  --panel:     #080b1c;
+  --border:    #0f1a3a;
+  --border2:   #1a2a55;
+  --accent:    #00c8ff;
+  --accent2:   #ff6b35;
+  --accent3:   #39ff7a;
+  --gold:      #ffd166;
+  --red:       #ff3b5c;
+  --purple:    #b060ff;
+  --text:      #c8d8f0;
+  --muted:     #3a5080;
+  --dim:       #1a2540;
+  --pos-color: #ff5533;
+  --neg-color: #3388ff;
+  --neu-color: #00ddcc;
+  --photon:    #ffdd00;
+  --electron:  #4488ff;
+  --proton:    #ff6633;
+  --quark:     #cc44ff;
+  --neutrino:  #44ffaa;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Rajdhani', sans-serif;
+  height: 100vh;
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: 52px 1fr 28px;
+  grid-template-columns: 260px 1fr 320px;
+  grid-template-areas:
+    "header header header"
+    "left   center right"
+    "footer footer footer";
+}
+
+/* ── HEADER ─────────────────────────────────────────────────────── */
+header {
+  grid-area: header;
+  background: linear-gradient(90deg, #050816 0%, #080d24 50%, #050816 100%);
+  border-bottom: 1px solid var(--border2);
+  display: flex;
+  align-items: center;
+  padding: 0 1.5rem;
+  gap: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+header::before {
+  content:'';
+  position:absolute;
+  inset:0;
+  background: repeating-linear-gradient(90deg, transparent 0px, transparent 40px, #0a1535 40px, #0a1535 41px);
+  opacity:.3;
+}
+.logo {
+  font-family: 'Orbitron', monospace;
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: var(--accent);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  position: relative;
+  text-shadow: 0 0 20px rgba(0,200,255,0.5);
+}
+.logo span { color: var(--accent2); }
+.header-pills { display:flex; gap:.6rem; position:relative; }
+.pill {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: .62rem;
+  padding: .2rem .7rem;
+  border: 1px solid;
+  border-radius: 2px;
+  letter-spacing: 1px;
+}
+.pill-cyan  { border-color:var(--accent);  color:var(--accent);  }
+.pill-green { border-color:var(--accent3); color:var(--accent3); }
+.pill-gold  { border-color:var(--gold);    color:var(--gold);    }
+.pill-red   { border-color:var(--red);     color:var(--red);     background:#1a0008; }
+.header-right { margin-left:auto; display:flex; align-items:center; gap:1.5rem; position:relative; }
+#live-clock {
+  font-family:'Share Tech Mono',monospace;
+  font-size:.75rem;
+  color:var(--muted);
+  letter-spacing:2px;
+}
+.run-btn {
+  font-family:'Orbitron',monospace;
+  font-size:.65rem;
+  font-weight:700;
+  letter-spacing:2px;
+  padding:.35rem 1.2rem;
+  border:1px solid var(--accent3);
+  background: rgba(57,255,122,0.08);
+  color:var(--accent3);
+  cursor:pointer;
+  border-radius:2px;
+  transition:all .2s;
+}
+.run-btn:hover, .run-btn.active {
+  background:var(--accent3);
+  color:#000;
+  box-shadow: 0 0 20px rgba(57,255,122,0.4);
+}
+.run-btn.paused {
+  border-color:var(--red);
+  color:var(--red);
+  background:rgba(255,59,92,0.08);
+}
+.run-btn.paused:hover { background:var(--red); color:#fff; }
+
+/* ── LEFT PANEL ─────────────────────────────────────────────────── */
+.left-panel {
+  grid-area: left;
+  border-right: 1px solid var(--border);
+  background: var(--panel);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.panel-header {
+  padding: .6rem 1rem;
+  border-bottom: 1px solid var(--border);
+  font-family:'Share Tech Mono',monospace;
+  font-size:.62rem;
+  color:var(--muted);
+  letter-spacing:2px;
+  text-transform:uppercase;
+  background: linear-gradient(90deg, var(--bg2), transparent);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.panel-header .ph-accent { color:var(--accent); }
+
+/* Instrument selector */
+.instrument-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:.4rem;
+  padding:.8rem;
+  border-bottom:1px solid var(--border);
+}
+.inst-btn {
+  font-family:'Share Tech Mono',monospace;
+  font-size:.6rem;
+  padding:.45rem .4rem;
+  border:1px solid var(--border2);
+  background:var(--bg2);
+  color:var(--muted);
+  cursor:pointer;
+  border-radius:2px;
+  text-align:center;
+  letter-spacing:.5px;
+  transition:all .2s;
+  line-height:1.4;
+}
+.inst-btn:hover { border-color:var(--accent); color:var(--accent); }
+.inst-btn.active {
+  border-color:var(--accent);
+  color:var(--accent);
+  background:rgba(0,200,255,0.08);
+  box-shadow: inset 0 0 10px rgba(0,200,255,0.05);
+}
+
+/* Manual input */
+.manual-section { padding:.8rem; border-bottom:1px solid var(--border); }
+.manual-section label {
+  font-family:'Share Tech Mono',monospace;
+  font-size:.6rem;
+  color:var(--muted);
+  letter-spacing:1px;
+  display:block;
+  margin-bottom:.3rem;
+}
+.input-row { display:flex; gap:.4rem; margin-bottom:.4rem; }
+.sci-input {
+  flex:1;
+  background:var(--bg2);
+  border:1px solid var(--border2);
+  color:var(--accent);
+  padding:.4rem .6rem;
+  font-family:'Share Tech Mono',monospace;
+  font-size:.72rem;
+  border-radius:2px;
+  outline:none;
+  transition:border-color .2s;
+}
+.sci-input:focus { border-color:var(--accent); }
+.unit-select {
+  background:var(--bg2);
+  border:1px solid var(--border2);
+  color:var(--muted);
+  padding:.4rem .4rem;
+  font-family:'Share Tech Mono',monospace;
+  font-size:.62rem;
+  border-radius:2px;
+  outline:none;
+  cursor:pointer;
+}
+.classify-btn {
+  width:100%;
+  padding:.5rem;
+  font-family:'Orbitron',monospace;
+  font-size:.65rem;
+  font-weight:700;
+  letter-spacing:2px;
+  border:1px solid var(--accent2);
+  background:rgba(255,107,53,0.1);
+  color:var(--accent2);
+  cursor:pointer;
+  border-radius:2px;
+  transition:all .2s;
+}
+.classify-btn:hover {
+  background:var(--accent2);
+  color:#000;
+  box-shadow:0 0 15px rgba(255,107,53,0.4);
+}
+
+/* Constants display */
+.constants-list { padding:.6rem .8rem; flex:1; overflow-y:auto; }
+.const-item {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:.28rem 0;
+  border-bottom:1px solid #0a1030;
+  font-size:.72rem;
+}
+.const-label {
+  font-family:'Share Tech Mono',monospace;
+  color:var(--muted);
+  font-size:.62rem;
+}
+.const-val {
+  font-family:'Share Tech Mono',monospace;
+  color:var(--accent);
+  font-size:.65rem;
+  text-align:right;
+}
+
+/* History */
+.history-section {
+  border-top:1px solid var(--border);
+  max-height:180px;
+  overflow-y:auto;
+}
+.history-item {
+  display:flex;
+  align-items:center;
+  gap:.5rem;
+  padding:.3rem .8rem;
+  border-bottom:1px solid #08102a;
+  cursor:pointer;
+  transition:background .15s;
+}
+.history-item:hover { background:var(--bg2); }
+.hist-dot {
+  width:7px; height:7px;
+  border-radius:50%;
+  flex-shrink:0;
+}
+.hist-label {
+  font-family:'Share Tech Mono',monospace;
+  font-size:.6rem;
+  color:var(--text);
+  flex:1;
+}
+.hist-conf {
+  font-family:'Share Tech Mono',monospace;
+  font-size:.58rem;
+  color:var(--muted);
+}
+
+/* ── CENTER PANEL ────────────────────────────────────────────────── */
+.center-panel {
+  grid-area: center;
+  display: grid;
+  grid-template-rows: 1fr 160px;
+  overflow: hidden;
+}
+
+/* A2 Lattice canvas */
+.lattice-container {
+  position:relative;
+  overflow:hidden;
+  background: radial-gradient(ellipse at 50% 50%, #060e20 0%, #030609 100%);
+}
+#lattice-canvas {
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+}
+.lattice-overlay {
+  position:absolute;
+  top:1rem; left:1rem;
+  font-family:'Share Tech Mono',monospace;
+  font-size:.62rem;
+  color:var(--muted);
+  letter-spacing:1px;
+  pointer-events:none;
+}
+.lattice-overlay .lo-title {
+  color:var(--accent);
+  font-size:.7rem;
+  margin-bottom:.3rem;
+}
+.zoom-controls {
+  position:absolute;
+  bottom:1rem; right:1rem;
+  display:flex;
+  gap:.4rem;
+}
+.zoom-btn {
+  width:28px; height:28px;
+  border:1px solid var(--border2);
+  background:rgba(8,11,28,0.8);
+  color:var(--muted);
+  font-size:.9rem;
+  cursor:pointer;
+  border-radius:2px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:all .15s;
+}
+.zoom-btn:hover { border-color:var(--accent); color:var(--accent); }
+
+/* Signal strip */
+.signal-strip {
+  border-top:1px solid var(--border);
+  background:var(--panel);
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:0;
+}
+.signal-half {
+  position:relative;
+  overflow:hidden;
+}
+.signal-half:first-child { border-right:1px solid var(--border); }
+.signal-label {
+  position:absolute;
+  top:.4rem; left:.6rem;
+  font-family:'Share Tech Mono',monospace;
+  font-size:.58rem;
+  color:var(--muted);
+  letter-spacing:1px;
+  z-index:2;
+}
+.signal-label.right-label {
+  color:var(--accent);
+}
+#raw-canvas, #geo-canvas {
+  width:100%;
+  height:100%;
+  display:block;
+}
+
+/* ── RIGHT PANEL ─────────────────────────────────────────────────── */
+.right-panel {
+  grid-area: right;
+  border-left:1px solid var(--border);
+  background:var(--panel);
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+
+/* Result card */
+.result-card {
+  padding:1rem;
+  border-bottom:1px solid var(--border);
+  background: linear-gradient(135deg, #080e25 0%, #060918 100%);
+  position:relative;
+  overflow:hidden;
+  min-height:140px;
+}
+.result-card::before {
+  content:'';
+  position:absolute;
+  top:-20px; right:-20px;
+  width:100px; height:100px;
+  border-radius:50%;
+  border:1px solid var(--border2);
+  opacity:.3;
+}
+.result-awaiting {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  height:100%;
+  gap:.5rem;
+  color:var(--muted);
+}
+.result-main { display:none; }
+.result-badge {
+  font-family:'Orbitron',monospace;
+  font-size:1.4rem;
+  font-weight:900;
+  letter-spacing:2px;
+  margin-bottom:.3rem;
+}
+.result-formula {
+  font-family:'Share Tech Mono',monospace;
+  font-size:.7rem;
+  color:var(--muted);
+  margin-bottom:.6rem;
+}
+.result-meta {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:.3rem;
+}
+.meta-item {
+  background:rgba(255,255,255,0.03);
+  border:1px solid var(--border);
+  padding:.35rem .5rem;
+  border-radius:2px;
+}
+.meta-label {
+  font-family:'Share Tech Mono',monospace;
+  font-size:.55rem;
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:1px;
+  display:block;
+}
+.meta-value {
+  font-family:'Share Tech Mono',monospace;
+  font-size:.72rem;
+  color:var(--text);
+  margin-top:.1rem;
+  display:block;
+}
+
+/* Confidence bar */
+.conf-bar-wrap { margin-top:.6rem; }
+.conf-bar-label {
+  display:flex;
+  justify-content:space-between;
+  font-family:'Share Tech Mono',monospace;
+  font-size:.58rem;
+  color:var(--muted);
+  margin-bottom:.2rem;
+}
+.conf-bar-track {
+  height:4px;
+  background:var(--dim);
+  border-radius:2px;
+  overflow:hidden;
+}
+.conf-bar-fill {
+  height:100%;
+  border-radius:2px;
+  transition:width .5s ease, background .3s;
+}
+
+/* Decomposition */
+.decomp-section { padding:.8rem; border-bottom:1px solid var(--border); }
+.decomp-title {
+  font-family:'Share Tech Mono',monospace;
+  font-size:.6rem;
+  color:var(--muted);
+  letter-spacing:2px;
+  text-transform:uppercase;
+  margin-bottom:.6rem;
+}
+.decomp-row {
+  display:flex;
+  align-items:center;
+  gap:.5rem;
+  margin-bottom:.3rem;
+}
+.decomp-bar-track {
+  flex:1;
+  height:6px;
+  background:var(--dim);
+  border-radius:3px;
+  overflow:hidden;
+}
+.decomp-bar-fill { height:100%; border-radius:3px; transition:width .4s; }
+.decomp-label {
+  font-family:'Share Tech Mono',monospace;
+  font-size:.6rem;
+  width:55px;
+  color:var(--muted);
+}
+.decomp-val {
+  font-family:'Share Tech Mono',monospace;
+  font-size:.6rem;
+  width:55px;
+  text-align:right;
+  color:var(--text);
+}
+
+/* Topology map */
+.topology-section { padding:.8rem; border-bottom:1px solid var(--border); flex:1; }
+#topo-canvas { width:100%; border-radius:3px; display:block; }
+
+/* Equation bridge */
+.equation-section {
+  padding:.7rem .8rem;
+  background:var(--bg2);
+  border-top:1px solid var(--border);
+  font-family:'Share Tech Mono',monospace;
+  font-size:.62rem;
+  line-height:1.7;
+  color:var(--muted);
+  overflow-y:auto;
+  max-height:140px;
+}
+.eq-line { display:flex; gap:.5rem; align-items:baseline; }
+.eq-lhs { color:var(--accent); min-width:80px; }
+.eq-rhs { color:var(--text); }
+.eq-note { color:var(--muted); font-size:.55rem; margin-left:auto; }
+
+/* ── FOOTER ──────────────────────────────────────────────────────── */
+footer {
+  grid-area: footer;
+  background: var(--bg2);
+  border-top:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  padding:0 1rem;
+  gap:2rem;
+  font-family:'Share Tech Mono',monospace;
+  font-size:.58rem;
+  color:var(--muted);
+}
+.footer-stat { display:flex; gap:.4rem; align-items:center; }
+.footer-stat span { color:var(--accent); }
+#status-msg { margin-left:auto; color:var(--accent3); }
+
+/* ── ANIMATIONS ──────────────────────────────────────────────────── */
+@keyframes pulse-border {
+  0%,100% { box-shadow: 0 0 0 0 rgba(0,200,255,0); }
+  50% { box-shadow: 0 0 0 3px rgba(0,200,255,0.15); }
+}
+@keyframes scan-line {
+  0%   { top:0%; opacity:.5; }
+  100% { top:100%; opacity:0; }
+}
+.scanning::after {
+  content:'';
+  position:absolute;
+  left:0; right:0;
+  height:1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  animation: scan-line .8s ease-out forwards;
+  z-index:10;
+  pointer-events:none;
+}
+
+/* scrollbar */
+::-webkit-scrollbar { width:4px; }
+::-webkit-scrollbar-track { background:var(--bg); }
+::-webkit-scrollbar-thumb { background:var(--border2); border-radius:2px; }
+
+/* Toast */
+.toast {
+  position:fixed;
+  bottom:40px; left:50%;
+  transform:translateX(-50%) translateY(20px);
+  background:var(--panel);
+  border:1px solid var(--accent);
+  color:var(--accent);
+  font-family:'Share Tech Mono',monospace;
+  font-size:.7rem;
+  padding:.5rem 1.2rem;
+  border-radius:2px;
+  opacity:0;
+  transition:all .3s;
+  pointer-events:none;
+  z-index:100;
+  letter-spacing:1px;
+}
+.toast.show {
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">TETRYON<span>IC</span> DETECTOR</div>
+  <div class="header-pills">
+    <span class="pill pill-cyan">A₂ SIMPLEX</span>
+    <span class="pill pill-green">Aᵩ RESOLUTION</span>
+    <span class="pill pill-gold">λq = 1×10⁻¹⁵ m</span>
+    <span class="pill pill-red" id="signal-pill">● NO SIGNAL</span>
+  </div>
+  <div class="header-right">
+    <div id="live-clock">--:--:--:---</div>
+    <button class="run-btn paused" id="run-btn" onclick="toggleRun()">▶ SIMULATE</button>
+  </div>
+</header>
+
+<!-- LEFT PANEL -->
+<div class="left-panel">
+  <div class="panel-header">
+    <span>INSTRUMENT</span>
+    <span class="ph-accent">LAYER 1</span>
+  </div>
+
+  <div class="instrument-grid">
+    <button class="inst-btn active" onclick="setInstrument('oscilloscope',this)">📡 OSCILLOSCOPE<br><small>USB TEKTRONIX</small></button>
+    <button class="inst-btn" onclick="setInstrument('photodetector',this)">🔬 PHOTODETECTOR<br><small>PMT / SiPM</small></button>
+    <button class="inst-btn" onclick="setInstrument('spectrometer',this)">🌈 SPECTROMETER<br><small>OPTICAL / XRF</small></button>
+    <button class="inst-btn" onclick="setInstrument('particle',this)">⚛️ PARTICLE DET.<br><small>HDF5 / ROOT</small></button>
+    <button class="inst-btn" onclick="setInstrument('massspec',this)">⚖️ MASS SPEC<br><small>TOF / QUAD</small></button>
+    <button class="inst-btn" onclick="setInstrument('manual',this)">✏️ MANUAL<br><small>DIRECT INPUT</small></button>
+  </div>
+
+  <div class="manual-section">
+    <label>MEASUREMENT INPUT</label>
+    <div class="input-row">
+      <input class="sci-input" id="energy-input" type="text" value="6.629432672e-34" placeholder="value">
+      <select class="unit-select" id="unit-select">
+        <option value="J">J</option>
+        <option value="eV">eV</option>
+        <option value="kg">kg</option>
+        <option value="Hz">Hz</option>
+        <option value="m">m</option>
+        <option value="C">C (charge)</option>
+      </select>
+    </div>
+    <div class="input-row">
+      <select class="unit-select" style="flex:1;" id="particle-hint">
+        <option value="auto">AUTO CLASSIFY</option>
+        <option value="photon">Expect: Photon</option>
+        <option value="electron">Expect: Electron</option>
+        <option value="proton">Expect: Proton</option>
+        <option value="quark">Expect: Quark</option>
+        <option value="neutrino">Expect: Neutrino</option>
+      </select>
+    </div>
+    <button class="classify-btn" onclick="classifyManual()">CLASSIFY → GEOMETRY</button>
+  </div>
+
+  <div class="panel-header" style="margin-top:0;">
+    <span>CONSTANTS</span>
+    <span class="ph-accent">TETRYONIC</span>
+  </div>
+  <div class="constants-list">
+    <div class="const-item"><span class="const-label">h_geo</span><span class="const-val">6.629432672×10⁻³⁴ J·s</span></div>
+    <div class="const-item"><span class="const-label">h_SI</span><span class="const-val" style="color:var(--muted)">6.62607015×10⁻³⁴ J·s</span></div>
+    <div class="const-item"><span class="const-label">λq</span><span class="const-val">1×10⁻¹⁵ m</span></div>
+    <div class="const-item"><span class="const-label">L</span><span class="const-val">1.1547×10⁻¹⁵ m</span></div>
+    <div class="const-item"><span class="const-label">Aq</span><span class="const-val">5.7735×10⁻³¹ m²</span></div>
+    <div class="const-item"><span class="const-label">m_z</span><span class="const-val">7.3762×10⁻⁵¹ kg</span></div>
+    <div class="const-item"><span class="const-label">ν_vac</span><span class="const-val">2.9979×10²³ Hz</span></div>
+    <div class="const-item"><span class="const-label">σ</span><span class="const-val">1.1483×10⁻³ J/m²</span></div>
+    <div class="const-item"><span class="const-label">c</span><span class="const-val">2.99792458×10⁸ m/s</span></div>
+    <div class="const-item"><span class="const-label">Δh/h_SI</span><span class="const-val" style="color:var(--red)">+5.075×10⁻⁴</span></div>
+  </div>
+
+  <div class="panel-header">
+    <span>HISTORY</span>
+    <span class="ph-accent" id="hist-count">0 EVENTS</span>
+  </div>
+  <div class="history-section" id="history-list"></div>
+</div>
+
+<!-- CENTER PANEL -->
+<div class="center-panel">
+  <div class="lattice-container" id="lattice-container">
+    <canvas id="lattice-canvas"></canvas>
+    <div class="lattice-overlay">
+      <div class="lo-title">A₂ EISENSTEIN LATTICE — Aᵩ RESOLUTION</div>
+      <div>g_μν = [[1, ½],[½, 1]] · det(g) = ¾</div>
+      <div id="lattice-status">AWAITING SIGNAL</div>
+    </div>
+    <div class="zoom-controls">
+      <button class="zoom-btn" onclick="zoom(1.2)">+</button>
+      <button class="zoom-btn" onclick="zoom(0.83)">−</button>
+      <button class="zoom-btn" onclick="resetView()" title="reset">⟳</button>
+    </div>
+  </div>
+
+  <div class="signal-strip">
+    <div class="signal-half">
+      <div class="signal-label">RAW INPUT — STANDARD DISPLAY (sine)</div>
+      <canvas id="raw-canvas"></canvas>
+    </div>
+    <div class="signal-half">
+      <div class="signal-label right-label">TETRYONIC DISPLAY — GEOMETRIC TRUTH</div>
+      <canvas id="geo-canvas"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- RIGHT PANEL -->
+<div class="right-panel">
+  <div class="panel-header">
+    <span>CLASSIFIER OUTPUT</span>
+    <span class="ph-accent">LAYER 2</span>
+  </div>
+
+  <div class="result-card" id="result-card">
+    <div class="result-awaiting" id="result-awaiting">
+      <div style="font-family:'Share Tech Mono',monospace;font-size:.65rem;letter-spacing:2px;">NO SIGNAL</div>
+      <div style="font-size:.7rem;color:var(--border2)">Submit a measurement to classify</div>
+    </div>
+    <div class="result-main" id="result-main">
+      <div class="result-badge" id="r-badge">—</div>
+      <div class="result-formula" id="r-formula">—</div>
+      <div class="result-meta">
+        <div class="meta-item"><span class="meta-label">N QUANTA</span><span class="meta-value" id="r-quanta">—</span></div>
+        <div class="meta-item"><span class="meta-label">RANK</span><span class="meta-value" id="r-rank">—</span></div>
+        <div class="meta-item"><span class="meta-label">CHARGE</span><span class="meta-value" id="r-charge">—</span></div>
+        <div class="meta-item"><span class="meta-label">Aᵩ COUNT</span><span class="meta-value" id="r-aq">—</span></div>
+      </div>
+      <div class="conf-bar-wrap">
+        <div class="conf-bar-label">
+          <span>GEOMETRIC CONFIDENCE</span>
+          <span id="r-conf-pct">—</span>
+        </div>
+        <div class="conf-bar-track">
+          <div class="conf-bar-fill" id="r-conf-bar" style="width:0%"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="decomp-section">
+    <div class="decomp-title">ENERGY DECOMPOSITION</div>
+    <div class="decomp-row">
+      <div class="decomp-label">TOPOLOGY</div>
+      <div class="decomp-bar-track"><div class="decomp-bar-fill" id="db-topo" style="width:0%;background:var(--accent3)"></div></div>
+      <div class="decomp-val" id="dv-topo">—</div>
+    </div>
+    <div class="decomp-row">
+      <div class="decomp-label">KEM FIELD</div>
+      <div class="decomp-bar-track"><div class="decomp-bar-fill" id="db-kem" style="width:0%;background:var(--gold)"></div></div>
+      <div class="decomp-val" id="dv-kem">—</div>
+    </div>
+    <div class="decomp-row">
+      <div class="decomp-label">ZPF QUANTA</div>
+      <div class="decomp-bar-track"><div class="decomp-bar-fill" id="db-zpf" style="width:0%;background:var(--accent)"></div></div>
+      <div class="decomp-val" id="dv-zpf">—</div>
+    </div>
+    <div class="decomp-row">
+      <div class="decomp-label">STRONG</div>
+      <div class="decomp-bar-track"><div class="decomp-bar-fill" id="db-str" style="width:0%;background:var(--purple)"></div></div>
+      <div class="decomp-val" id="dv-str">—</div>
+    </div>
+  </div>
+
+  <div class="topology-section">
+    <div class="decomp-title">TETRYONIC TOPOLOGY MAP</div>
+    <canvas id="topo-canvas" height="120"></canvas>
+  </div>
+
+  <div class="equation-section" id="eq-section">
+    <div style="color:var(--muted);font-size:.6rem;letter-spacing:1px;">DIMENSIONAL BRIDGE — submit a measurement to see derivation</div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-stat">EVENTS: <span id="ft-events">0</span></div>
+  <div class="footer-stat">AVG CONF: <span id="ft-conf">—</span></div>
+  <div class="footer-stat">INSTRUMENT: <span id="ft-inst">OSCILLOSCOPE</span></div>
+  <div class="footer-stat">LATTICE: <span id="ft-lattice">IDLE</span></div>
+  <div class="footer-stat">λq: <span>1.000×10⁻¹⁵ m ✓</span></div>
+  <div id="status-msg">TETRYONIC DETECTOR v1.0 — Universal Gauge Classifier</div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════════════
+// TETRYONIC PHYSICAL CONSTANTS (from Universal Gauge Theory paper)
+// ═══════════════════════════════════════════════════════════════════════
+const TC = {
+  h_geo:   6.629432672e-34,   // J·s  (Tetryonic, geometric)
+  h_SI:    6.62607015e-34,    // J·s  (CODATA)
+  c:       2.99792458e8,       // m/s
+  lq:      1e-15,              // m   gauge length
+  L:       1.1547005383792515e-15, // (2/√3)×lq
+  Aq:      5.773502691896259e-31, // m²  lq²/√3
+  mz:      7.376238634104490e-51, // kg  zero-point mass
+  nu_vac:  2.99792458e23,     // Hz
+  sigma:   1.148251421e-3,    // J/m²
+  eV:      1.602176634e-19,   // J per eV
+  mp:      1.6726219236951e-27, // kg proton
+  me:      9.1093837015e-31,   // kg electron
+  q_e:     1.602176634e-19,   // C elementary charge
+};
+TC.Ez = TC.mz * TC.c * TC.c;  // zero-point energy = h_geo × 1Hz
+TC.c2 = TC.c * TC.c;
+TC.c4 = TC.c2 * TC.c2;
+
+// ═══════════════════════════════════════════════════════════════════════
+// LAYER 2 — TETRYONIC CLASSIFIER ENGINE
+// This is the core IP. Maps measurements → geometric truth.
+// ═══════════════════════════════════════════════════════════════════════
+
+function toJoules(value, unit) {
+  switch(unit) {
+    case 'J':  return value;
+    case 'eV': return value * TC.eV;
+    case 'kg': return value * TC.c2;   // E = mc²
+    case 'Hz': return value * TC.h_geo; // E = hν
+    case 'm':  return (TC.h_geo * TC.c) / value; // E = hc/λ
+    case 'C':  return value * TC.c2 * TC.me / TC.q_e; // charge → energy proxy
+    default:   return value;
+  }
+}
+
+function classifyEnergy(E_joules, hint) {
+  const Ez = TC.Ez;
+  const n_raw = E_joules / Ez;             // raw quanta count
+  const n_floor = Math.floor(n_raw);
+  const n_frac  = n_raw - n_floor;         // KEM residual
+
+  // Aq area count
+  const Aq_count = E_joules / (TC.sigma * TC.Aq);
+
+  // Confidence: how cleanly does it snap to integer quanta?
+  const confidence = 1.0 - Math.min(n_frac, 1 - n_frac) * 2;
+
+  // ── DIMENSIONAL RANK DISCRIMINATOR ───────────────────────────────
+  // 12hν/c² (rank-2 planar) vs 12hν/c⁴ (rank-4 tetrahedral)
+  // The ratio E/c² vs E/c⁴ determines topology dimensionality.
+  const m_equiv  = E_joules / TC.c2;   // E/c² → planar ZPF mass
+  const M_equiv  = E_joules / TC.c4;   // E/c⁴ → tetrahedral matter mass
+
+  // How many proton masses? (rank-4 test)
+  const n_proton  = m_equiv / TC.mp;
+  // How many electron masses? (rank-2 lepton test)
+  const n_electron= m_equiv / TC.me;
+
+  // ── TOPOLOGY ASSIGNMENT ───────────────────────────────────────────
+  let topology, rank, charge, formula, color, strong_pct, weak_pct;
+
+  // Use hint if provided
+  if (hint !== 'auto') {
+    topology = hint;
+  } else {
+    // Auto-classify by geometry
+    if (Math.abs(n_raw - 1) < 0.05) {
+      topology = 'zpf_boson'; // single ZPF quantum = gauge boson
+    } else if (Math.abs(n_raw - 2) < 0.1) {
+      topology = 'photon';    // 2 ZPF quanta (++ or --) = photon pair
+    } else if (Math.abs(n_electron - 1) < 0.05) {
+      topology = 'electron';  // electron mass match
+    } else if (Math.abs(n_proton - 1) < 0.05) {
+      topology = 'proton';
+    } else if (n_raw % 12 < 0.5 && n_raw >= 12) {
+      // 12-quanta multiples: strong force binding (quark composites)
+      // 12hν/c⁴ topology: hexagonal face-sharing closure = SU(3) analogue
+      topology = 'quark_composite';
+    } else if (n_raw % 4 < 0.3 && n_raw >= 4) {
+      // 4-quanta multiples: Tetryon (M₀ = 4m/c²)
+      topology = 'tetryon';
+    } else if (n_raw % 2 < 0.2 && n_raw >= 2) {
+      topology = 'photon';    // photon pair
+    } else if (Math.abs(n_electron - 1) < 0.3) {
+      topology = 'electron';
+    } else if (E_joules < TC.Ez * 0.5) {
+      topology = 'sub_quantum'; // below Aq resolution — unresolvable
+    } else {
+      topology = 'kem_field'; // doesn't snap → pure KEM field energy
+    }
+  }
+
+  // ── TOPOLOGY → PHYSICAL PROPERTIES ────────────────────────────────
+  const TOPO = {
+    zpf_boson:       { label:'ZPF BOSON',      formula:'1 × hν/c²',     rank:2, charge:0,   color:'#00ccdd', strong:0,  weak:10  },
+    photon:          { label:'PHOTON',          formula:'2 × hν/c²',     rank:2, charge:0,   color:'#ffdd00', strong:0,  weak:0   },
+    electron:        { label:'ELECTRON',        formula:'n × hν/c²',     rank:2, charge:-1,  color:'#4488ff', strong:0,  weak:80  },
+    proton:          { label:'PROTON',          formula:'36 × hν/c⁴',    rank:4, charge:1,   color:'#ff6633', strong:95, weak:5   },
+    tetryon:         { label:'TETRYON',         formula:'4n × hν/c⁴',    rank:4, charge:0,   color:'#39ff7a', strong:60, weak:20  },
+    quark_composite: { label:'QUARK / BARYON',  formula:'12 × hν/c⁴',   rank:4, charge:null, color:'#cc44ff', strong:99, weak:1   },
+    kem_field:       { label:'KEM FIELD',       formula:'n × Mv²',       rank:2, charge:null, color:'#ffd166', strong:0,  weak:0   },
+    neutrino:        { label:'NEUTRINO',        formula:'n × hν/c²',     rank:2, charge:0,   color:'#44ffaa', strong:0,  weak:100 },
+    sub_quantum:     { label:'SUB-Aᵩ',          formula:'E < Ez',        rank:0, charge:null, color:'#334466', strong:0,  weak:0   },
+  };
+
+  const T = TOPO[topology] || TOPO['kem_field'];
+
+  // Strong vs weak discriminant:
+  // 12hν/c⁴ quark (strong) closes hexagonally → n_quanta divisible by 12
+  // 12hν/c⁴ lepton (weak) closes linearly → n_quanta divisible by 4 but not 12
+  const is_strong = (Math.round(n_raw) % 12 === 0 && n_raw >= 12);
+  const is_weak   = (Math.round(n_raw) % 4 === 0 && !is_strong);
+
+  // KEM vs topology energy split
+  const E_topology = n_floor * Ez;
+  const E_kem      = n_frac  * Ez;
+  const topo_pct   = E_joules > 0 ? (E_topology / E_joules) * 100 : 0;
+  const kem_pct    = E_joules > 0 ? (E_kem      / E_joules) * 100 : 0;
+
+  // Build A2 lattice geometry for rendering
+  const geometry = buildGeometry(topology, Math.min(Math.round(n_raw), 36));
+
+  return {
+    E_joules, n_raw, n_floor, n_frac, Aq_count,
+    confidence,
+    topology, label: T.label, formula: T.formula,
+    rank: T.rank, charge: T.charge, color: T.color,
+    strong_pct: is_strong ? 99 : T.strong,
+    zpf_pct: Math.min(100, n_floor * 3),
+    kem_pct, topo_pct,
+    E_topology, E_kem,
+    is_strong, is_weak,
+    geometry,
+    n_proton, n_electron,
+    eq_steps: buildEquationSteps(E_joules, topology, n_raw, T),
+  };
+}
+
+function buildGeometry(topology, n) {
+  // Generate A2 lattice triangle positions for the detected configuration
+  const cells = [];
+  const configs = {
+    photon:          [{q:0,r:0,up:0,ch:1},{q:0,r:0,up:1,ch:-1}],
+    electron:        [{q:0,r:0,up:0,ch:-1},{q:1,r:0,up:0,ch:-1},{q:0,r:1,up:0,ch:-1}],
+    proton:          hexRing(3,1),
+    tetryon:         [{q:0,r:0,up:0,ch:1},{q:0,r:0,up:1,ch:-1},{q:1,r:0,up:0,ch:1},{q:1,r:0,up:1,ch:-1}],
+    quark_composite: hexRing(2,1).concat(hexRing(2,-1).map(c=>({...c,q:c.q+3}))),
+    zpf_boson:       [{q:0,r:0,up:0,ch:1}],
+    neutrino:        [{q:0,r:0,up:0,ch:0},{q:1,r:0,up:1,ch:0}],
+    kem_field:       Array.from({length:Math.min(n,8)},(_,i)=>({q:i%4,r:Math.floor(i/4),up:i%2,ch:0})),
+    sub_quantum:     [],
+  };
+  return configs[topology] || configs['kem_field'];
+}
+
+function hexRing(layers, charge) {
+  const cells = [];
+  for (let q = -layers; q <= layers; q++) {
+    for (let r = -layers; r <= layers; r++) {
+      if (Math.abs(q+r) <= layers) {
+        cells.push({q, r, up:0, ch:charge});
+        cells.push({q, r, up:1, ch:charge});
+      }
+    }
+  }
+  return cells;
+}
+
+function buildEquationSteps(E, topology, n, T) {
+  const Ez = TC.Ez;
+  return [
+    { lhs:'E_input',    rhs: fmtSci(E) + ' J',                        note:'measured' },
+    { lhs:'÷ E_z',      rhs: fmtSci(Ez) + ' J',                       note:'h_geo·1Hz' },
+    { lhs:'= n_quanta', rhs: n.toFixed(4),                             note:'Aq snap' },
+    { lhs:'topology',   rhs: T.label,                                  note:'geometric' },
+    { lhs:'formula',    rhs: T.formula,                                 note:'rank-'+T.rank },
+    { lhs:'Aq_count',   rhs: fmtSci(E/(TC.sigma*TC.Aq)),              note:'area quanta' },
+    { lhs:'KEM frac',   rhs: ((n - Math.floor(n))*100).toFixed(2)+'%', note:'Lorentz var.' },
+  ];
+}
+
+function fmtSci(v) {
+  if (v === 0) return '0';
+  const e = Math.floor(Math.log10(Math.abs(v)));
+  const m = v / Math.pow(10,e);
+  return m.toFixed(4)+'×10'+superscript(e);
+}
+function superscript(n) {
+  const sup = {'0':'⁰','1':'¹','2':'²','3':'³','4':'⁴','5':'⁵','6':'⁶','7':'⁷','8':'⁸','9':'⁹','-':'⁻'};
+  return String(n).split('').map(c=>sup[c]||c).join('');
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════════════════════
+let state = {
+  running: false,
+  instrument: 'oscilloscope',
+  result: null,
+  history: [],
+  totalConf: 0,
+  zoom: 1,
+  offsetX: 0, offsetY: 0,
+  simPhase: 0,
+  animId: null,
+  latticeAnimId: null,
+};
+
+// ═══════════════════════════════════════════════════════════════════════
+// UI ACTIONS
+// ═══════════════════════════════════════════════════════════════════════
+function toggleRun() {
+  state.running = !state.running;
+  const btn = document.getElementById('run-btn');
+  if (state.running) {
+    btn.textContent = '⏸ PAUSE';
+    btn.classList.remove('paused');
+    btn.classList.add('active');
+    document.getElementById('signal-pill').textContent = '● LIVE';
+    document.getElementById('signal-pill').style.color = 'var(--accent3)';
+    document.getElementById('signal-pill').style.borderColor = 'var(--accent3)';
+    startSimulation();
+  } else {
+    btn.textContent = '▶ SIMULATE';
+    btn.classList.add('paused');
+    btn.classList.remove('active');
+    document.getElementById('signal-pill').textContent = '● PAUSED';
+    document.getElementById('signal-pill').style.color = 'var(--gold)';
+    document.getElementById('signal-pill').style.borderColor = 'var(--gold)';
+  }
+}
+
+function setInstrument(name, el) {
+  state.instrument = name;
+  document.querySelectorAll('.inst-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('ft-inst').textContent = name.toUpperCase();
+  showToast('INSTRUMENT: ' + name.toUpperCase());
+}
+
+function classifyManual() {
+  const raw   = parseFloat(document.getElementById('energy-input').value);
+  const unit  = document.getElementById('unit-select').value;
+  const hint  = document.getElementById('particle-hint').value;
+  if (isNaN(raw)) { showToast('INVALID INPUT'); return; }
+  const E = toJoules(raw, unit);
+  const result = classifyEnergy(E, hint);
+  displayResult(result);
+  addHistory(result);
+}
+
+function classifyAuto() {
+  // Simulate instrument reading (demo mode)
+  const demos = [
+    {E: TC.h_geo * 5e14, hint:'photon'},             // visible photon ~500nm
+    {E: TC.me * TC.c2,   hint:'electron'},            // electron rest mass
+    {E: TC.mp * TC.c2,   hint:'proton'},              // proton rest mass
+    {E: TC.Ez * 12,      hint:'auto'},                // 12-quanta event
+    {E: TC.Ez * 4,       hint:'tetryon'},             // Tetryon
+    {E: TC.Ez * 1,       hint:'auto'},                // single gauge boson
+    {E: TC.h_geo * 1e20, hint:'auto'},                // high energy gamma
+    {E: TC.Ez * 35.5,    hint:'auto'},                // noisy / KEM field
+  ];
+  const d = demos[Math.floor(Math.random() * demos.length)];
+  const result = classifyEnergy(d.E, d.hint);
+  displayResult(result);
+  addHistory(result);
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+// DISPLAY RESULT
+// ═══════════════════════════════════════════════════════════════════════
+function displayResult(r) {
+  state.result = r;
+  document.getElementById('result-awaiting').style.display = 'none';
+  const rm = document.getElementById('result-main');
+  rm.style.display = 'block';
+
+  document.getElementById('r-badge').textContent = r.label;
+  document.getElementById('r-badge').style.color = r.color;
+  document.getElementById('r-formula').textContent = r.formula + '  |  rank-' + r.rank;
+  document.getElementById('r-quanta').textContent = r.n_floor.toLocaleString();
+  document.getElementById('r-rank').textContent = r.rank === 2 ? '2 — PLANAR (EM)' : r.rank === 4 ? '4 — TETRAHEDRAL' : r.rank + ' — ?';
+  document.getElementById('r-charge').textContent = r.charge === null ? 'FRACTIONAL' : r.charge === 0 ? '0 (NEUTRAL)' : r.charge > 0 ? '+'+r.charge : String(r.charge);
+  document.getElementById('r-aq').textContent = fmtSci(r.Aq_count);
+
+  const cpct = (r.confidence * 100).toFixed(1) + '%';
+  document.getElementById('r-conf-pct').textContent = cpct;
+  const cbar = document.getElementById('r-conf-bar');
+  cbar.style.width = (r.confidence * 100) + '%';
+  cbar.style.background = r.confidence > 0.85 ? 'var(--accent3)' : r.confidence > 0.5 ? 'var(--gold)' : 'var(--red)';
+
+  // Decomposition bars
+  setBar('db-topo','dv-topo', r.topo_pct, fmtSci(r.E_topology) + 'J');
+  setBar('db-kem', 'dv-kem',  r.kem_pct,  fmtSci(r.E_kem) + 'J');
+  setBar('db-zpf', 'dv-zpf',  Math.min(100, r.n_floor * 2.5), r.n_floor + ' n');
+  setBar('db-str', 'dv-str',  r.strong_pct, r.strong_pct.toFixed(0) + '%');
+
+  // Equation steps
+  const eqSec = document.getElementById('eq-section');
+  eqSec.innerHTML = r.eq_steps.map(s =>
+    `<div class="eq-line"><span class="eq-lhs">${s.lhs}</span><span class="eq-rhs">${s.rhs}</span><span class="eq-note">${s.note}</span></div>`
+  ).join('');
+
+  // Lattice status
+  document.getElementById('lattice-status').textContent =
+    r.label + ' · n=' + r.n_floor + ' · conf=' + (r.confidence*100).toFixed(0)+'%';
+  document.getElementById('ft-lattice').textContent = 'ACTIVE';
+
+  // Render visuals
+  renderTopoCanvas(r);
+  renderLattice(r);
+  renderGeoSignal(r);
+
+  // Flash scan line
+  const lc = document.getElementById('lattice-container');
+  lc.classList.add('scanning');
+  setTimeout(()=>lc.classList.remove('scanning'), 900);
+}
+
+function setBar(barId, valId, pct, label) {
+  document.getElementById(barId).style.width = Math.min(100,pct)+'%';
+  document.getElementById(valId).textContent = label;
+}
+
+function addHistory(r) {
+  state.history.unshift(r);
+  if (state.history.length > 20) state.history.pop();
+  state.totalConf += r.confidence;
+
+  document.getElementById('hist-count').textContent = state.history.length + ' EVENTS';
+  document.getElementById('ft-events').textContent = state.history.length;
+  document.getElementById('ft-conf').textContent = (state.totalConf / state.history.length * 100).toFixed(1) + '%';
+
+  const hl = document.getElementById('history-list');
+  hl.innerHTML = state.history.map((h,i) =>
+    `<div class="history-item" onclick="displayResult(state.history[${i}])">
+      <div class="hist-dot" style="background:${h.color}"></div>
+      <div class="hist-label">${h.label}</div>
+      <div class="hist-conf">${(h.confidence*100).toFixed(0)}%</div>
+    </div>`
+  ).join('');
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+// CANVAS RENDERERS
+// ═══════════════════════════════════════════════════════════════════════
+
+// Topology mini-canvas (right panel)
+function renderTopoCanvas(r) {
+  const canvas = document.getElementById('topo-canvas');
+  const rect = canvas.parentElement.getBoundingClientRect();
+  canvas.width  = Math.floor(rect.width - 16);
+  canvas.height = 120;
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  const cx = canvas.width/2, cy = canvas.height/2;
+  const TH = 18, TL = TH * 2 / Math.sqrt(3), TH2 = TH/2;
+
+  function drawTri(q, r, up, ch, alpha) {
+    const ox = cx + q*TL + r*(TL/2) - 2*TL;
+    const oy = cy + r*TH - TH;
+    let vx=[],vy=[];
+    if (up===0) { vx=[ox,ox+TL,ox+TL/2]; vy=[oy+TH,oy+TH,oy]; }
+    else        { vx=[ox,ox+TL,ox+TL/2]; vy=[oy,oy,oy+TH]; }
+    ctx.beginPath();
+    ctx.moveTo(vx[0],vy[0]);
+    ctx.lineTo(vx[1],vy[1]);
+    ctx.lineTo(vx[2],vy[2]);
+    ctx.closePath();
+    const col = ch===1 ? '#ff5533' : ch===-1 ? '#3388ff' : '#00ddcc';
+    ctx.fillStyle = col + Math.round(alpha*255).toString(16).padStart(2,'0');
+    ctx.fill();
+    ctx.strokeStyle = '#ffffff22';
+    ctx.lineWidth = .5;
+    ctx.stroke();
+  }
+
+  // Draw A2 grid backdrop
+  for (let q=-3;q<=5;q++) for (let r=-2;r<=4;r++) for (let up=0;up<=1;up++) {
+    drawTri(q,r,up,0,0.03);
+  }
+  // Draw configuration
+  (r.geometry||[]).forEach(c => drawTri(c.q, c.r, c.up, c.ch, 0.9));
+
+  // Label
+  ctx.fillStyle = r.color;
+  ctx.font = 'bold 10px Share Tech Mono';
+  ctx.textAlign = 'right';
+  ctx.fillText(r.label, canvas.width-4, canvas.height-4);
+}
+
+// Main A2 lattice canvas
+function renderLattice(r) {
+  const canvas = document.getElementById('lattice-canvas');
+  const W = canvas.offsetWidth, H = canvas.offsetHeight;
+  if (!W || !H) return;
+  canvas.width = W; canvas.height = H;
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0,0,W,H);
+
+  const TH = 22 * state.zoom;
+  const TL = TH * 2 / Math.sqrt(3);
+  const cx = W/2 + state.offsetX;
+  const cy = H/2 + state.offsetY;
+  const cols = Math.ceil(W/TL)+4, rows = Math.ceil(H/TH)+4;
+  const startQ = -Math.floor(cols/2)-1, startR = -Math.floor(rows/2)-1;
+
+  function triVerts(q,r,up) {
+    const ox = cx + q*TL + r*(TL/2);
+    const oy = cy + r*TH;
+    if (up===0) return [{x:ox,y:oy+TH},{x:ox+TL,y:oy+TH},{x:ox+TL/2,y:oy}];
+    return [{x:ox,y:oy},{x:ox+TL,y:oy},{x:ox+TL/2,y:oy+TH}];
+  }
+
+  // Background grid
+  ctx.lineWidth = .3;
+  for (let q=startQ;q<startQ+cols;q++) for (let r=startR;r<startR+rows;r++) for (let up=0;up<=1;up++) {
+    const v = triVerts(q,r,up);
+    ctx.beginPath(); ctx.moveTo(v[0].x,v[0].y);
+    ctx.lineTo(v[1].x,v[1].y); ctx.lineTo(v[2].x,v[2].y); ctx.closePath();
+    ctx.strokeStyle = '#0a1535';
+    ctx.stroke();
+  }
+
+  if (!r) return;
+
+  // Draw detected configuration centered
+  const geom = r.geometry || [];
+  geom.forEach(c => {
+    const v = triVerts(c.q, c.r, c.up);
+    ctx.beginPath(); ctx.moveTo(v[0].x,v[0].y);
+    ctx.lineTo(v[1].x,v[1].y); ctx.lineTo(v[2].x,v[2].y); ctx.closePath();
+    const col = c.ch===1 ? '#ff5533' : c.ch===-1 ? '#3388ff' : '#00ddcc';
+    ctx.fillStyle = col+'cc';
+    ctx.fill();
+    ctx.strokeStyle = col+'ff';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  });
+
+  // KEM field ring (if any)
+  if (r.kem_pct > 5) {
+    const kemR = (r.kem_pct / 100) * TH * 3;
+    ctx.beginPath();
+    ctx.arc(cx + TL/2, cy + TH/2, kemR, 0, Math.PI*2);
+    ctx.strokeStyle = '#ffd16640';
+    ctx.lineWidth = 1.5;
+    ctx.setLineDash([3,5]);
+    ctx.stroke();
+    ctx.setLineDash([]);
+  }
+
+  // Aq resolution indicator
+  ctx.strokeStyle = '#ffffff11';
+  ctx.lineWidth = .5;
+  ctx.strokeRect(cx - TL*3, cy - TH*2, TL*6, TH*4);
+  ctx.fillStyle = '#ffffff18';
+  ctx.font = '9px Share Tech Mono';
+  ctx.fillText('Aq = λq²/√3', cx - TL*3 + 2, cy + TH*4 + 12);
+}
+
+// Raw signal (sine) display
+let rawPhase = 0;
+function renderRawSignal(freq, amp) {
+  const canvas = document.getElementById('raw-canvas');
+  const rect = canvas.parentElement.getBoundingClientRect();
+  canvas.width = rect.width; canvas.height = rect.height;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  ctx.clearRect(0,0,W,H);
+
+  // Grid
+  ctx.strokeStyle = '#0a1535'; ctx.lineWidth = .5;
+  for(let i=0;i<5;i++) {
+    const y = H*i/4;
+    ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke();
+  }
+
+  // Sine wave (standard physics display)
+  ctx.beginPath();
+  ctx.strokeStyle = '#00c8ff88'; ctx.lineWidth = 1.5;
+  for(let x=0;x<W;x++) {
+    const t = (x/W) * Math.PI * 6;
+    const y = H/2 + (amp||0.4) * H/2 * Math.sin(t + rawPhase);
+    x===0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+  }
+  ctx.stroke();
+
+  // Labels
+  ctx.fillStyle = '#3a5080'; ctx.font = '9px Share Tech Mono';
+  ctx.fillText('V', 2, 12); ctx.fillText('t →', W-25, H-3);
+}
+
+// Geometric signal (Tetryonic truth display)
+let geoPhase = 0;
+function renderGeoSignal(r) {
+  const canvas = document.getElementById('geo-canvas');
+  const rect = canvas.parentElement.getBoundingClientRect();
+  canvas.width = rect.width; canvas.height = rect.height;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  ctx.clearRect(0,0,W,H);
+
+  if (!r) return;
+
+  const n = Math.min(r.n_floor, 12);
+  const TH = Math.min(H*0.35, 24);
+  const TL = TH * 2 / Math.sqrt(3);
+  const startX = 16;
+  const y0 = H/2;
+  const col = r.color;
+
+  // Draw quanta as a traveling wave of triangles
+  for(let i=0;i<Math.max(1,n);i++) {
+    const x = startX + i * (TL * 0.9);
+    if(x > W - TL) break;
+    const up = i % 2;
+    const phase = Math.sin(geoPhase + i * 0.5);
+    const yOff = phase * TH * 0.25 * (r.rank === 2 ? 1 : 0);
+
+    const vx = up===0 ? [x,x+TL,x+TL/2] : [x,x+TL,x+TL/2];
+    const vy = up===0 ? [y0+yOff+TH/2, y0+yOff+TH/2, y0+yOff-TH/2]
+                      : [y0+yOff-TH/2, y0+yOff-TH/2, y0+yOff+TH/2];
+
+    ctx.beginPath();
+    ctx.moveTo(vx[0],vy[0]); ctx.lineTo(vx[1],vy[1]); ctx.lineTo(vx[2],vy[2]);
+    ctx.closePath();
+    ctx.fillStyle = col + 'bb';
+    ctx.fill();
+    ctx.strokeStyle = col + 'ff'; ctx.lineWidth = 1;
+    ctx.stroke();
+  }
+
+  // KEM residual indicator
+  if(r.kem_pct > 1) {
+    const kemX = startX + n * TL * 0.9 + 4;
+    ctx.beginPath();
+    ctx.arc(kemX + TH/2, y0, TH * r.kem_pct/100, 0, Math.PI*2);
+    ctx.strokeStyle = '#ffd16660'; ctx.lineWidth = 1; ctx.setLineDash([2,3]);
+    ctx.stroke(); ctx.setLineDash([]);
+    ctx.fillStyle = '#ffd16620'; ctx.fill();
+  }
+
+  // Rank badge
+  ctx.fillStyle = col; ctx.font = 'bold 9px Share Tech Mono';
+  ctx.textAlign = 'right';
+  ctx.fillText('RANK-' + r.rank + ' · ' + r.label, W-4, H-3);
+  ctx.textAlign = 'left';
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+// SIMULATION LOOP
+// ═══════════════════════════════════════════════════════════════════════
+let simTick = 0;
+function startSimulation() {
+  if (state.animId) cancelAnimationFrame(state.animId);
+  const loop = () => {
+    if (!state.running) return;
+    simTick++;
+    rawPhase += 0.04;
+    geoPhase += 0.03;
+
+    // Every 90 frames, auto-classify a new signal
+    if (simTick % 90 === 0) classifyAuto();
+
+    renderRawSignal(1, 0.4 + 0.1*Math.sin(simTick*0.02));
+    if (state.result) renderGeoSignal(state.result);
+    renderLattice(state.result);
+
+    state.animId = requestAnimationFrame(loop);
+  };
+  state.animId = requestAnimationFrame(loop);
+}
+
+// Idle lattice animation
+function idleLattice() {
+  const canvas = document.getElementById('lattice-canvas');
+  const W = canvas.offsetWidth, H = canvas.offsetHeight;
+  if (!W||!H) { requestAnimationFrame(idleLattice); return; }
+  canvas.width=W; canvas.height=H;
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0,0,W,H);
+  const TH = 22, TL = TH*2/Math.sqrt(3);
+  const cols=Math.ceil(W/TL)+3, rows=Math.ceil(H/TH)+3;
+  const t = Date.now()*0.001;
+  for(let q=0;q<cols;q++) for(let r=0;r<rows;r++) for(let up=0;up<=1;up++) {
+    const ox = q*TL + r*(TL/2);
+    const oy = r*TH;
+    let vx=[],vy=[];
+    if(up===0){vx=[ox,ox+TL,ox+TL/2];vy=[oy+TH,oy+TH,oy];}
+    else{vx=[ox,ox+TL,ox+TL/2];vy=[oy,oy,oy+TH];}
+    const pulse = Math.sin(t + q*0.3 + r*0.4) * 0.5 + 0.5;
+    ctx.beginPath(); ctx.moveTo(vx[0],vy[0]);
+    ctx.lineTo(vx[1],vy[1]); ctx.lineTo(vx[2],vy[2]); ctx.closePath();
+    ctx.strokeStyle = `rgba(15,28,65,${0.3+pulse*0.2})`;
+    ctx.lineWidth = .4;
+    ctx.stroke();
+  }
+  if(!state.running && !state.result) requestAnimationFrame(idleLattice);
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+// CLOCK
+// ═══════════════════════════════════════════════════════════════════════
+function updateClock() {
+  const now = new Date();
+  const h = String(now.getHours()).padStart(2,'0');
+  const m = String(now.getMinutes()).padStart(2,'0');
+  const s = String(now.getSeconds()).padStart(2,'0');
+  const ms= String(now.getMilliseconds()).padStart(3,'0');
+  document.getElementById('live-clock').textContent = `${h}:${m}:${s}:${ms}`;
+}
+setInterval(updateClock, 50);
+
+// ═══════════════════════════════════════════════════════════════════════
+// ZOOM / PAN
+// ═══════════════════════════════════════════════════════════════════════
+function zoom(factor) {
+  state.zoom = Math.max(0.3, Math.min(8, state.zoom * factor));
+  if(state.result) renderLattice(state.result);
+  else idleLattice();
+}
+function resetView() {
+  state.zoom=1; state.offsetX=0; state.offsetY=0;
+  if(state.result) renderLattice(state.result);
+}
+
+// Pan on lattice drag
+const lc = document.getElementById('lattice-container');
+let dragging=false, dragX=0, dragY=0;
+lc.addEventListener('mousedown', e=>{dragging=true;dragX=e.clientX;dragY=e.clientY;});
+window.addEventListener('mousemove', e=>{
+  if(!dragging) return;
+  state.offsetX += e.clientX-dragX; state.offsetY += e.clientY-dragY;
+  dragX=e.clientX; dragY=e.clientY;
+  if(state.result) renderLattice(state.result);
+});
+window.addEventListener('mouseup', ()=>dragging=false);
+lc.addEventListener('wheel', e=>{ e.preventDefault(); zoom(e.deltaY<0?1.1:0.91); },{passive:false});
+
+// ═══════════════════════════════════════════════════════════════════════
+// TOAST
+// ═══════════════════════════════════════════════════════════════════════
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 1800);
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+// KEYBOARD SHORTCUTS
+// ═══════════════════════════════════════════════════════════════════════
+document.addEventListener('keydown', e=>{
+  if(e.code==='Space'){e.preventDefault();toggleRun();}
+  if(e.code==='Enter') classifyManual();
+  if(e.key==='+') zoom(1.2);
+  if(e.key==='-') zoom(0.83);
+});
+
+// ═══════════════════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════════════════
+window.addEventListener('load', ()=>{
+  // Initial renders
+  renderRawSignal(1, 0.4);
+  requestAnimationFrame(idleLattice);
+
+  // Handle resize
+  window.addEventListener('resize', ()=>{
+    if(state.result) {
+      renderLattice(state.result);
+      renderGeoSignal(state.result);
+      renderTopoCanvas(state.result);
+    }
+    renderRawSignal(1,0.4);
+  });
+
+  // Load a demo on startup
+  setTimeout(()=>{
+    const E = TC.h_geo * 5e14; // 500nm photon
+    const r = classifyEnergy(E, 'photon');
+    displayResult(r);
+    addHistory(r);
+    showToast('DEMO: 500nm PHOTON CLASSIFIED');
+  }, 600);
+});
+</script>
+</body>
+</html>
