@@ -1,0 +1,36 @@
+© 2026 James Michael Moore. 
+Licensed under AGPLv3 and CC BY-SA 4.0.
+Full license terms can be found in the root LICENSE file of the official repository or at [https://www.gnu.org/licenses/agpl-3.0.html](https://www.gnu.org/licenses/agpl-3.0.html) and [https://creativecommons.org/licenses/by-sa/4.0/](https://creativecommons.org/licenses/by-sa/4.0/)
+
+Computational Credit: Claude(Anthropic)
+
+
+bash
+
+python3 << 'EOF'
+from decimal import Decimal, getcontext
+import math
+getcontext().prec = 50
+
+c = Decimal('1e-15')  # hypotenuse = fascia height
+a = c / Decimal('2')  # vertical leg = c/2
+
+# Pythagoras: b = sqrt(c^2 - a^2)
+b = (c**2 - a**2).sqrt()
+
+print(f"c (hypotenuse)  = {c} m")
+print(f"a (vertical)    = {a} m")
+print(f"b (horizontal)  = {b} m")
+print(f"b               = {b*Decimal('1e15')} fm")
+print(f"b = c*sqrt(3)/2 = {c * Decimal('3').sqrt() / Decimal('2')} m")
+print(f"angle at base   = {math.degrees(math.asin(float(a/c))):.4f}°")
+
+EOF
+Output
+
+c (hypotenuse)  = 1E-15 m
+a (vertical)    = 5E-16 m
+b (horizontal)  = 8.6602540378443864676372317075293618347140262690519E-16 m
+b               = 0.86602540378443864676372317075293618347140262690519 fm
+b = c*sqrt(3)/2 = 8.660254037844386467637231707529361834714026269052E-16 m
+angle at base   = 30.0000°
