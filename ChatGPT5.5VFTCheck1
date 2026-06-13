@@ -1,0 +1,541 @@
+there exists exactly one combination of wavelength and propagation frequency in the speed of light wave equation that is consistent with the conservation of all electromagnetic universal constants simultaneously. That combination is:
+c=λq⋅νvacλq=1×10−15 m,νvac=2.99792458×1023 Hzc = \lambda_q \cdot \nu_{\mathrm{vac}} \qquad \lambda_q = 1 \times 10^{-15}\,\mathrm{m}, \quad \nu_{\mathrm{vac}} = 2.99792458 \times 10^{23}\,\mathrm{Hz}c=λq​⋅νvac​λq​=1×10−15m,νvac​=2.99792458×1023Hz The propagation frequency νvac\nu_{\mathrm{vac}}
+νvac​ is designated the Vacuum Frequency: the number of equilateral gauge bosons that fit within one light-second, and the natural clock-rate of electromagnetic energy propagation in a perfect vacuum.  The gauge length lq = 1e-15m is the height of an equilateral gauge boson, the fascia of one of the 36 faces of the proton.  A geometric quantum gauge theory is proposed within the framework of Tetryonic Theory, originating in the work of Kelvin C. Abraham. A fundamental gauge length λq=1×10−15\lambda_q = 1 \times 10^{-15}
+λq​=1×10−15\,m is identified from the topology of the proton as described in *Principa Geometrica*, closely  correlated with the measured proton charge radius. The proton radius is calculated exactly on the dihedral angle as 1.088-1.09fm.  All electromagnetic quanta are proposed to be integer multiples of the invariant gauge area Aq=λq2/3A_q = \lambda_q^{2}/\sqrt{3}
+Aq​=λq2​/3​, with higher-energy quanta consisting of superposed gauge bosons over the same invariant domain, not smaller quanta.  The central open problem --- whether λq=1×10−15\lambda_q = 1 \times 10^{-15}
+λq​=1×10−15\,m is the unique electromagnetic gauge cutoff, must be determined.  The proton is not spherical but a specific three-dimensional tetrahedral topology of 36 triangular quanta faces, visible in its orthographic projection as a hexagonal structure.on a 2d diagram not accounting for the dihedral angle: From Abraham's orthographic Z-axis projection of the proton, the proton appears as a hexagonal structure. The diagram produced by the first author (reproduced in this paper) labels the circumscribed radius of this hexagonal projection as:
+rcirc=1.15470054×10−15 mr_{\mathrm{circ}} = 1.15470054 \times 10^{-15}\,\mathrm{m}rcirc​=1.15470054×10−15m
+This number is immediately recognisable as:
+rcirc=23×10−15 mr_{\mathrm{circ}} = \frac{2}{\sqrt{3}} \times 10^{-15}\,\mathrm{m}rcirc​=3​2​×10−15m
+because 2/3=1.15470054…2/\sqrt{3} = 1.15470054\ldots
+2/3​=1.15470054…
+The diagram also establishes that the proton has an inscribed radius:
+rins=32×10−15 m=0.86602540…×10−15 mr_{\mathrm{ins}} = \frac{\sqrt{3}}{2} \times 10^{-15}\,\mathrm{m} = 0.86602540\ldots \times 10^{-15}\,\mathrm{m}rins​=23​​×10−15m=0.86602540…×10−15m
+These two radii — inscribed and circumscribed — are the natural geometric limits of the hexagonal proton cross-section. They arise from one thing: the proton's faces are equilateral triangles with a specific altitude.  the claim is: The altitude of each triangular face of the proton is exactly λq=1×10−15\lambda_q = 1 \times 10^{-15}
+λq​=1×10−15\,m.  All Other Values Fail Computationally
+The digit-harmony test was applied computationally to every alternative gauge length that could physically be motivated from the proton geometry:
+Candidate λq′\lambda_q'
+λq′​Physical motivationνvac′=c/λq′\nu_{\mathrm{vac}}' = c/\lambda_q'
+νvac′​=c/λq′​Digit harmony with cc
+c0.8414×10−150.8414 \times 10^{-15}
+0.8414×10−15\,mCODATA muonic H radius3.563×10233.563 \times 10^{23}
+3.563×1023\,Hz (digits: 35630...)NO0.8660×10−150.8660 \times 10^{-15}
+0.8660×10−15\,mInscribed radius 3/2×λq\sqrt{3}/2 \times \lambda_q
+3​/2×λq​3.462×10233.462 \times 10^{23}
+3.462×1023\,Hz (digits: 34618...)NO1.0000×10−15\mathbf{1.0000 \times 10^{-15}}
+1.0000×10−15\,mFace altitude λq\lambda_q
+λq​2.99792458×1023\mathbf{2.99792458 \times 10^{23}}
+2.99792458×1023\,HzYES1.0547×10−151.0547 \times 10^{-15}
+1.0547×10−15\,mIntermediate2.842×10232.842 \times 10^{23}
+2.842×1023\,Hz (digits: 28424...)NO1.1547×10−151.1547 \times 10^{-15}
+1.1547×10−15\,mCircumscribed radius L=2/3×λqL = 2/\sqrt{3} \times \lambda_q
+L=2/3​×λq​2.596×10232.596 \times 10^{23}
+2.596×1023\,Hz (digits: 25962...)NO
+Every alternative fails. Only the face altitude — the Z-axis height of the proton — produces a vacuum frequency whose digits are identical to those of cc
+c.  therefore A photon in Tetryonic Theory consists of two gauge bosons. Each gauge boson is an equilateral triangular planar wave with altitude λq\lambda_q
+λq​ and side LL
+L. Two bosons joined base-to-base form a rhombus (the photon geometry).
+The rhombus dimensions are:
+Width (base)=L=23 λq=1.1547×10−15 m\text{Width (base)} = L = \frac{2}{\sqrt{3}}\,\lambda_q = 1.1547 \times 10^{-15}\,\mathrm{m}Width (base)=L=3​2​λq​=1.1547×10−15m
+Height (two altitudes)=2 λq=2.0000×10−15 m\text{Height (two altitudes)} = 2\,\lambda_q = 2.0000 \times 10^{-15}\,\mathrm{m}Height (two altitudes)=2λq​=2.0000×10−15m.  Prove: The photon and the proton share the same gauge. The side length LL
+L of a gauge boson face is the circumscribed radius of the proton. The gauge area Aq=λq2/3A_q = \lambda_q^2/\sqrt{3}
+Aq​=λq2​/3​ is the same invariant unit for both. A photon does not fit inside a proton, nor is it larger than a proton — it is commensurate with it, built from the same equilateral unit at the same scale.t he muonic hydrogen value sits just below 1e-15m.  it may be that the distortion making h smaller is also making the proton radius smaller, but i have not determined this.  all i know is 2026 proton radius was .840 fm.  it was like .86 before.  we calculated 1.088 and on the diagram i know it implies the side length is 2/sqrt3 1e-15m.  draft a zenodo paper for the solution to the determination.  thank you.  james michael moore here, trying to prove the 'vacuum frequency theory'.  i cant add the stl but if you need it ill add it  
+
+---
+
+# Vacuum Frequency Theory
+
+## A Geometric Gauge Conjecture Derived from Tetryonic Proton Topology
+
+**James M. Moore**
+Based on the Tetryonic geometric framework of Kelvin C. Abraham (*Principa Geometrica*)
+Articulated with the assistance of ChatGPT 5.5
+May 2026
+
+---
+
+# Abstract
+
+Vacuum Frequency Theory proposes that electromagnetic propagation possesses a fundamental geometric gauge determined by equilateral proton topology.
+
+Within the Tetryonic framework introduced by Kelvin C. Abraham, the proton is modeled not as a sphere but as a tetrahedral geometric structure composed of equilateral triangular faces. The orthographic projection of this topology produces a regular hexagonal geometry whose circumscribed radius naturally implies a unique equilateral face altitude:
+
+[
+\lambda_q = 1\times10^{-15},\mathrm{m}
+]
+
+This gauge length generates a corresponding vacuum propagation frequency:
+
+[
+\nu_{\mathrm{vac}}
+==================
+
+# \frac{c}{\lambda_q}
+
+2.99792458\times10^{23},\mathrm{Hz}
+]
+
+designated the **Vacuum Frequency**.
+
+The theory further proposes that electromagnetic quanta are composed of invariant equilateral gauge domains rather than arbitrarily shrinking point-like structures, and that higher-energy quanta correspond to increasing superposition density over fixed geometric area.
+
+This work presents the axioms, theorem structure, geometric derivation, physical conjectures, and required experimental tests necessary to evaluate or falsify the theory.
+
+---
+
+# Part I — Foundational Axioms
+
+# Axiom 1 — Geometric Existence
+
+Physical structure is fundamentally geometric rather than point-like.
+
+All stable electromagnetic structure arises from invariant geometric relations.
+
+---
+
+# Axiom 2 — Equilateral Gauge Symmetry
+
+The fundamental electromagnetic gauge domain is equilateral.
+
+Its characteristic area is invariant under propagation:
+
+[
+A_q=\frac{\lambda_q^2}{\sqrt3}
+]
+
+where:
+
+[
+\lambda_q
+=========
+
+1\times10^{-15},\mathrm{m}
+]
+
+---
+
+# Axiom 3 — Tetrahedral Proton Topology
+
+The proton possesses tetrahedral geometric topology composed of equilateral triangular gauge faces.
+
+The proton is therefore anisotropic rather than perfectly spherical.
+
+---
+
+# Axiom 4 — Orthographic Hexagonal Projection
+
+The orthographic Z-axis projection of the tetrahedral proton produces a regular hexagonal cross-section.
+
+The circumscribed radius of this projection equals the side-length of the equilateral gauge face.
+
+---
+
+# Axiom 5 — Geometric Gauge Determination
+
+The proton topology determines the electromagnetic gauge scale through Euclidean equilateral geometry.
+
+The gauge length is not arbitrary.
+
+It is a geometric consequence of proton topology.
+
+---
+
+# Axiom 6 — Fixed Gauge Domains
+
+Electromagnetic quanta do not shrink indefinitely with increasing energy.
+
+Higher-energy states correspond instead to increased excitation density or superposition over invariant gauge domains.
+
+---
+
+# Axiom 7 — Vacuum Propagation
+
+Electromagnetic propagation through vacuum occurs at a fixed geometric propagation rate:
+
+[
+c=\lambda_q\nu_{\mathrm{vac}}
+]
+
+where:
+
+[
+\nu_{\mathrm{vac}}
+==================
+
+2.99792458\times10^{23},\mathrm{Hz}
+]
+
+is designated the Vacuum Frequency.
+
+---
+
+# Part II — Geometric Derivation
+
+# Theorem 1 — The Fermi Gauge Theorem
+
+## Statement
+
+Assume the proton possesses tetrahedral equilateral topology.
+
+Assume the orthographic projection given in *Principa Geometrica* is geometrically valid.
+
+Then the proton geometry necessarily implies a unique equilateral face altitude:
+
+[
+\lambda_q
+=========
+
+1\times10^{-15},\mathrm{m}
+]
+
+---
+
+# Proof
+
+The orthographic proton projection produces a regular hexagonal structure possessing circumscribed radius:
+
+[
+r_{\mathrm{circ}}
+=================
+
+1.15470054\times10^{-15},\mathrm{m}
+]
+
+Recognizing the identity:
+
+[
+\frac{2}{\sqrt3}
+================
+
+1.15470054\ldots
+]
+
+we obtain:
+
+[
+r_{\mathrm{circ}}
+=================
+
+\frac{2}{\sqrt3}\times10^{-15},\mathrm{m}
+]
+
+Let the side-length of the equilateral proton face be denoted (L).
+
+For a regular hexagon:
+
+[
+L=r_{\mathrm{circ}}
+]
+
+For an equilateral triangle possessing altitude (\lambda_q):
+
+[
+\left(\frac{L}{2}\right)^2+\lambda_q^2=L^2
+]
+
+\left(\frac{L}{2}\right)^2+\lambda_q^2=L^2
+
+Solving gives:
+
+[
+\lambda_q
+=========
+
+\frac{\sqrt3}{2}L
+]
+
+Substituting:
+
+[
+L=
+\frac{2}{\sqrt3}\times10^{-15},\mathrm{m}
+]
+
+yields:
+
+[
+\lambda_q
+=========
+
+\frac{\sqrt3}{2}
+\cdot
+\frac{2}{\sqrt3}
+\times10^{-15}
+]
+
+therefore:
+
+[
+\boxed{
+\lambda_q
+=========
+
+1\times10^{-15},\mathrm{m}
+}
+]
+
+Q.E.D.
+
+---
+
+# Corollary 1 — Geometric Mean Identity
+
+The gauge length occupies the exact geometric mean between the proton inscribed and circumscribed radii.
+
+[
+\sqrt{
+r_{\mathrm{circ}}r_{\mathrm{ins}}
+}
+=
+
+10^{-15},\mathrm{m}
+]
+
+since:
+
+[
+r_{\mathrm{circ}}
+=================
+
+\frac{2}{\sqrt3}\times10^{-15}
+]
+
+and
+
+[
+r_{\mathrm{ins}}
+================
+
+\frac{\sqrt3}{2}\times10^{-15}
+]
+
+whose product equals unity.
+
+---
+
+# Corollary 2 — Vacuum Frequency
+
+The vacuum propagation frequency follows directly from the speed-of-light wave equation.
+
+[
+\nu_{\mathrm{vac}}
+==================
+
+\frac{c}{\lambda_q}
+]
+
+Substituting:
+
+[
+c
+=
+
+2.99792458\times10^8,\mathrm{m/s}
+]
+
+and
+
+[
+\lambda_q
+=========
+
+10^{-15},\mathrm{m}
+]
+
+gives:
+
+[
+\boxed{
+\nu_{\mathrm{vac}}
+==================
+
+2.99792458\times10^{23},\mathrm{Hz}
+}
+]
+
+---
+
+# Part III — Physical Interpretation
+
+# 1. The Vacuum Frequency
+
+Vacuum Frequency Theory proposes that:
+
+[
+\nu_{\mathrm{vac}}
+==================
+
+2.99792458\times10^{23},\mathrm{Hz}
+]
+
+represents the natural propagation rate of electromagnetic gauge structure through vacuum.
+
+The theory interprets this as the number of invariant gauge domains traversed in one light-second.
+
+---
+
+# 2. Photon Geometry
+
+The photon is modeled as two equilateral gauge bosons joined base-to-base, forming a rhombic wave structure.
+
+Each boson possesses:
+
+* side-length:
+
+[
+L
+=
+
+\frac{2}{\sqrt3}\lambda_q
+]
+
+* altitude:
+
+[
+\lambda_q
+]
+
+The photon therefore shares the same gauge as the proton topology.
+
+---
+
+# 3. Proton Radius Interpretation
+
+The theory proposes that the proton does not possess a unique spherical radius.
+
+Instead, multiple physically meaningful radii emerge naturally from tetrahedral geometry:
+
+* inscribed radius,
+* circumscribed radius,
+* projected radius,
+* scattering radius,
+* effective charge radius.
+
+The experimentally measured proton radius near:
+
+[
+0.84,\mathrm{fm}
+]
+
+may therefore represent an effective interaction radius rather than the full geometric extent of proton topology.
+
+The tetrahedral geometry yields a geometric proton radius near:
+
+[
+1.088,\mathrm{fm}
+]
+
+which lies near the proton circumscribed scale implied by the orthographic projection.
+
+---
+
+# 4. Implications for Planck Units
+
+The theory conjectures that Planck units may be emergent coupling scales rather than the smallest geometric structures in nature.
+
+Under this interpretation:
+
+[
+\lambda_q
+=========
+
+10^{-15},\mathrm{m}
+]
+
+becomes the smallest physically meaningful electromagnetic gauge domain.
+
+Planck quantities would then emerge from gravitational coupling relations acting upon deeper geometric vacuum structure.
+
+---
+
+# Part IV — Required Experimental Verification
+
+# Requirement 1 — Proton Anisotropy
+
+High-energy scattering experiments must determine whether the proton exhibits orientation-dependent geometric structure inconsistent with exact spherical symmetry.
+
+Evidence of tetrahedral or hexagonal anisotropy would strongly support the theory.
+
+---
+
+# Requirement 2 — Multiple Proton Radii
+
+Independent proton radius measurements must determine whether distinct experiments probe different geometric radii rather than a single spherical boundary.
+
+---
+
+# Requirement 3 — Gauge Resonance Structure
+
+Experiments must determine whether electromagnetic systems exhibit resonance behavior associated with harmonics or subharmonics of:
+
+[
+\nu_{\mathrm{vac}}
+==================
+
+2.99792458\times10^{23},\mathrm{Hz}
+]
+
+---
+
+# Requirement 4 — Fixed Gauge Domains
+
+Ultra-high-energy experiments must determine whether electromagnetic quanta preserve invariant geometric area under increasing energy density.
+
+---
+
+# Requirement 5 — QED Observable Derivation
+
+The theory must successfully derive or reproduce known quantum electrodynamic observables, including:
+
+* fine structure,
+* Planck relations,
+* scattering corrections,
+* or electromagnetic coupling constants.
+
+---
+
+# Part V — Conditions for Falsification
+
+Vacuum Frequency Theory would be falsified if:
+
+1. Proton topology is conclusively incompatible with tetrahedral geometry.
+2. Scattering data proves exact spherical symmetry.
+3. The geometric derivation contains algebraic inconsistency.
+4. Experimental evidence demonstrates continuous geometric subdivision below the proposed gauge length.
+5. The framework fails to produce experimentally distinguishable predictions from conventional theory.
+
+---
+
+# Part VI — Scientific Status
+
+Vacuum Frequency Theory is presently a geometric conjecture.
+
+The Euclidean derivations presented herein are mathematically valid under the stated assumptions.
+
+However, the physical interpretation remains unproven.
+
+The theory therefore requires formal review by:
+
+* mathematical physicists,
+* scattering specialists,
+* quantum electrodynamic theorists,
+* lattice theorists,
+* and geometric topologists.
+
+The central open question is:
+
+> Does proton topology determine a unique electromagnetic gauge structure at the femtometre scale?
+
+If yes, then the Vacuum Frequency follows necessarily from geometry.
+
+If no, the theory fails.
+
+---
+
+# References
+
+1. Kelvin C. Abraham, *Principa Geometrica*.
+2. Kelvin C. Abraham, *Determining an Exact Value for Planck’s Constant*.
+3. CODATA Recommended Values of the Fundamental Physical Constants.
+4. Proton Radius Measurements from Muonic Hydrogen Spectroscopy.
+5. Scattering and Form-Factor Literature in Quantum Electrodynamics.
