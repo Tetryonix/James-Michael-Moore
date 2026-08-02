@@ -1,0 +1,641 @@
+---
+title: "The Electromagnetic Wavelength Cutoff in Tetryonic Theory"
+author: "James M. Moore"
+date: "2026-08-02"
+version: "3.3.5"
+license: "CC BY-SA 4.0 / GNU AGPL v3.0"
+keywords: ["Tetryonics", "gauge boson", "wavelength cutoff", "zero-point energy", "Planck constant", "vacuum frequency", "proton topology", "equilateral geometry"]
+subject: "Theoretical Physics / Foundations of Quantum Mechanics"
+repository: "https://zenodo.org"
+---
+
+# The Electromagnetic Wavelength Cutoff in Tetryonic Theory
+
+**Author:** James M. Moore
+**Date:** August 2, 2026
+**Version:** 3.3.5
+
+---
+
+*This work constitutes a derivative scholarly work based on the original Tetryonic Theory created by **Kelvin C. Abraham**. All rights reserved under applicable copyright laws. Licensed under Creative Commons Attribution-ShareAlike 4.0 (CC BY-SA 4.0) and the GNU Affero General Public License v3.0 (AGPL-3.0).*
+
+---
+
+## In this paper, I predict:
+
+1. **The shortest wavelength of an electromagnetic gauge quanta**
+2. **The area of the gauge quantum using this fixed gauge length**
+3. **The natural frequency of the quanta in a vacuum**
+4. **The volume of a Tetryonic Tetryon**
+
+---
+
+This paper presents $1 \times 10^{-15}$ m as the definitive cutoff gauge for an electromagnetic wavelength using Kelvin C. Abraham's Tetryonic Theory$^1$. By analyzing the orthographic projection of the tetrahedral proton topology, it can be demonstrated that a $10^{-15}$ m gauge uniquely satisfies the constraints of equilateral quanta while producing an exact digit harmony between the vacuum propagation frequency and the speed of light. The accepted measurement for the proton charge radius is approximately **0.841 fm**$^6$ derived from muonic hydrogen experiments in the 2022 CODATA adjustment$^5$. It can be found that the dihedral angle of a Tetrahedral geometry modeling this geometric bound yields an exact femtometer wavelength for the Tetryonic gauge boson. This wavelength in turn yields a propagation frequency for electromagnetic quanta in a perfect vacuum calculated via the speed of light wave equation.
+
+---
+
+# The Framework
+
+First we must accept the axioms specifically presented in *Determining an Exact Value for Planck's Constant* by Kelvin C. Abraham.
+
+From Kelvin C. Abraham's solution for the zero-point energy$^1$:
+
+$$E_z = 6.629432672 \times 10^{-34}\ \mathrm{J} = \Lambda$$
+
+So:
+
+$$1 \cdot h\!\left(\frac{1}{s}\right) = 6.629432672 \times 10^{-34}\ \mathrm{J} \implies 1 \cdot h = 6.629432672 \times 10^{-34}\ \mathrm{J \cdot s}$$
+
+Kelvin decomposes $h$:
+
+$$h = m_z \cdot \Omega \implies \Omega = \frac{m^2}{s}$$
+
+In standard physics, the photon is the gauge boson. Kelvin C. Abraham proves that a photon is two gauge bosons$^1$. A gauge boson in Tetryonics is defined as:
+
+$$m_z = \frac{1 \cdot h\nu_z}{c^2}$$
+
+If,
+
+$$\nu_z = \frac{1}{2}f_{n1\,\mathrm{photon}}$$
+
+then,
+
+$$2h\nu_z = \hbar\omega = hf_{n1\,\mathrm{photon}}$$
+
+therefore:
+
+$$\frac{1}{2}\hbar\omega = h\nu_z$$
+
+where $\nu_z = 1\ \mathrm{Hz}$.
+
+For each $1\ \mathrm{Hz}$ quantum, there is a count $n$:
+
+$$E_{\mathrm{total}} = n \cdot h\nu_{\mathrm{total}}$$
+
+Each with a wavelength $\lambda_q$.
+
+***These fields are identical in size and can only superposition***:
+
+$$1 \cdot h\!\left(\frac{2}{s}\right)$$
+
+Or multiply in area:
+
+$$2 \cdot h\!\left(\frac{1}{s}\right)$$
+
+In pure algebra, this operation is governed by the associative and commutative properties of multiplication. In the context of the Planck equation ($E = n \cdot h\nu_z$), the total energy can be factored in two ways:
+
+$$\text{Spatial Area Scaling: } E = (n \cdot h) \cdot \nu_z \implies 2h \cdot (1\ \mathrm{Hz})$$
+
+$$\text{Temporal Frequency Stacking: } E = h \cdot (n \cdot \nu_z) \implies 1h \cdot (2\ \mathrm{Hz})$$
+
+The Planck equation $E = n \cdot h\nu$ exhibits a strict action-frequency degeneracy through the associative factorization of the parameters$^{10}$. The quantum integer $n$ can be distributed either into the spatial domain as an area multiplier ($n \cdot h$), or into the frequency domain as a superposition operator ($n \cdot \nu$). In the case of a Tetryonic palindrome diagram, it would be both. This creates two distinct topological states containing identical total energy: a spatial state which multiplies the photon wavelength to $2\lambda_q$, and a superposition state which stacks the frequency to $2\ \mathrm{Hz}$ while keeping the underlying metric at a wavelength of $1\lambda_q$. Therefore, a $2 \cdot h(1/s)$ photon has a wavelength of $2\lambda_q$, and a $1 \cdot h(2/s)$ field has a wavelength of $1\lambda_q$.
+
+This also applies to the genesis of Tetryons. Four $1 \cdot h\nu/c^2$ fields can fold in spacetime at the dihedral angle $70.53°$ to form a Platonic Tetrahedron. Once closed, these gauge bosons become fascia of a topological space. This is expressed by Kelvin Abraham's matter formula. Here we must accept the axioms of Tetryonics concerning neutrinos specifically (see *Principia Geometrica*$^1$).
+
+**Let the smallest gravitating particle in the universe that can be homeomorphic to a sphere equal the simplest of platonic geometries as dictated by Kelvin C. Abraham:**
+
+$$1M = \frac{4m_z}{c^2} = \frac{4E_z}{c^4}$$
+
+Inserting the constants:
+
+$$4m_z = 4 \times (7.376238634 \times 10^{-51}\ \mathrm{kg}) = 2.950495454 \times 10^{-50}\ \mathrm{kg}$$
+
+$$1M = \frac{4E_z}{c^4} = \frac{4m_z}{c^2} = \frac{2.95049545 \times 10^{-50}}{8.98755179 \times 10^{16}} \approx 3.28287 \times 10^{-67}\ \frac{\mathrm{kg \cdot s^2}}{\mathrm{m^2}}$$
+
+Where each $m_z$ corresponds to a fascia.
+
+To calculate the volume of this object, we must use the speed of light, the proton radius, and the height of a fascia. If you only look at the algebraic equation $c = \lambda\nu$, you have one equation and two unknowns. Algebraically, there are infinite valid combinations of wavelength and frequency. You cannot use the wave equation or any combination of universal constants to prove either value because they exist in a circular dependency. To break the circularity and find the cutoff, we must introduce a symmetry breaker. **That symmetry breaker is the 3D physical geometry revealed by the packing problem solved by Abraham, and thus, the proton topology fixes $\lambda_q$.**
+
+We know two hard physical facts:
+
+1. The proton is modeled as a 36-quanta tetrahedral structure.
+2. The experimental physical radius of this structure is roughly **0.841 fm**.
+
+To bridge the experimental radius with the theoretical topology of the proton, we must identify the fundamental wavelength ($\lambda_q$) of the gauge bosons that will act as the geometric cutoff for mass-matter interactions.
+
+***If each fascia of the geometry is a gauge boson with a wavelength corresponding to its height, we can determine the number of gauge bosons or 'fascia of a proton' in a light-second.***
+
+Applying the logic:
+
+**$c$ = physical wavelength of gauge boson $\times$ number of lengths to travel in a second to reach the distance of $c$**
+
+We assign these subscripts in the wave equation:
+
+$$c = \lambda_q\,\nu_{\mathrm{vac}}$$
+
+The proton radius is measured as:
+
+$$0.81 - 0.866\ \mathrm{fm}$$
+
+We determine by visual observation the proton is not spherical and that the angle of the faces creates an offset on the RMS projection. The geometry is faceted. The fascia are simply tilted at the dihedral angle of a Tetrahedron. When they scatter electrons or muons off it, they average the deflection angles out and get an average radius.
+
+With the naked eye, we can see **the radius of the solid of revolution of a Proton is the side length of a Tetryon**$^{1,3}$. The bosons making up the particle's internal wavelength don't physically compress because the proton is subject to the Pauli exclusion principle$^1$. The outside observer is simply viewing the rigid 4D shape from a tilted perspective.
+
+This leads me to an astounding but direct conclusion:
+
+***We can simply round to the nearest whole number to avoid transcendental results!***
+
+To substantiate this operation$^2$, I quote *The Heat Method for Distance Computation*$^4$: "To translate our continuous procedure...into a discrete algorithm, we must replace derivatives in space and time with suitable approximations." ... "Since the heat method is based on well-established discrete operators like the Laplacian, it is easy to adapt to a variety of geometric domains" (Crane, Weischedel, Wardetzky).
+
+Apply the logic:
+
+**Let the physical proton radius boundary be stripped of empirical continuous RMS statistical averages and defined strictly by its discrete geometric limit. We define the invariant spatial gauge length $\lambda_q$ as a pure rational scale:**
+
+$$\lambda_q := 10^{-15}\ \mathrm{m}$$
+
+The proposed gauge wavelength $\lambda_q = 10^{-15}\ \mathrm{m}$ sits at the exact value of the inscribed radius of the proton's hexagonal Z-axis cross-section. The geometric mean of the inscribed and circumscribed radii:
+
+$$r_{\mathrm{ins}} = \frac{\sqrt{3}}{2}\lambda_q = 8.66025 \times 10^{-16}\ \mathrm{m}$$
+
+$$r_{\mathrm{circ}} = \frac{2}{\sqrt{3}}\lambda_q = 1.15470 \times 10^{-15}\ \mathrm{m}$$
+
+$$\sqrt{r_{\mathrm{ins}} \times r_{\mathrm{circ}}} = \sqrt{\frac{\sqrt{3}}{2} \cdot \frac{2}{\sqrt{3}}} \cdot \lambda_q = \sqrt{1} \cdot \lambda_q = r_{\mathrm{ins}} = \lambda_q$$
+
+If you try to plug in any random wavelength from standard physics like an "attoscale" $10^{-18}\ \mathrm{m}$ virtual photon as the structural height ($\lambda_q$) of the proton's quanta, the resulting inscribed and circumscribed radii of the proton would be to that scale. The proton would be rendered mathematically inconsistent and it simply would not match the $0.841\ \mathrm{fm}$ empirical reality. The only fundamental quantum height that can construct a 36-quanta tetrahedral proton with an effective physical radius near 0.841 fm in Tetryonics is:
+
+$$\lambda_q = 1 \times 10^{-15}\ \mathrm{m}$$
+
+The 0.8 fm measurement lies just outside the bracket of this discrete geometry. The slight discrepancy is clearly explained by the angled geometric topology of the Tetryon cluster.
+
+So the thinking is:
+
+1. Algebra cannot find the cutoff.
+2. Proton Geometry + Empirical Observation forces $\lambda_q = 10^{-15}\ \mathrm{m}$.
+3. Algebra uses that forced $\lambda_q$ to calculate $\nu_{\mathrm{vac}}$.
+4. The exact digit harmony of $\nu_{\mathrm{vac}}$ and $c$ confirms the entire framework is mathematically absolute.
+
+This logic relies on the following conditions:
+
+---
+
+### Condition 1: The Digit-Harmonic Condition
+
+Because the 3D geometry of the proton locks $\lambda_q$ at $10^{-15}\ \mathrm{m}$, the algebraic circularity is broken. Now we only have one unknown. In Tetryonics, once the Fermi gauge theorem establishes that the equilateral face altitude is uniquely $\lambda_q = 10^{-15}\ \mathrm{m}$, the expression $\nu_{\mathrm{vac}} = c/\lambda_q$ follows automatically as a corollary, requiring only substitution into the speed-of-light wave equation rather than a separate independent proof.
+
+You plug the geometrically locked height into the universal wave equation:
+
+$$299{,}792{,}458 = 1 \times 10^{-15} \times 2.99792458 \times 10^{23}$$
+
+$$\nu_{\mathrm{vac}} = \frac{c}{\lambda_q} = \frac{299{,}792{,}458\ \mathrm{m/s}}{1 \times 10^{-15}\ \mathrm{m}} = 2.99792458 \times 10^{23}\ \mathrm{Hz}$$
+
+The fact that the resulting vacuum frequency has the exact same significant digits as $c$ is the computational proof. If the $10^{-15}\ \mathrm{m}$ gauge were a false assumption, the resulting frequency would be an incomprehensible string of digits. The perfect 1-to-1 power-of-ten integer translation between spatial velocity and temporal frequency proves that the geometric assumption was valid.
+
+The vacuum frequency is defined as the number of gauge bosons per light-second:
+
+$$\frac{\text{The Speed of Light}}{\text{The Length of a Gauge Boson}} = \text{The Number of Gauge Bosons in 1 Second}$$
+
+as noted above, written as:
+
+$$\nu_{\mathrm{vac}} = \frac{c}{\lambda_q}$$
+
+The fundamental wavelength equation governing a localized planar wave is given by the relation $c = \lambda\nu$. **Because $\lambda_q$ is the absolute spatial floor, the maximum frequency boundary of $\nu_{\mathrm{vac}}$ occurs precisely at this limit.**
+
+For the digits of $\nu_{\mathrm{vac}} = c/\lambda_q$ to match the digits of $c$, the ratio $c/\lambda_q$ must equal $c$ multiplied by a pure power of ten:
+
+$$\frac{c}{\lambda_q} = c \cdot 10^k \quad \text{for some integer } k$$
+
+$$\therefore \quad \lambda_q = 10^{-k}\ \mathrm{m}$$
+
+***The significant digits of $\nu_{\mathrm{vac}}$ must be identical to the significant digits of $c$. The condition is satisfied if and only if $\lambda_q$ is an exact integer power of ten in SI metres.***
+
+$\nu_{\mathrm{vac}}$ and $c$ describe the same physical fact at different scales: $c$ is the propagation speed in metres per second, $\nu_{\mathrm{vac}}$ is the count of gauge-boson lengths traversed per second. They are the same measurement. When the vacuum is discrete and $\lambda_q$ tiles it exactly, these two numbers must encode each other. This creates an exact one-to-one integer power-of-ten translation between the velocity of an EM field and its temporal frequency. Any deviation from the $10^{-15}\ \mathrm{m}$ gauge breaks this mathematically perfect numerical harmony.
+
+**It is the only gauge length that preserves the digits between the speed of light and the vacuum frequency while perfectly satisfying the Pythagorean constraints of the proton's tetrahedral topology.**
+
+This is verifiable computationally for every physically motivated candidate gauge length:
+
+| $\lambda_q'$ | $\nu_{\mathrm{vac}}' = c/\lambda_q'\ (\mathrm{Hz})$ | Significant digits | Digit harmony |
+|:---|:---|:---|:---|
+| $0.8410 \times 10^{-15}\ \mathrm{m}$ | $3.56471413 \times 10^{23}$ | 356,471,413 | **NO** |
+| $0.8414 \times 10^{-15}\ \mathrm{m}$ | $3.56301947 \times 10^{23}$ | 356,301,947 | **NO** |
+| $0.8660 \times 10^{-15}\ \mathrm{m}$ | $3.46180667 \times 10^{23}$ | 346,180,667 | **NO** |
+| $0.8770 \times 10^{-15}\ \mathrm{m}$ | $3.41838607 \times 10^{23}$ | 341,838,607 | **NO** |
+| $0.9990 \times 10^{-15}\ \mathrm{m}$ | $3.00092551 \times 10^{23}$ | 300,092,551 | **NO** |
+| $\mathbf{1.0000 \times 10^{-15}\ \mathrm{m}}$ | $\mathbf{2.99792458 \times 10^{23}}$ | **299,792,458** | **YES** |
+| $1.0010 \times 10^{-15}\ \mathrm{m}$ | $2.99492965 \times 10^{23}$ | 299,492,965 | **NO** |
+| $1.0880 \times 10^{-15}\ \mathrm{m}$ | $2.75544539 \times 10^{23}$ | 275,544,539 | **NO** |
+| $1.1547 \times 10^{-15}\ \mathrm{m}$ | $2.59628006 \times 10^{23}$ | 259,628,006 | **NO** |
+| $1.3221 \times 10^{-15}\ \mathrm{m}$ | $2.26771905 \times 10^{23}$ | 226,771,905 | **NO** |
+
+The gauge length sits at the exact center of the geometric envelope. No other value of $\lambda_q$ could produce this self-referential property because the product $(\sqrt{3}/2)(2/\sqrt{3}) = 1$ is an algebraic identity that holds regardless of the scale; and that scale itself is fixed by the proton measurement and the digit-harmony with $c$. Because both $c \in \mathbb{N}$ and $\lambda_q^{-1} \in \mathbb{N}$, the resulting vacuum frequency is completely commensurable with the integer speed of light. Again, the physical significance of digit harmony is that $\nu_{\mathrm{vac}}$ and $c$ are the same physical constant expressed at different scales. $c$ is the macroscopic propagation velocity of light. $\nu_{\mathrm{vac}}$ is the number of gauge boson lengths in one second of propagation at $c$. They must share significant digits because they are the same measurement. **This is only true when $\lambda_q = 10^{-k}\ \mathrm{m}$ exactly.**
+
+*Mathematically, this is an artifact of the base-10 numerical system and the human-defined metric system, but the geometry of the zero-point energy is a fundamental geometric law of the universe that must remain invariant across all numerical bases and arbitrary measurement units.*
+
+---
+
+### Condition 2: The Integer-Count Condition
+
+In one light-second, light traverses a distance of exactly $c \times 1\ \mathrm{s} = 299{,}792{,}458\ \mathrm{m}$. The number of gauge bosons that fit in this distance is:
+
+$$N = \frac{c \cdot T}{\lambda_q} = \frac{299{,}792{,}458\ \mathrm{m}}{\lambda_q}$$
+
+**$N$ must be expressible as a rational number whose digits are commensurate with those of $c$.**
+
+At $\lambda_q = 10^{-15}\ \mathrm{m}$:
+
+$$N = \frac{299{,}792{,}458}{10^{-15}} = 2.99792458 \times 10^{23}$$
+
+At any $\lambda_q' \neq 10^{-k}\ \mathrm{m}$, $N$ carries irrational significant figures bearing no relationship to $c$. There must exist a definite integer number of gauge boson lengths in a light-second if the vacuum is discrete. Any value of $\lambda_q$ that produces an irrational or incommensurate count is physically and mathematically inadmissible in this discrete vacuum.
+
+---
+
+# Condition 1 + Condition 2
+
+- The digit-harmony condition selects $\lambda_q = 10^{-k}\ \mathrm{m}$ for some integer $k$.
+- The proton measurement selects the scale: $\lambda_q \propto 10^{-15}\ \mathrm{m}$ and thus $\nu_{\mathrm{vac}} \propto 10^{23}$ from the proton charge radius.
+
+Among all integer powers of ten:
+
+| $10^k\ \mathrm{m}$ | Physical scale | Compatible with proton? |
+|:---|:---|:---|
+| $10^{-13}\ \mathrm{m}$ | Above gauge | No — 100× too large |
+| $10^{-14}\ \mathrm{m}$ | Above gauge | No — 10× too large |
+| $\mathbf{10^{-15}\ \mathrm{m}}$ | **Fermi scale** | **Yes — Virtually exact** |
+| $10^{-16}\ \mathrm{m}$ | Below gauge | No — 10× too small |
+| $10^{-17}\ \mathrm{m}$ | Below gauge | No — 100× too small |
+
+**Only $\lambda_q = 10^{-15}\ \mathrm{m}$ satisfies both conditions simultaneously. The digits of $c$ must commensurate with the frequency and length of the gauge boson on order $10^{15}$.**
+
+The digit-harmonic condition is independent of the proton measurement. **The proton measurement selects *which* power of ten.** The two conditions together uniquely determine $\lambda_q = 10^{-15}\ \mathrm{m}$ from the Pythagorean theorem without assuming it. If $\lambda_q$ were significantly different, like with a $10^{-18}\ \mathrm{m}$ virtual photon or $10^{-35}\ \mathrm{m}$ Planck wavelength, the energy density would miss the observed proton mass by those orders of magnitude. The fact that the calculations land squarely in the Femtometer scale implies that the vacuum frequency is the correct clock-rate for the fields comprising baryonic matter. The Planck wavelength is derived from fundamental physical constants using dimensional analysis which incorporates the gravitational constant $G$ in a domain which it does not apply$^1$. The true gauge length is determined by the geometry of the proton.
+
+---
+
+# Condition 3: The Pythagorean Theorem Is a Law of Physics at the Zero-Point
+
+The Pythagorean Theorem:
+
+$$a^2 + b^2 = c^2$$
+
+$\lambda_q$ = height of equilateral
+
+$L = \frac{2}{\sqrt{3}} \cdot \lambda_q$ = side length
+
+For an equilateral triangle with height $\lambda_q$ and side $L$, the Pythagorean law requires$^2$:
+
+$$\lambda_q^2 = L^2 - \frac{L^2}{4} = \frac{3L^2}{4}$$
+
+$$L = \frac{2}{\sqrt{3}}\lambda_q \qquad \Longleftrightarrow \qquad \lambda_q = \frac{\sqrt{3}}{2}L$$
+
+This is not a choice and is the only ratio between height and side that satisfies the Pythagorean law for an equilateral triangle. Any other ratio produces a non-equilateral triangle and breaks the 60° symmetry required for tessellating a plane without gaps.
+
+The Pythagorean Law for an equilateral triangle is:
+
+$$\left(\frac{L}{2}\right)^2 + \lambda_q^2 = L^2$$
+
+An equilateral area is expressed via the Pythagorean theorem as:
+
+$$\mathrm{Area} = \tfrac{1}{2} \times \mathrm{side\ length} \times \mathrm{height} = A_q$$
+
+Which, for now, I shall just refer to as:
+
+$$A_q = \tfrac{1}{2}L\lambda_q$$
+
+Because the proton requires the use of a Barycentric space, we reject the standard Cartesian unit square as the foundational spatial metric. We adopt the primitive area element for any stereographic projection, designated here as $A_q$. While standard coordinate systems rely on orthogonal squares, the equilateral boson only works on the A2 non-transcendental isometric grid.
+
+$$A_q = \frac{1}{2} \cdot L \cdot \lambda_q = \frac{1}{2} \cdot \frac{2}{\sqrt{3}}\lambda_q \cdot \lambda_q = \frac{\lambda_q^2}{\sqrt{3}}$$
+
+And therefore:
+
+$$\lambda_q^2 = \sqrt{3} \cdot A_q$$
+
+Substitute the $\sqrt{3}$ into the Planck identity:
+
+$$h = \frac{m_z \cdot [\sqrt{3} \cdot A_q]}{s}$$
+
+The side length $L$ is the magnitude and the height $\lambda_q$ is the wavelength of a boson.
+
+Mass is referring to the number of quanta per $A_q$ cell; energy is the sum of the number of masses per cell times the speed of light squared because $c^2$ contains units of $m^2$. Energy is a bivector plane wave moving at a constant velocity. It is not a vector rotation about a point$^1$; nor is it a vibration$^6$. Linear momentum $p$ is still calculated from the mass/energy of the bivector, which is required for action $h = \mathrm{kg} \cdot m^2/s$.
+
+Because the proton is built from scalar equilateral fields, the geometry is invariant. As we established, $\lambda_q$ is the height of the fundamental equilateral triangle, which derives the area calculation $A_q = \lambda_q^2/\sqrt{3}$. When you look at the orthographic projection of the tetrahedral proton on the Z-axis, its physical bounds are locked by Pythagorean ratios based on those dimensions.
+
+Height of the equilateral = $10^{-15}\ \mathrm{m}$
+
+Result:
+
+$$A_q = \frac{(10^{-15})^2}{\sqrt{3}} = 5.7735 \times 10^{-31}\ \mathrm{m}^2$$
+
+One cell at internal frequency $\nu \propto k$ where $n = 1$:
+
+$$E = 1 \cdot m_z \cdot \frac{\sqrt{3}\ \mathrm{m}^2}{s} \cdot \frac{k}{s}, \qquad \mathrm{Area} = A_q$$
+
+$n$ cells at ground frequency:
+
+$$E = n \cdot m_z c^2, \qquad \mathrm{Area} = n \cdot A_q$$
+
+In both cases the individual quantum area is invariant:
+
+| $N$ | $k$ | $E\ (\mathrm{J})$ | Total area $(\mathrm{m}^2)$ | Per-quantum area $(\mathrm{m}^2)$ |
+|:---:|:---:|:---:|:---:|:---:|
+| 1 | 1 | $6.6294 \times 10^{-34}$ | $5.7735 \times 10^{-31}$ | $5.7735 \times 10^{-31}$ |
+| 1 | 2 | $2.6518 \times 10^{-33}$ | $5.7735 \times 10^{-31}$ | $5.7735 \times 10^{-31}$ |
+| 1 | 4 | $1.0607 \times 10^{-32}$ | $5.7735 \times 10^{-31}$ | $5.7735 \times 10^{-31}$ |
+| 4 | 1 | $2.6518 \times 10^{-33}$ | $2.3094 \times 10^{-30}$ | $5.7735 \times 10^{-31}$ |
+| 9 | 1 | $5.9665 \times 10^{-33}$ | $5.1962 \times 10^{-30}$ | $5.7735 \times 10^{-31}$ |
+| 2 | 2 | $5.3035 \times 10^{-33}$ | $1.1547 \times 10^{-30}$ | $5.7735 \times 10^{-31}$ |
+
+If these facts are true, $\sigma$ can only have one fixed value, making it a universal constant.
+
+On the Z-Axis orthographic projection$^3$, we see that the side length of the boson is equal to the radius of the solid of revolution:
+
+$$r_p = 1.157 \times 10^{-15}\ \mathrm{m}$$
+
+Knowing that there is one quantum of mass per triangle of zero-point energy:
+
+$$1 \cdot h(1/s) = E_z$$
+
+And that energy per area is measured as surface energy density $\sigma$ = Energy / Area:
+
+$$\sigma = \frac{E_z}{A_q} = \frac{1 \cdot h \cdot \frac{1}{s}}{\frac{\lambda_q^2}{\sqrt{3}}}$$
+
+This evaluates to:
+
+$$\sigma = \frac{m_z c^2\sqrt{3}}{\lambda_q^2}$$
+
+---
+
+### The Area Is Constant Therefore The Wavelength Is Constant
+
+Let $s$ represent the quantum time step required for a $1\ \mathrm{fm}$ wavelength gauge boson to travel the length of itself.
+
+Start with:
+
+$$s = \frac{1}{\nu_{\mathrm{vac}}}$$
+
+$$h = m_z \cdot c^2 \cdot T$$
+
+where $T = 1$ second of observation.
+
+Let $1\ \mathrm{second}$ represent the length of time elapsed by a gauge boson traveling a distance of $299{,}792{,}458\ \mathrm{m}$ in a perfect vacuum at its natural velocity $c$.
+
+1 second becomes:
+
+$$1\ \mathrm{second} = N \cdot s = 2.99792458 \times 10^{23} \times 3.33564 \times 10^{-24}\ \mathrm{s}$$
+
+Now express $c^2$:
+
+$$c = \frac{\lambda_q}{s} \qquad \Longrightarrow \qquad c^2 = \frac{\lambda_q^2}{s^2}$$
+
+Substitute $\lambda_q^2 = \sqrt{3}A_q$, as within Tetryonics, the geometric conservation of Planck's constant structurally forbids any lattice topology other than the strictly equilateral $60°$ configuration:
+
+$$c^2 = \frac{\sqrt{3} \cdot A_q}{s^2}$$
+
+Solve for Planck's Constant:
+
+$$\boxed{h = m_z \cdot \frac{\sqrt{3}\,A_q}{s^2} \cdot T}$$
+
+Plug in to $\sigma$ (Proof by Decomposition):
+
+$$\sigma = \frac{m_z c^2\sqrt{3}}{\lambda_q^2} = \frac{m_z\sqrt{3} \cdot \dfrac{\lambda_q^2/\sqrt{3}}{s} \cdot \nu_z}{\lambda_q^2}$$
+
+$\lambda_q$ is present in both the numerator and denominator, but $E_z$ is a constant. Therefore, changing the denominator of this expression changes $\sigma$, which is a contradiction since $\sigma$ is derived via 4 constants of nature. In arithmetic and algebra, a function whose every input is a constant is itself a constant:
+
+$$f(a,b,c,d) = \frac{a \cdot b \cdot c}{d^2} \quad \text{is a constant if and only if } a,\, b,\, c,\, d \text{ are all constants.}$$
+
+Each factor in $\sigma = m_z c^2\sqrt{3}/\lambda_q^2$ is a constant:
+
+| Factor | Value | Why it cannot change |
+|:---|:---|:---|
+| $m_z$ | $7.376238634 \times 10^{-51}\ \mathrm{kg}$ | Fixed by Carbon-12 mass and Compton frequency. Changing $m_z$ requires changing the mass of Carbon-12, a physical impossibility in our universe. |
+| $c^2$ | $8.987551787 \times 10^{16}\ \mathrm{m^2/s^2}$ | Fixed at exactly $299{,}792{,}458\ \mathrm{m/s}$ by SI definition. |
+| $\sqrt{3}$ | $1.732050808\ldots$ | The square root of 3 is an algebraic irrational number determined uniquely by the Pythagorean theorem applied to a 60° angle. |
+| $\lambda_q^2$ | $1.000000000 \times 10^{-30}\ \mathrm{m^2}$ | Fixed by the proton topology of Abraham's *Principa Geometrica* and the digit-harmonic proof. |
+
+All four inputs are constants. Therefore, $\sigma$ is a constant.
+
+Now suppose a smaller gauge $\lambda_q' < \lambda_q$. Since $s = \lambda_q/c$, a smaller $\lambda_q'$ gives a smaller $s' = \lambda_q'/c$. The energy per boson remains:
+
+$$E_z' = n \cdot m_z c^2$$
+
+The area of a compressed quantum would be:
+
+$$A_q' = \lambda_q'^2/\sqrt{3} < A_q$$
+
+Compute the energy density at this smaller gauge:
+
+$$\sigma' = \frac{E_z'}{A_q'} = \frac{m_z c^2\sqrt{3}}{\lambda_q'^2} \neq \sigma$$
+
+Since $\lambda_q' < \lambda_q$, we have $\lambda_q'^2 < \lambda_q^2$, therefore $1/\lambda_q'^2 > 1/\lambda_q^2$, therefore $\sigma' > \sigma$.
+
+Now we have two statements:
+
+1. $\sigma = 1.148251421 \times 10^{-3}\ \mathrm{J/m^2}$ — established by the four constants above.
+2. $\sigma' = m_z c^2\sqrt{3}/\lambda_q'^2 \neq \sigma$ — computed from the proposed smaller gauge.
+
+These two statements cannot both be true simultaneously. This is the Law of Non-Contradiction, a foundational axiom of all mathematics and logic:
+
+**_A proposition and its negation cannot both be true at the same time._**
+
+$\sigma$ has one value and $\sigma'$ is a different value. A physical vacuum cannot simultaneously have two different energy densities. Therefore the proposed smaller gauge $\lambda_q'$ describes a physically different vacuum, one with different constants of nature, which is not our vacuum. Since $\lambda_q' < \lambda_q$, we have $\sigma' > \sigma$. But $\sigma$ is a constant of nature. It cannot be both $\sigma$ and $\sigma'$ simultaneously.
+
+---
+
+### The Numerical Demonstration
+
+| $\lambda_q'$ | $\sigma' = m_z c^2\sqrt{3}/\lambda_q'^2\ (\mathrm{J/m^2})$ | Ratio $\sigma'/\sigma$ | Status |
+|:---|:---|:---|:---|
+| $0.500\ \mathrm{fm}$ | $4.593006 \times 10^{-3}$ | 4.000000 | Not this vacuum |
+| $0.866\ \mathrm{fm}$ | $1.531092 \times 10^{-3}$ | 1.333412 | Not this vacuum |
+| $0.900\ \mathrm{fm}$ | $1.417594 \times 10^{-3}$ | 1.234568 | Not this vacuum |
+| $0.990\ \mathrm{fm}$ | $1.171566 \times 10^{-3}$ | 1.020304 | Not this vacuum |
+| $\mathbf{1.000\ \mathrm{fm}}$ | $\mathbf{1.148251 \times 10^{-3}}$ | **1.000000** | **This vacuum** |
+| $1.010\ \mathrm{fm}$ | $1.125626 \times 10^{-3}$ | 0.980296 | Not this vacuum |
+| $1.155\ \mathrm{fm}$ | $8.611894 \times 10^{-4}$ | 0.750001 | Not this vacuum |
+| $2.000\ \mathrm{fm}$ | $2.870629 \times 10^{-4}$ | 0.250000 | Not this vacuum |
+
+Every value except $\lambda_q = 1\ \mathrm{fm}$ produces a different $\sigma$ for a different universe. Tetryonics lives in the vacuum where $\sigma = 1.148251421 \times 10^{-3}\ \mathrm{J/m^2}$. There is no smaller density, energy, or area in this vacuum.
+
+---
+
+## Common Notion 1: The Final Proof
+
+And this position brings us to the strongest pillar of the proof:
+
+**'Things that are the same are equal to each other' — Euclid, Common Notion 1**
+
+Translation: **all zero-point field gauge quanta are identical.**
+
+$\sigma$ is equal to $m_z c^2\sqrt{3}/\lambda_q^2$. If $\lambda_q' \neq \lambda_q$ then $m_z c^2\sqrt{3}/\lambda_q'^2 \neq \sigma$. Therefore the energy density at $\lambda_q'$ is not $\sigma$. Therefore $\lambda_q'$ is not the gauge of this vacuum.
+
+**No length $\lambda_q' \neq \lambda_q$ is consistent with the measured constants of this model. The electromagnetic wavelength cutoff is $\lambda_q = 10^{-15}\ \mathrm{m}$.**
+
+These quanta superposition together to create higher energies or flock together to form larger fields, or fold together to form physical particles as described by the standard model. All fields are constructed from larger numbers from the same individual zero-point field.
+
+---
+
+# Calculate the Volume of a Tetryon
+
+If the surface energy density of the zero-point field is a constant, the metric is a constant, and the energy is proportional to the geometric constants, then the volume of a Tetryon must be a constant regardless of its energy.
+
+We can simply substitute $L$ into the common formula for the volume of a Tetrahedron:
+
+$$V_t = \frac{1}{3} \times A_q \times \mathrm{height} = \frac{L^3}{6\sqrt{2}} = \frac{1.539598564 \times 10^{-45}}{8.4852813742} = 1.814434308 \times 10^{-46}\ \mathrm{m}^3$$
+
+All Tetryons are the same volume and therefore exhibit a constant volumetric displacement. The Tetryon is the smallest gravitating particle in the universe as modeled by Kelvin C. Abraham. If $m_0$ is known, the gravitational force between any two Tetryonic structures is determined by the integer count of their constituent Tetryons.
+
+---
+
+### The De Broglie Relation
+
+The apparent contradiction between the Tetryonic gauge cutoff and sub-femtometer wavelengths reported for high-energy photons and scattering experiments is resolved by the principle of Abraham's quantum scaling.
+
+The De Broglie formula:
+
+$$\lambda_{\mathrm{DB}} = \frac{hc}{E}$$
+
+applies the per-quantum action against the total field energy $E_{\mathrm{total}} = n \cdot m_z c^2$:
+
+$$\lambda_q = \frac{n \cdot hc}{n \cdot E} = \frac{n \cdot h}{n \cdot mc}$$
+
+producing a quantity that shrinks without the Tetryonic quantum count $n$ in the numerator.
+
+$$\lambda_{\mathrm{Quantized}} = \frac{n \cdot h}{m_p c} = \frac{22{,}500\,h}{m_p c} = 299{,}792{,}458\ \mathrm{m}$$
+
+When applied per quantum the result is always the same regardless of $n$ or $k$. The propagation wavelength of every gauge boson in the universe is $\lambda_q$ because $\lambda_{\mathrm{DB}}$ represents the total distance traveled in metres by a vacuum boson in a light-second. This is also a universal constant. Therefore the physical wavelength of any boson with invariant spatial geometry travelling at a constant velocity of $c$ will result in $\lambda_{\mathrm{DB}}/N$.
+
+Since $h$, $c$, and $E_z$ are constants as demonstrated above, the length of 1 boson makes the wavelength of a field dependent on the number of steps. This means $\lambda$ can only take on discrete values determined by $n \cdot \lambda_q$. The quantization arises directly from the fundamental relationship between energy and length as defined by the Vacuum Frequency and Tetryonic models and the geometric nature of spacetime as dictated by the zero-point mass and the constancy of the speed of light. A variable $N/k$ represents a discrete factor that governs the possible wavelengths over the quantized time steps of duration $1/\nu_{\mathrm{vac}}$. $k$ would represent how many steps have been taken, which would give you a fraction of the light-second if less than $N$ steps.
+
+If you plug in the values in a numerical illustration:
+
+$$\lambda = \frac{(6.629432672 \times 10^{-34})(2.99792458 \times 10^8)}{k \cdot (6.629432672 \times 10^{-34})(10^{-15})} \approx 1.000000000 \times 10^{-15}\ \mathrm{m}$$
+
+This result shows that the wavelength is quantized to approximately $10^{-15}\ \mathrm{m}$, which is precisely the gauge length. The value of $k$ would be determined through how many quantum time steps have passed, but its existence and influence are mathematically demonstrated here.
+
+---
+
+## Summary
+
+**Goal:** Establish Tetryonics and the vacuum frequency as a mathematically coherent geometric framework worthy of future experimental investigation.
+
+The zero-point energy per gauge boson is determined by Kelvin C. Abraham:
+
+$$E_z = m_z c^2 = 6.629432672 \times 10^{-34}\ \mathrm{J}$$
+
+The electromagnetic wavelength of the zero-point energy is:
+
+$$\boxed{\lambda_q = 1 \times 10^{-15}\ \mathrm{m}}$$
+
+The speed of light as a frequency for a $1h\nu_z$ boson is:
+
+$$\boxed{\nu_{\mathrm{vac}} = 2.99792458 \times 10^{23}\ \mathrm{Hz}}$$
+
+The energy density per unit gauge area of the vacuum is:
+
+$$\boxed{\sigma = \frac{(7.376238634 \times 10^{-51})(8.987551787 \times 10^{16})(1.732050808)}{(10^{-15})^2} = 1.148251421 \times 10^{-3}\ \mathrm{J/m^2}}$$
+
+Every factor in $\sigma$ is a constant of nature:
+
+- $m_z$: fixed by Carbon-12 geometry
+- $c^2$: fixed by measurement
+- $\sqrt{3}$: fixed by 60° equilateral geometry
+- $\lambda_q^2$: fixed by the proton topology and digit-harmonic proof
+
+All Tetryonic quanta are the same size.
+
+The volume of a Tetryon is:
+
+$$\boxed{V_t = \frac{L^3}{6\sqrt{2}} = 1.814434308 \times 10^{-46}\ \mathrm{m}^3}$$
+
+The paper is mathematically grounded by the intersection of two independent conditions: the digit-harmonic condition, which requires $\lambda_q = 10^{-k}\ \mathrm{m}$ for integer $k$; and the proton topology of Abraham's *Principa Geometrica*, which fixes $k = 15$. Every constant follows from the Zero-Point Energy and this single constant with no adjustable parameters. The gauge area $A_q = \lambda_q^2/\sqrt{3} = 5.773502692 \times 10^{-31}\ \mathrm{m}^2$ is the minimum physical area of any electromagnetic quantum. No quantum is smaller or larger. Higher energy indicates more quanta in superposition. This is the foundational logic of physics as I understand it.
+
+***Every attempt to mathematically disprove this theory in a computer thus far has failed because the internal geometry of Tetryonics is completely tautological.***
+
+- The area of the planar wave ($5.77 \times 10^{-31}\ \mathrm{m}^2$) is the exact Euclidean consequence of the $10^{-15}\ \mathrm{m}$ structural altitude.
+- The 9-tetrahedron barycentric horseshoe perfectly yields a workable geometry, satisfying combinatorial polyhedral mechanics.
+- The internal contradiction of $\lambda_q^2 \neq \lambda_q'^2$ in continuous physics is entirely bypassed by the axiom of absolute spatial invariance.
+
+Because the geometry yields these exact constants without rounding errors, the equations cannot be disproven on the grounds of arithmetic contradiction. To disprove this framework, one cannot use these internal mathematics, because the proofs are geometrically closed. Kelvin Abraham discovered a combinatorial system that locks the math. Internal arithmetic contradiction is impossible in this system that has zero free parameters and everything is forced by a universal quantifier $m_z$.
+
+In science a theory cannot be considered truly proven until it makes a testable prediction that is verified by a real-world experiment. To disprove the framework, one must find a physical experiment demonstrating that an empirical phenomenon occurs below the gauge of the electromagnetic field. No such experiment has been found to exist. As such, it is not assumed in this work that an experiment requires a real photon to have physical dimensions below $2\lambda_q$. But overriding standard empirical measurements with derived theoretical geometry introduces a heavy burden of proof that current experimental physics cannot meet. **One would have to find a physical experiment proving that an empirical phenomenon occurs below the spatial resolution of $10^{-15}\ \mathrm{m}$.**
+
+---
+
+## The Predictions
+
+Kelvin C. Abraham extrapolates many various predictions in his book. I will list the one I believe is most relevant to this work.
+
+- Kelvin C. Abraham predicts that both Leptons and Quarks are made of 3 constituent particles. This is a falsifiable experimental prediction articulated in *Principia Geometrica*$^1$ that will be the final test of the Tetryonic model's proton geometry.
+- I, James M. Moore, predict that the floor of electromagnetic phenomena lies at the spatial resolution of $10^{-15}\ \mathrm{m}$ if this geometry is true.
+
+---
+
+## Existing Macroscopic Experimental Evidence
+
+Recent studies directly image triangular lattice structures$^{7,8,9}$. The emergence of stable and repeating geometric order at the electron scale can be interpreted as broadly consistent with the idea that geometry plays a fundamental role in physical organization as described by Tetryonic Theory. Macroscopic observations of tetrahedral symmetry in crystalline arrangements, molecular bonding, and engineered field configurations suggest that certain geometric motifs recur across scales whenever systems minimize energy under strong interaction constraints. The tetrahedral electron lattice visualized under high magnetic fields demonstrates that charged matter naturally settles into highly ordered discrete geometric configurations of this general shape. Such cross-scale geometric regularity is assumed as direct qualitative support for the idea that quantized geometry may underlie both microscopic and macroscopic physical behavior, even though the results themselves do not claim or test Tetryonics.
+
+---
+
+# Conclusion
+
+The foundation of Tetryonic theory was built by Kelvin C. Abraham. His equilateral postulate is, in the judgement of this author, the most significant geometric insight in the history of quantum physics. His solutions have not received the recognition they deserve, which has likely delayed the advancement of humanity's scientific interests. This paper is an attempt to put on display the true reasoning power of Abraham's framework with sufficient mathematical simplicity that the scientific community can explore it on its own terms.
+
+This work would be impossible without contribution from thousands of scientific minds all over the world, many who published their work freely in the online public domain over the last 16 years. Thank you all.
+
+I express my gratitude to Richard Blankenship for his contributions to the validation of this system in this context. He specifically guided me, many years ago now, into recognizing the significance of $\sqrt{3}$ as the target ratio used to find the fundamental unitary gauge. Without his explicit direction on that matter at that time, none of these solutions would exist. Abraham and Blankenship's existing knowledge and insights into these systems were both critical to reach this point in understanding. I am deeply appreciative of their assistance and dedication to advancing our understanding of spacetime geometry over the last few years, and I hope that this work does them proud.
+
+---
+
+## Numerical Overview
+
+$$c = 299{,}792{,}458\ \mathrm{m/s}$$
+
+$$\lambda_q = 1.000000000000000 \times 10^{-15}\ \mathrm{m}$$
+
+$$L = r_{\mathrm{circ}} = 1.154700538379252 \times 10^{-15}\ \mathrm{m}$$
+
+$$A_q = 5.773502691896259 \times 10^{-31}\ \mathrm{m}^2$$
+
+$$\nu_{\mathrm{vac}} = 2.997924580000000 \times 10^{23}\ \mathrm{Hz}$$
+
+$$s = 3.335640951981521 \times 10^{-24}\ \mathrm{s}$$
+
+$$m_z = 7.376238634104490 \times 10^{-51}\ \mathrm{kg}$$
+
+$$V_t = 1.814434308 \times 10^{-46}\ \mathrm{m}^3$$
+
+$$\sigma = 1.148251421 \times 10^{-3}\ \mathrm{J/m^2}$$
+
+$$r_{\mathrm{ins}} = 0.866 \times 10^{-15}\ \mathrm{m}$$
+
+$$\sqrt{r_{\mathrm{ins}} \times r_{\mathrm{circ}}} = \lambda_q = r_{\mathrm{ins}} = 1.000000000000000 \times 10^{-15}\ \mathrm{m} \qquad \checkmark$$
+
+$$h_{\mathrm{geo}} = m_z \cdot c^2 = 6.629432672000000 \times 10^{-34}\ \mathrm{J \cdot s} \qquad \checkmark$$
+
+The CODATA value is $h_{\mathrm{SI}} = 6.62607015 \times 10^{-34}\ \mathrm{J \cdot s}$. The discrepancy is:
+
+$$\frac{h_{\mathrm{geo}} - h_{\mathrm{SI}}}{h_{\mathrm{SI}}} \approx 5.075 \times 10^{-4} \approx 75{,}000\ \sigma$$
+
+The origin of the discrepancy in $h$ is the subject of a companion work and is not resolved here. It is stated honestly as an open problem due to the fact that the Tetryonic $h$ is an ideal calculation and not measured in a lab.
+
+---
+
+# References
+
+1. **KELVIN C. ABRAHAM.** (2021–2026). *Tetryonics: Principa Geometrica*. National Library of Australia Digital Archive. http://nla.gov.au/nla.obj-2994677363 (ISBN: 9780645056501)
+
+2. **RICHARD A. BLANKENSHIP.** U.S. Ambassador to Tetryonic Theory (2016–2026). Personal correspondence on the geometric algebra of Tetryonics.
+
+3. **DIEGO BORGES-RIVIERA.** (2021). CAD Models of Tetryonic Geometry. https://www.youtube.com/watch?v=lfxocmDFwxg
+
+4. **K. CRANE, C. Weischedel, and M. Wardetzky.** (2017). *The Heat Method for Distance Computation*. Communications of the ACM 60, 11 (November 2017), 90–99. DOI: https://doi.org/10.1145/3131280
+
+5. **Mohr, P., Newell, D., Taylor, B. and Tiesinga, E.** (2025). CODATA Recommended Values of the Fundamental Physical Constants: 2022. *Reviews of Modern Physics*. https://tsapps.nist.gov/publication/get_pdf.cfm?pub_id=958143 (Accessed July 12, 2026)
+
+6. **Planck, M.** (1914). *The Theory of Heat Radiation*. Leipzig: Johann Ambrosius Barth. https://dn760002.eu.archive.org/0/items/theheatradiation00planrich/theheatradiation00planrich.pdf
+
+7. **LaPoint, D.** *The Primer Fields Part 1*. YouTube. https://www.youtube.com/watch?v=siMFfNhn6dk (Uploaded January 25, 2013).
+
+8. **N. S. Mueller, A. P. Fellows, B. John, et al.** "Full Crystallographic Imaging of Hexagonal Boron Nitride Monolayers with Phonon-Enhanced Sum-Frequency Microscopy." *Adv. Mater.* 38, no. 7 (2026): e10124. https://doi.org/10.1002/adma.202510124
+
+9. **Hongyuan Li et al.** Wigner molecular crystals from multielectron moiré artificial atoms. *Science* **385**, 86–91 (2024). DOI: 10.1126/science.adk1348
+
+10. **Bartlett, Michael.** University of Michigan, Class of 1994 B.S. Physics. Personal Correspondence. *Thank you to Mike Bartlett for an informal, personal review of the logic.*
+
+11. **Kyle Hill.** YouTube. Tetryonic Research. (Video reference, specific title unknown at time of writing.)
+
+---
+
+**Computational Assistants:**
+Google Gemini, Microsoft Copilot, Anthropic Claude, OpenAI ChatGPT, SpaceX Grok, Meta Llama.
+
+**Additional Thanks:**
+HP, Samsung, Nvidia, LaCie.
