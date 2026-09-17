@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>How to solve for rₚ — Guide V5</title>
+  <style>
+    :root{color-scheme:light;--ink:#242421;--line:#d4d0c4;--green:#168d6b;--blue:#267fbe}
+    *{box-sizing:border-box}body{margin:0;background:#efeee8;color:var(--ink);font:15px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif}
+    main{max-width:960px;margin:24px auto;padding:32px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 8px 28px #00000012}
+    #toolbar{position:sticky;top:8px;z-index:2;display:flex;align-items:center;gap:10px;margin:-16px -16px 22px;padding:9px 12px;border:1px solid var(--line);border-radius:10px;background:#ffffffed;backdrop-filter:blur(8px)}
+    #status{flex:1;color:#666;font-size:12px}button{padding:7px 11px;border:1px solid #aaa;border-radius:8px;background:#fafafa;cursor:pointer}#choose{display:none}
+    h1,h2,h3{line-height:1.25}h1{font-size:26px}h2{margin-top:2em;padding-bottom:.25em;border-bottom:1px solid #ddd}h3{margin-top:1.5em}
+    pre{overflow:auto;padding:16px;border:1px solid #80938a;border-radius:9px;background:#17211d;color:#eafff5;font:13px/1.55 Consolas,monospace}
+    code{font-family:Consolas,monospace}blockquote{margin:1em 0;padding:.25em 1em;border-left:4px solid var(--green);background:#f1f7f4}
+    mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;margin:12px 0!important;padding:11px 13px;border-left:4px solid var(--blue);background:#eef6fc}
+    table{width:100%;border-collapse:collapse;margin:1em 0}th,td{padding:8px 10px;border:1px solid var(--line);text-align:left;vertical-align:top}th{background:#eef6fc}
+    hr{margin:2em 0;border:0;border-top:1px solid #ccc}a{color:#146b83}@media(max-width:700px){main{margin:0;padding:20px;border-radius:0}#toolbar{margin:-8px -8px 18px}}
+  </style>
+  <script>window.MathJax={startup:{typeset:false},tex:{inlineMath:[["$","$"],["\\(","\\)"]],displayMath:[["$$","$$"],["\\[","\\]"]]}};</script>
+  <script defer src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body><main>
+  <div id="toolbar"><span id="status">Loading howtosolveforrp.md…</span><button id="reload" type="button">Refresh guide</button><button id="choose" type="button">Choose Markdown file</button><input id="file" type="file" accept=".md,text/markdown,text/plain" hidden></div>
+  <article id="guide"></article>
+</main>
+<script>
+(() => {
+  const SOURCE="howtosolveforrp.md", guide=document.getElementById("guide"), status=document.getElementById("status"), choose=document.getElementById("choose"), file=document.getElementById("file");
+  let lastText="", selectedHandle=null, selectedFile=null;
+  const esc=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  function basicMarkdown(md){
+    const saved=[]; md=md.replace(/```([\s\S]*?)```/g,(_,x)=>`@@CODE${saved.push(`<pre><code>${esc(x.trim())}</code></pre>`)-1}@@`);
+    md=md.replace(/^###### (.*)$/gm,"<h6>$1</h6>").replace(/^##### (.*)$/gm,"<h5>$1</h5>").replace(/^#### (.*)$/gm,"<h4>$1</h4>").replace(/^### (.*)$/gm,"<h3>$1</h3>").replace(/^## (.*)$/gm,"<h2>$1</h2>").replace(/^# (.*)$/gm,"<h1>$1</h1>").replace(/^---$/gm,"<hr>");
+    md=md.split(/\n{2,}/).map(x=>/^<(h\d|pre|hr)/.test(x)?x:`<p>${x.replace(/\n/g,"<br>")}</p>`).join("\n");
+    return md.replace(/@@CODE(\d+)@@/g,(_,i)=>saved[+i]).replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>").replace(/_(.+?)_/g,"<em>$1</em>");
+  }
+  function markdownHtml(md){
+    const math=[];
+    const hold=value=>`ZXQMATH${math.push(value)-1}QXZ`;
+    md=md.replace(/\$\$[\s\S]*?\$\$/g,hold).replace(/\$[^$\n]+\$/g,hold);
+    const html=window.marked?marked.parse(md,{gfm:true}):basicMarkdown(md);
+    return html.replace(/ZXQMATH(\d+)QXZ/g,(_,i)=>math[+i]);
+  }
+  async function siblingText(){
+    if(selectedHandle) return (await selectedHandle.getFile()).text();
+    if(selectedFile) return selectedFile.text();
+    try{const response=await fetch(SOURCE,{cache:"no-store"});if(response.ok)return response.text();}catch(_){ }
+    return new Promise((resolve,reject)=>{const request=new XMLHttpRequest();request.open("GET",SOURCE,true);request.onload=()=>request.status===0||request.status<400?resolve(request.responseText):reject();request.onerror=reject;request.send();});
+  }
+  async function render(force=false){
+    try{
+      const md=await siblingText(); if(!force&&md===lastText)return; lastText=md;
+      guide.innerHTML=markdownHtml(md);
+      status.textContent=`Rendered ${SOURCE} · ${new Date().toLocaleTimeString()}`;choose.style.display="none";
+      if(window.MathJax?.typesetPromise){MathJax.typesetClear?.([guide]);await MathJax.typesetPromise([guide]);}
+    }catch(_){status.textContent="Local-file access is blocked. Choose howtosolveforrp.md once, or open the project through localhost.";choose.style.display="inline-block";}
+  }
+  document.getElementById("reload").onclick=()=>render(true);
+  choose.onclick=async()=>{if(window.showOpenFilePicker){try{[selectedHandle]=await showOpenFilePicker({types:[{description:"Markdown",accept:{"text/markdown":[".md"]}}]});selectedFile=null;render(true);return;}catch(_){return;}}file.click();};
+  file.onchange=()=>{selectedFile=file.files[0]||null;selectedHandle=null;render(true);};
+  window.addEventListener("load",()=>render(true));
+  setInterval(()=>render(false),1500);
+})();
+</script></body></html>

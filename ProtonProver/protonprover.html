@@ -1,0 +1,2252 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Tetryonics Proton Prover</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: var(--color-background-primary, #f7f7f4);
+      --panel: var(--color-background-secondary, #efeee8);
+      --text: var(--color-text-primary, #242421);
+      --muted: var(--color-text-secondary, #66655f);
+      --line: var(--color-border-tertiary, rgba(80,78,70,.22));
+      --blue: #3789c9;
+      --green: #168d6b;
+      --orange: #d45a32;
+      --gold: #b07818;
+      --violet: #7663bb;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 18px;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+    header { position: relative; margin: 0 0 16px; padding-right: 190px; }
+    .title-row { display: flex; align-items: center; gap: 11px; margin-bottom: 5px; perspective: 520px; }
+    .prover-logo { width: 54px; height: 54px; object-fit: contain; animation: logo-spin 7s linear infinite; transform-origin: 50% 50%; transform-style: preserve-3d; backface-visibility: visible; }
+    @keyframes logo-spin { from { transform: rotateZ(0deg); } to { transform: rotateZ(360deg); } }
+    .rp-guide-button { position: absolute; top: 0; right: 0; width: auto; padding: 9px 14px; border-color: var(--gold); background: var(--panel); color: var(--text); font-weight: 750; z-index: 3; }
+    .rp-guide-button:hover { box-shadow: 0 0 0 2px rgba(183,137,33,.16); }    h1 { margin: 0 0 5px; font-size: 19px; font-weight: 650; letter-spacing: -.01em; }
+    h2 { margin: 0 0 10px; font-size: 14px; font-weight: 650; }
+    p { margin: 0; }
+    .subtitle { color: var(--muted); font-size: 13px; line-height: 1.45; max-width: 920px; }
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(150px, 1fr));
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .metric, .panel {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--panel);
+    }
+    .metric { padding: 11px 12px; min-height: 78px; }
+    .label { color: var(--muted); font-size: 11px; margin-bottom: 5px; }
+    .value { font-size: 17px; font-weight: 680; font-variant-numeric: tabular-nums; }
+    .detail { color: var(--muted); font-size: 11px; margin-top: 3px; font-variant-numeric: tabular-nums; }
+    .blue { color: var(--blue); }
+    .green { color: var(--green); }
+    .orange { color: var(--orange); }
+    .gold { color: var(--gold); }
+    .layout {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      grid-auto-rows: 20px;
+      grid-auto-flow: dense;
+      gap: 12px;
+      align-items: stretch;
+    }
+    .layout > section.panel, .layout > aside.panel { display: contents; }
+    .layout details.collapsible-window, .layout details.collapsible-window:first-child { position: relative; min-width: 0; margin: 0; padding: 13px; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); grid-column: span var(--grid-cols, 6); grid-row: span var(--grid-rows, 4); overflow: auto; container-type: inline-size; }
+    .layout details.collapsible-window:not([open]) { --grid-rows: 2 !important; overflow: hidden; }
+    .layout details.collapsible-window > * { max-width: 100%; box-sizing: border-box; }
+    .layout > section.panel > details.collapsible-window:first-child { --grid-cols: 12; }
+    .window-resizer { position: absolute; right: 3px; bottom: 3px; width: 18px; height: 18px; cursor: nwse-resize; color: var(--muted); font: 13px/18px system-ui; text-align: center; user-select: none; touch-action: none; }
+    .panel { padding: 13px; }
+    .viewer-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1.28 / 1;
+      min-height: 410px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background:
+        radial-gradient(circle at 50% 44%, rgba(55,137,201,.08), transparent 48%),
+        var(--bg);
+    }
+    canvas { display: block; width: 100%; height: 100%; }
+    #viewer { cursor: grab; touch-action: none; }
+    #viewer.dragging { cursor: grabbing; }
+    .badge {
+      position: absolute;
+      top: 9px;
+      left: 9px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 5px 8px;
+      background: color-mix(in srgb, var(--bg) 88%, transparent);
+      color: var(--muted);
+      font-size: 10px;
+      pointer-events: none;
+    }
+    .camera-readout {
+      position: absolute;
+      top: 43px;
+      right: 9px;
+      min-width: 154px;
+      padding: 0;
+      color: var(--text);
+      font: 700 11px/1.45 ui-monospace, SFMono-Regular, Consolas, monospace;
+      font-variant-numeric: tabular-nums;
+      text-align: right;
+      opacity: .7;
+      pointer-events: none;
+    }
+    .camera-readout span { display: block; }
+    .mesh-mode-controls { position: absolute; top: 8px; right: 8px; display: flex; gap: 4px; align-items: center; z-index: 2; }
+    .mesh-mode-controls button { padding: 5px 8px; background: color-mix(in srgb,var(--bg) 90%,transparent); font-size: 10px; opacity: .82; }
+    .mesh-mode-controls button.active { opacity: 1; border-color: var(--blue); box-shadow: 0 0 5px rgba(55,137,201,.35); }
+    .mesh-opacity { display:flex;align-items:center;gap:4px;padding:3px 6px;border:1px solid var(--line);border-radius:999px;background:color-mix(in srgb,var(--bg) 90%,transparent);font:700 9px/1 system-ui;color:var(--muted); }
+    .mesh-opacity input { width:68px;margin:0; }
+    .viewport-coordinates { position:absolute;bottom:8px;max-width:43%;padding:3px 5px;border-radius:5px;background:rgba(20,20,18,.58);color:#fff;font:700 9px/1.25 ui-monospace,Consolas,monospace;font-variant-numeric:tabular-nums;pointer-events:none;z-index:2; }
+    .viewport-coordinates.sample { left:8px;text-align:left; }
+    .viewport-coordinates.projection { right:8px;text-align:right; }
+    .scale-ruler { position: absolute; left: 50%; bottom: 9px; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 2px; color: var(--text); font: 700 10px/1 ui-monospace, SFMono-Regular, Consolas, monospace; pointer-events: none; }
+    .scale-ruler-line { position: relative; height: 8px; border-top: 2px solid currentColor; }
+    .scale-ruler-line::before, .scale-ruler-line::after { content: ""; position: absolute; top: -5px; width: 2px; height: 9px; background: currentColor; }
+    .scale-ruler-line::before { left: 0; }
+    .scale-ruler-line::after { right: 0; }
+    .controls {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 8px 10px;
+      align-items: center;
+      margin-top: 11px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    input[type="range"] { width: 100%; accent-color: var(--blue); }
+    output { min-width: 42px; text-align: right; color: var(--text); font-variant-numeric: tabular-nums; }
+    .speed-control {
+      display: grid;
+      grid-template-columns: auto minmax(120px, 1fr) auto;
+      gap: 8px 10px;
+      align-items: center;
+      margin-top: 10px;
+      padding: 9px 10px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+    .speed-control output { min-width: 150px; }
+    .buttons { display: flex; gap: 8px; margin-top: 11px; flex-wrap: wrap; }
+    button {
+      appearance: none;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 8px 11px;
+      background: var(--bg);
+      color: var(--text);
+      font: inherit;
+      font-size: 12px;
+      font-weight: 620;
+      cursor: pointer;
+    }
+    button.primary { color: white; background: var(--blue); border-color: var(--blue); }
+    button.surface-button {
+      display: block;
+      width: 100%;
+      color: white;
+      background: var(--green);
+      border-color: var(--green);
+    }
+    button.outside-button {
+      display: block;
+      width: 100%;
+      color: white;
+      background: var(--violet);
+      border-color: var(--violet);
+    }
+    button.scan-button { display: block; width: 100%; margin-bottom: 12px; }
+    button:disabled { opacity: .55; cursor: wait; }
+    @keyframes startPulse { 0%,100% { background-position: 0% 50%; box-shadow: 0 0 5px rgba(22,141,107,.42); filter: brightness(1); } 50% { background-position: 100% 50%; box-shadow: 0 0 11px rgba(22,141,107,.9); filter: brightness(1.16); } }
+    #startCalculations:not(:disabled) { background-image: linear-gradient(110deg,var(--bg) 20%,color-mix(in srgb,var(--green) 28%,var(--bg)) 50%,var(--bg) 80%); background-size: 220% 100%; animation: startPulse 1.8s ease-in-out infinite; }
+    #stopCalculations:not(:disabled) { box-shadow: 0 0 6px rgba(210,57,57,.55); }
+    .uncertainty-stop { display: inline-flex; align-items: center; gap: 6px; padding: 6px 8px; border: 1px solid var(--line); border-radius: 8px; color: var(--muted); font-size: 10px; cursor: pointer; }
+    .uncertainty-stop input { margin: 0; }
+    @keyframes uncertaintyRgbBox { 0%,100% { box-shadow: 0 0 10px rgba(255,50,80,.75); border-color: #ff3250; } 33% { box-shadow: 0 0 12px rgba(40,220,120,.8); border-color: #28dc78; } 66% { box-shadow: 0 0 12px rgba(35,145,255,.8); border-color: #2391ff; } }
+    @keyframes uncertaintyRgbText { 0%,100% { text-shadow: 0 0 8px #ff3250; } 33% { text-shadow: 0 0 8px #28dc78; } 66% { text-shadow: 0 0 8px #2391ff; } }
+    .uncertainty-hit { animation: uncertaintyRgbBox 1.8s linear infinite; }
+    .uncertainty-hit span, .uncertainty-hit strong { animation: uncertaintyRgbText 1.8s linear infinite; }
+    .uncertainty-text-hit #streamingSurfaceMean { animation: uncertaintyRgbText 1.8s linear infinite; }
+    .manual-panel {
+      min-width: 0;
+      margin-top: 12px;
+      padding: 11px;
+      overflow: hidden;
+      border: 1px solid color-mix(in srgb, var(--gold) 58%, var(--line));
+      border-radius: 9px;
+      background: color-mix(in srgb, var(--gold) 6%, var(--bg));
+    }
+    .manual-panel h2 { margin-bottom: 5px; }
+    .manual-mode-buttons, .manual-actions { display: flex; gap: 7px; flex-wrap: wrap; margin-top: 9px; }
+    .manual-mode-buttons button.active { color: white; box-shadow: 0 0 0 2px color-mix(in srgb, currentColor 22%, transparent); }
+    #manualSurfaceMode.active { background: var(--green); border-color: var(--green); }
+    #manualProjectionMode.active { background: var(--blue); border-color: var(--blue); }
+    #manualBothMode.active { background: linear-gradient(90deg,var(--green),var(--blue)); border-color: var(--blue); }
+    #manualNext { flex: 1 1 230px; color: white; background: var(--gold); border-color: var(--gold); }
+    .manual-readouts { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-top: 9px; }
+    .manual-readouts .readout { border-left-color: var(--gold); }
+    .manual-status { margin-top: 8px; color: var(--text); font-size: 11px; line-height: 1.45; }
+    .manual-log { width: 100%; min-width: 0; height: 150px; min-height: 150px; max-height: 150px; overflow: scroll; scrollbar-gutter: stable; white-space: nowrap; margin-top: 9px; padding: 7px 8px; border: 1px solid var(--line); border-radius: 7px; background: var(--panel); font: 10px/1.5 ui-monospace, SFMono-Regular, Consolas, monospace; }
+    .manual-log div + div { margin-top: 4px; padding-top: 4px; border-top: 1px solid var(--line); }
+    .sample-log-panel { width: 100%; min-width: 0; margin-top: 10px; padding: 8px 9px; overflow: hidden; border: 1px solid var(--line); border-radius: 8px; background: color-mix(in srgb, var(--bg) 72%, transparent); }
+    .sample-log-panel > summary { cursor: pointer; font-size: 11px; font-weight: 750; }
+    .sample-log-panel.green-log { border-left: 3px solid var(--green); }
+    .sample-log-panel.blue-log { border-left: 3px solid var(--blue); }
+    .sample-log-toolbar { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin: 8px 0 6px; color: var(--muted); font-size: 10px; }
+    .sample-log { width: 100%; min-width: 0; height: 170px; min-height: 170px; max-height: 170px; overflow: scroll; scrollbar-gutter: stable; white-space: nowrap; padding: 7px 8px; border: 1px solid var(--line); border-radius: 7px; background: var(--panel); font: 9px/1.5 ui-monospace, SFMono-Regular, Consolas, monospace; }
+    .sample-log div + div { border-top: 1px solid var(--line); margin-top: 3px; padding-top: 3px; }
+    #viewer.manual-picking { cursor: crosshair; }
+    .analysis-block { margin-top: 13px; padding-top: 12px; border-top: 1px solid var(--line); }
+    .analysis-block h2 { margin-bottom: 8px; }
+    .action-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      width: 100%;
+      gap: 10px;
+      align-items: stretch;
+    }
+    .action-row > div { min-width: 0; }
+    .action-note { margin-top: 7px; color: var(--muted); font-size: 10px; line-height: 1.4; }
+    .measurement-description { height: 7em; min-height: 7em; margin-bottom: 0; overflow: hidden; }
+    .button-equation {
+      margin-top: 7px;
+      padding: 7px 8px;
+      border-radius: 7px;
+      background: color-mix(in srgb, var(--bg) 70%, transparent);
+      color: var(--muted);
+      font: 10px/1.45 ui-monospace, SFMono-Regular, Consolas, monospace;
+    }
+    .button-equation code { display: block; color: var(--text); white-space: normal; }
+    .live-math {
+      margin-top: 8px;
+      padding: 9px 10px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: color-mix(in srgb, var(--bg) 78%, transparent);
+      color: var(--text);
+      font: 10px/1.55 ui-monospace, SFMono-Regular, Consolas, monospace;
+      overflow-wrap: anywhere;
+    }
+    .live-math .math-label { color: var(--muted); }
+    .live-math .math-mean { color: var(--green); font-weight: 700; }
+    .live-math .math-rms { color: var(--blue); font-weight: 700; }
+    .equation-guide {
+      margin-top: 10px;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: color-mix(in srgb, var(--bg) 64%, transparent);
+    }
+    .equation-guide h2 { margin-bottom: 7px; }
+    .equation-guide ol { margin: 0; padding-left: 20px; color: var(--muted); font-size: 10px; line-height: 1.5; }
+    .equation-guide code { color: var(--text); }
+    .surface-summary {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin: 10px 0 12px;
+    }
+    .surface-summary .readout { border-left-color: var(--green); }
+    .surface-equation-row { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 10px; margin-top: 8px; }
+    .surface-equation-row .button-equation, .surface-equation-row .live-math { margin-top: 0; min-width: 0; }
+    summary.window-title[draggable="true"] { cursor: grab; }
+    summary.window-title.dragging-window { opacity: .45; cursor: grabbing; }
+    .primary-measurement-window > summary.window-title { font-size: 13px; white-space: nowrap; }
+    .primary-measurement-window > summary.window-title .title-qualifier { font-size: 10px; font-weight: 620; color: var(--muted); }
+    .primary-measurement-window { overflow-x: hidden !important; overflow-y: scroll; scrollbar-gutter: stable; }
+    .rms-explanation { margin-top: 12px; padding: 14px; border: 1px solid var(--line); border-left: 4px solid var(--green); border-radius: 10px; background: var(--bg); font-size: 12px; line-height: 1.55; }
+    .rms-explanation h2 { margin: 0 0 9px; font-size: 15px; }
+    .rms-explanation h3 { margin: 14px 0 6px; font-size: 13px; }
+    .rms-explanation p { margin: 7px 0; }
+    .rms-explanation .equation { margin: 7px 0; padding: 8px; border-radius: 7px; background: var(--panel); text-align: center; font-family: ui-monospace, monospace; }
+    .rms-explanation ul { margin: 7px 0; padding-left: 22px; }
+    .outside-summary {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7px;
+    }
+    .outside-summary .readout { border-left-color: var(--violet); }
+    .bridge-box {
+      margin-top: 14px;
+      padding: 12px;
+      border: 1px solid color-mix(in srgb, var(--violet) 55%, var(--line));
+      border-radius: 10px;
+      background: color-mix(in srgb, var(--violet) 7%, var(--bg));
+    }
+    .bridge-box h2 { margin-bottom: 5px; }
+    .bridge-clarifier {
+      margin: 7px 0 9px;
+      padding: 9px 10px;
+      border-left: 3px solid var(--gold);
+      background: color-mix(in srgb, var(--gold) 8%, var(--bg));
+      color: var(--text);
+      font-size: 10px;
+      line-height: 1.5;
+    }
+    .bridge-steps { margin: 7px 0 9px; padding-left: 20px; color: var(--muted); font-size: 10px; line-height: 1.5; }
+    .term-key { margin: 8px 0; color: var(--muted); font-size: 10px; line-height: 1.5; }
+    .term-key strong { color: var(--text); }
+    details.reconciliation-details { margin-top: 8px; }
+    details.reconciliation-details summary { cursor: pointer; color: var(--text); font-size: 10px; font-weight: 650; }
+    .bridge-equations {
+      margin: 9px 0;
+      padding: 8px 9px;
+      border-radius: 7px;
+      background: color-mix(in srgb, var(--bg) 72%, transparent);
+      color: var(--muted);
+      font: 10px/1.55 ui-monospace, SFMono-Regular, Consolas, monospace;
+    }
+    .bridge-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+    .bridge-grid .readout { border-left-color: var(--violet); }
+    .bridge-grid .featured { border-left-color: var(--gold); }
+    .bridge-explanation { margin-top: 9px; color: var(--muted); font-size: 10px; line-height: 1.48; }
+    .bridge-explanation a { color: var(--blue); }
+    .bridge-verdict {
+      margin-top: 9px;
+      padding: 9px 10px;
+      border: 1px solid color-mix(in srgb, var(--gold) 55%, var(--line));
+      border-radius: 7px;
+      background: color-mix(in srgb, var(--gold) 8%, var(--bg));
+      color: var(--text);
+      font-size: 10px;
+      line-height: 1.5;
+    }
+    .scan-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+    #scanState, #surfaceState { color: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; }
+    .progress {
+      height: 5px;
+      overflow: hidden;
+      border-radius: 10px;
+      background: color-mix(in srgb, var(--line) 60%, transparent);
+      margin: 9px 0 10px;
+    }
+    .projection-progress, .surface-progress { display: none; }
+    #progressBar { width: 0; height: 100%; background: var(--blue); transition: width .08s linear; }
+    #surfaceProgressBar { width: 0; height: 100%; background: var(--green); transition: width .08s linear; }
+    #outsideProgressBar { width: 0; height: 100%; background: var(--violet); transition: width .08s linear; }
+    #scanPlot, #surfacePlot { height: 138px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); }
+    .readouts {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin: 10px 0 12px;
+    }
+    .readout { border-left: 3px solid var(--line); padding: 5px 8px; background: color-mix(in srgb, var(--bg) 62%, transparent); }
+    .readout span { display: block; color: var(--muted); font-size: 10px; }
+    .readout strong { font-size: 13px; font-variant-numeric: tabular-nums; }
+    .calc {
+      border-top: 1px solid var(--line);
+      padding-top: 11px;
+      font: 11px/1.58 ui-monospace, SFMono-Regular, Consolas, monospace;
+      color: var(--muted);
+    }
+    .calc div { display: grid; grid-template-columns: 18px 1fr; gap: 5px; }
+    .ok { color: var(--green); font-weight: 700; }
+    .verification-panel { margin-top: 12px; }
+    .verification-panel .calc { border-top: 0; padding-top: 0; columns: 2 300px; column-gap: 24px; }
+    .verification-panel .calc div { break-inside: avoid; }
+    .formula {
+      margin-top: 12px;
+      padding: 12px 13px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--panel);
+      font-size: 12px;
+      line-height: 1.58;
+      color: var(--muted);
+    }
+    .formula strong { color: var(--text); }
+    .formula code { color: var(--orange); font-size: 12px; }
+    .note { margin-top: 8px; font-size: 10px; line-height: 1.45; color: var(--muted); }
+    details.collapsible-window { border-top: 1px solid var(--line); padding-top: 9px; margin-top: 10px; }
+    details.collapsible-window:first-child { border-top: 0; padding-top: 0; margin-top: 0; }
+    summary.window-title,
+    details.panel > summary,
+    details.formula > summary,
+    details.equation-guide > summary {
+      cursor: pointer;
+      list-style: none;
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 680;
+    }
+    summary.window-title::-webkit-details-marker,
+    details.panel > summary::-webkit-details-marker,
+    details.formula > summary::-webkit-details-marker,
+    details.equation-guide > summary::-webkit-details-marker { display: none; }
+    summary.window-title::before,
+    details.panel > summary::before,
+    details.formula > summary::before,
+    details.equation-guide > summary::before { content: "▸"; display: inline-block; width: 16px; color: var(--muted); }
+    details[open] > summary.window-title::before,
+    details.panel[open] > summary::before,
+    details.formula[open] > summary::before,
+    details.equation-guide[open] > summary::before { content: "▾"; }
+    .window-body { margin-top: 10px; }
+    .primary-results { margin-bottom: 12px; }
+    .scan-rview { margin: 7px 0 12px; text-align: center; font-variant-numeric: tabular-nums; }
+    .scan-rview span { display: block; color: var(--muted); font-size: 15px; font-weight: 700; }
+    .scan-rview strong { display: block; color: var(--blue); font-size: clamp(28px, 5vw, 42px); line-height: 1.15; }
+    .scan-rview.sample span, .scan-rview.sample strong { color: #00e676; }
+    .scan-rview.sample strong { font-size: clamp(28px, 5vw, 42px); text-shadow: 0 0 10px rgba(0,230,118,.35); }
+    .page-credit { margin: 20px 0 4px; text-align: center; color: var(--muted); font-size: 11px; line-height: 1.6; }
+    body.lite .mesh-setup,
+    body.lite .secondary-only,
+    body.lite .bridge-box,
+    body.lite .verification-panel,
+    body.lite > details.formula { display: none; }
+    .primary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-top: 10px; }
+    .primary-card { padding: 10px 11px; border: 1px solid var(--line); border-radius: 9px; background: var(--bg); }
+    .sampling-mode { display:grid; grid-template-columns:auto minmax(180px,1fr) auto; gap:10px; align-items:center; margin:12px 0 4px; }
+    .sampling-mode button { font-weight:800; }
+    .sampling-mode output { min-width:120px; color:var(--muted); font-variant-numeric:tabular-nums; }
+    .primary-card span { display: block; color: var(--muted); font-size: 10px; }
+    .primary-card strong { display: block; margin-top: 3px; font-size: 18px; font-variant-numeric: tabular-nums; }
+    @container (max-width: 580px) { .metrics, .surface-equation-row, .primary-grid, .bridge-grid, .action-row, .speed-control { grid-template-columns: minmax(0, 1fr); } }
+    @media (max-width: 850px) {
+      .metrics { grid-template-columns: 1fr 1fr; }
+      .layout { grid-template-columns: repeat(12, minmax(0,1fr)); }
+      .layout details.collapsible-window { --grid-cols: 12 !important; }
+      .verification-panel .calc { columns: 1; }
+    }
+    @media (max-width: 520px) {
+      body { padding: 10px; }
+      .metrics { grid-template-columns: 1fr; }
+      .viewer-wrap { min-height: 330px; }
+      .action-row { grid-template-columns: 1fr; }
+      .speed-control { grid-template-columns: 1fr; }
+      .speed-control output { text-align: left; }
+      .primary-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 700px) { header { padding-right: 0; } .rp-guide-button { position: static; margin-top: 10px; } .measurement-description { height:auto; min-height:0; overflow:visible; } }
+  </style>
+</head>
+<body class="lite continuous">
+  <header>
+    <div class="title-row"><img class="prover-logo" src="GaugeBosonLogo123.png" alt="Tetryonics gauge-boson logo"><h1>Tetryonics Proton Prover</h1></div>
+    <p class="subtitle">This calculator compares the empirical proton radius with Kelvin C. Abraham’s proton geometry at the femtometer scale. Choose indefinite random sampling or a finite deterministic iterative scan.</p>
+    <button class="rp-guide-button" id="rpGuideButton" type="button">How to solve for rₚ</button>
+  </header>
+
+  <details class="panel primary-results" open>
+    <summary>Main model results</summary>
+    <div class="sampling-mode">
+      <button id="modeToggle" type="button">Mode: Continuous random</button>
+      <input id="iterationCount" type="range" min="60" max="20000" step="20" value="720" disabled aria-label="Number of iterative samples">
+      <output id="iterationCountOut">Iterative N = 720</output>
+    </div>
+    <div class="primary-grid">
+      <div class="primary-card" id="primarySurfaceCard"><span>Proposed classical surface-radius S</span><strong class="green" id="primarySurface">-- fm</strong><span id="primarySurfaceN">N = 0 / ∞ area-weighted triangle points</span></div>
+      <div class="primary-card"><span>Rotational mean projected extent A</span><strong class="blue" id="primaryProjection">-- fm</strong><span id="primaryProjectionN">N = 0 / ∞ viewing directions</span></div>
+    </div>
+    <p class="action-note"><strong>Result:</strong> S = <span id="headlineSurface">-- fm</span> from all exposed STL facets, within <span id="headlineAbsDelta">-- fm</span> (<span id="headlinePercent">--%</span>) of the CODATA 2022 central value. A separately reports the rotationally averaged outer silhouette.</p>
+  </details>
+
+  <details class="panel mesh-setup">
+    <summary>Mesh setup and current view</summary>
+    <div class="window-body"><section class="metrics" aria-label="Mesh measurements">
+      <div class="metric">
+        <div class="label">Imported geometry</div>
+        <div class="value green" id="meshCount">--</div>
+        <div class="detail" id="vertexCount">reading STL...</div>
+      </div>
+      <div class="metric">
+        <div class="label">Calibration</div>
+        <div class="value gold">h = 1.000000000 fm</div>
+        <div class="detail" id="scaleReadout">triangle altitude / scale</div>
+      </div>
+      <div class="metric">
+        <div class="label">Current projected outer extent</div>
+        <div class="value blue" id="viewRadius">-- fm</div>
+        <div class="detail" id="viewWidth">diameter -- fm</div>
+      </div>
+      <div class="metric">
+        <div class="label">STL circumscribed outer bound</div>
+        <div class="value orange" id="trueRadius">-- fm</div>
+        <div class="detail" id="trueDetail">fixed 3D maximum · not a charge-radius measurement</div>
+      </div>
+    </section><p class="action-note">All 20 regular exterior STL facets are rendered and included in every surface calculation. The malformed internal facet from the supplied STL is excluded. Wireframe shows the complete exterior edge network, with edges behind the front surface drawn dimmer.</p></div>
+  </details>
+
+  <main class="layout">
+    <section class="panel">
+      <details class="collapsible-window" open>
+      <summary class="window-title">Actual STL mesh — drag, touch, or use the sliders</summary>
+      <div class="window-body">
+      <p class="action-note"><strong>Rotate:</strong> drag normally for unrestricted 360° yaw and pitch. Shift-drag or right-drag controls roll; wheel zooms. The blue circle is the current projected extent, the red circle is the fixed STL bound, and the circle turns green when they align.</p>
+      <div class="viewer-wrap">
+        <canvas id="viewer" aria-label="Rotatable 3D STL proton mesh"></canvas>
+        <div class="mesh-mode-controls" aria-label="Mesh display mode"><button id="meshColored" class="active" type="button">Colored</button><button id="meshGrey" type="button">Grey</button><button id="meshWireframe" type="button">Wireframe</button><label class="mesh-opacity" for="meshOpacity">Opacity <input id="meshOpacity" type="range" min="0.15" max="1" step="0.01" value="1"></label></div>
+        <div class="badge">blue projection · red STL bound · green when radii match to 4 decimals</div>
+        <div class="camera-readout"><span id="cameraYaw">yaw 0.0°</span><span id="cameraPitch">pitch 0.0°</span><span id="cameraRoll">roll 0.0°</span><span id="cameraZoom">zoom 1.000×</span></div>
+        <div class="viewport-coordinates sample" id="viewportSampleCoords">Rsample pᵢ = (—, —, —)</div>
+        <div class="viewport-coordinates projection" id="viewportProjectionCoords">Rview v′ = (—, —, —)</div>
+        <div class="scale-ruler" aria-label="One femtometre viewport scale"><div class="scale-ruler-line" id="scaleRulerLine"></div><span>1 fm</span></div>
+      </div>
+      <div class="controls">
+        <label for="yaw">Yaw</label>
+        <input id="yaw" type="range" min="0" max="360" step=".1" value="0">
+        <output id="yawOut">0.0°</output>
+        <label for="pitch">Pitch</label>
+        <input id="pitch" type="range" min="-180" max="180" step=".1" value="0">
+        <output id="pitchOut">0.0°</output>
+        <label for="roll">Roll</label>
+        <input id="roll" type="range" min="0" max="360" step=".1" value="0">
+        <output id="rollOut">0.0°</output>
+      </div>
+      <div class="buttons">
+        <button id="reset">Reset view</button>
+        <button id="viewTop">Top</button>
+        <button id="viewBottom">Bottom</button>
+        <button id="viewSide">Side</button>
+        <button id="resetCalculations">Reset calculations</button>
+        <button id="stopCalculations">Stop calculations</button>
+        <button id="startCalculations" disabled>Start calculations</button>
+        <label class="uncertainty-stop" title="Pause all automatic calculations when |S − 0.840750000 fm| ≤ 0.000640000 fm"><input id="stopAtUncertainty" type="checkbox"> Stop at CODATA uncertainty ±0.000640000 fm <span id="uncertaintyStatus">waiting</span></label>
+      </div>
+      <div class="speed-control">
+        <small style="grid-column:1/-1;text-align:center;font-size:7px;line-height:1.25;color:#8a5a00">⚠ Warning: Increasing the slider causes rapid visual changes that may trigger seizures in people with photosensitive epilepsy.</small>
+        <label for="calcSpeed">Calculation speed</label>
+        <input id="calcSpeed" type="range" min="0" max="100" step=".1" value="0">
+        <output id="calcSpeedOut">1 calculation/second</output>
+      </div>
+      <section class="manual-panel" aria-labelledby="manualHeading">
+        <h2 id="manualHeading">Manual reviewer sampling</h2>
+        <p class="action-note">Choose S or A for separate logs. In S+A, an ordinary surface click selects green S; clicking near the outer blue guide snaps to one blue A value. Every click logs only one measurement after you review it.</p>
+        <div class="manual-mode-buttons">
+          <button id="manualSurfaceMode" type="button">Manual S · green point</button>
+          <button id="manualProjectionMode" type="button">Manual A · blue outer point</button>
+          <button id="manualBothMode" type="button">Manual S+A · smart</button>
+          <button id="manualReturnAuto" type="button" disabled>Return to automatic mode</button>
+        </div>
+        <div class="manual-status" id="manualStatus">Automatic sampling is active. Choose a manual mode to begin.</div>
+        <div class="manual-readouts">
+          <div class="readout"><span>selected value</span><strong id="manualSelectedValue">-- fm</strong></div>
+          <div class="readout"><span>manual running average</span><strong id="manualRunningMean">-- fm</strong></div>
+        </div>
+        <div class="button-equation"><code>C = (S + A) / 2</code><span id="manualCombinedEquation">Smart mode requires at least one S and one A sample.</span></div>
+        <div class="manual-actions">
+          <button id="manualNext" type="button" disabled>Log selected point &amp; select another</button>
+          <button id="manualUndo" type="button" disabled>Undo last logged point</button>
+          <button id="manualClear" type="button" disabled>Clear manual log</button>
+          <button id="exportManualLog" type="button" disabled>Export manual log</button>
+        </div>
+        <div class="manual-log" id="manualLog" aria-live="polite">No manual samples logged.</div>
+      </section>
+      </div>
+      </details>
+
+      <details class="collapsible-window primary-measurement-window" id="surfaceWindow" open>
+        <summary class="window-title">Classical Surface Average <span class="title-qualifier">(Proposed Model Radius)</span></summary>
+        <div class="window-body">
+        <p class="action-note measurement-description">This samples all 20 regular exterior STL triangle faces in proportion to area. Every point measures <strong>center → sample point</strong>, and the running surface mean updates live: <strong id="surfaceDescriptionMean">-- fm</strong>. Near-center and far-out points both contribute while every exterior facet remains included.</p>
+        <button class="surface-button scan-button" id="surfaceAverage">Pause green automatic sampling</button>
+        <div class="scan-rview sample" id="surfaceSampleReadout"><span>Rsample = ||pᵢ − hub||</span><strong id="surfaceSampleRadius">-- fm</strong></div>
+        <div class="button-equation"><code>S = (1/N) Σ ||pᵢ||</code><span id="surfaceLiveEquation">ready · N = 720</span></div>
+        <div class="live-math" id="surfaceDerivation" aria-live="polite"><span class="math-label">Ordinary mean:</span> S = (Σ rᵢ) / N<br><span class="math-label">Root mean square:</span> RMS = √[(Σ rᵢ²) / N]<br><span class="math-label">Difference:</span> RMS − S = -- fm</div>
+        <div class="scan-head"><span id="surfaceState">surface scan ready · 0 / 720</span></div>
+        <div class="progress surface-progress"><div id="surfaceProgressBar"></div></div>
+        <div class="surface-summary">
+          <div class="readout" id="surfaceMeanReadout"><span>running surface average</span><strong id="surfaceMean">-- fm</strong></div>
+          <div class="readout" id="surfaceDeltaReadout"><span>mean minus CODATA</span><strong id="surfaceDelta">-- fm · -- σ</strong></div>
+          <div class="readout" id="surfaceCodataReadout"><span>CODATA 2022 rms charge radius</span><strong class="gold">0.840750000 fm</strong></div>
+          <div class="readout"><span>surface RMS</span><strong id="surfaceRms">-- fm</strong></div>
+        </div>
+        <canvas id="surfacePlot" aria-label="Classical surface-radius sample graph"></canvas>
+        <details class="sample-log-panel green-log" open>
+          <summary>Green automatic surface-point log</summary>
+          <div class="sample-log-toolbar"><span id="surfaceAutoLogCount">0 samples retained</span><button id="exportSurfaceLog" type="button" disabled>Export green log</button></div>
+          <div class="sample-log" id="surfaceAutoLog">No automatic green samples logged.</div>
+        </details>
+        </div>
+      </details>
+      <details class="collapsible-window secondary-only">
+        <summary class="window-title">Center-out radial reach — secondary check</summary>
+        <div class="window-body">
+          <p class="action-note">Each of 720 rays starts at the detected center. If a triangle blocks the ray, the measured length ends at its first hit; otherwise it continues to the circumscribed sphere. This is the precise center-out test described in the request.</p>
+          <div class="action-row">
+            <div>
+              <button class="outside-button" id="radialAverage">Run center-out radial check - 720 rays</button>
+              <div class="progress"><div id="radialProgressBar"></div></div>
+              <div class="button-equation"><code>L = (1/N) Σ [first triangle hit, otherwise R]</code><span id="radialLiveEquation">ready · N = 720</span></div>
+            </div>
+            <div class="outside-summary">
+              <div class="readout"><span id="radialState">radial check ready · 0 / 720</span><strong id="radialMean">-- fm</strong></div>
+              <div class="readout"><span>rays blocked by triangles</span><strong id="radialBlocked">--</strong></div>
+              <div class="readout"><span>mean first-hit distance</span><strong id="radialHitMean">-- fm</strong></div>
+              <div class="readout"><span>unblocked rays reaching R</span><strong id="radialMisses">--</strong></div>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <details class="collapsible-window secondary-only">
+        <summary class="window-title">Legacy sphere-to-nearest-triangle gap</summary>
+        <div class="window-body"><div class="action-row">
+          <div>
+            <button class="outside-button" id="outsideAverage">Take outside gap average - 720 sphere points</button>
+            <div class="progress"><div id="outsideProgressBar"></div></div>
+            <p class="action-note">Outer sphere point → nearest point on any supplied STL triangle.</p>
+            <div class="button-equation"><code>G = (1/N) Σ min<sub>q on mesh</sub> ||sᵢ − q||</code><span id="outsideLiveEquation">ready · N = 720</span></div>
+          </div>
+          <div class="outside-summary">
+            <div class="readout"><span id="outsideState">outside scan ready · 0 / 720</span><strong id="outsideMean">-- fm</strong></div>
+            <div class="readout"><span>outside-gap RMS</span><strong id="outsideRms">-- fm</strong></div>
+            <div class="readout"><span>smallest outside gap</span><strong id="outsideMin">-- fm</strong></div>
+            <div class="readout"><span>largest outside gap</span><strong id="outsideMax">-- fm</strong></div>
+          </div>
+        </div></div>
+      </details>
+    </section>
+
+    <aside class="panel">
+      <details class="collapsible-window primary-measurement-window" open>
+      <summary class="window-title">All-Direction Solid-Angle Scan <span class="title-qualifier">(Projected Outer Extent)</span></summary>
+      <div class="window-body">
+      <p class="action-note measurement-description">This measures the STL from all viewing directions while visibly varying yaw, pitch, and roll. Iterative mode uses the selected evenly distributed <strong>N</strong>; Continuous mode samples random directions indefinitely. Each view keeps only the <strong>farthest projected vertex</strong>, so near-center points cannot lower this outer-silhouette measurement.</p>
+      <button class="primary scan-button" id="average">Pause blue automatic sampling</button>
+      <div class="scan-rview"><span>Rview = Rproj</span><strong id="scanViewRadius">-- fm</strong></div>
+      <div class="button-equation"><code>A = (1/N) Σ Rproj(nᵢ), &nbsp; Rproj(n) = max projected vertex distance</code><span id="projectionLiveEquation">ready · N = 720</span></div>
+      <div class="live-math" id="projectionDerivation" aria-live="polite"><span class="math-label">Current direction:</span> n = --<br><span class="math-label">Current outer extent:</span> Rproj = max √(x′²+y′²)<br><span class="math-label">Running mean:</span> A = (Σ Rproj) / N</div>
+      <div class="scan-head">
+        <span id="scanState">ready · 0 / 720</span>
+      </div>
+      <div class="progress projection-progress"><div id="progressBar"></div></div>
+      <div class="readouts">
+        <div class="readout"><span>running average projection</span><strong id="avgRadius">-- fm</strong></div>
+        <div class="readout"><span>largest observed projection</span><strong id="scanMax">-- fm</strong></div>
+        <div class="readout"><span>smallest observed projection</span><strong id="scanMin">-- fm</strong></div>
+        <div class="readout"><span>fixed STL outer bound</span><strong class="orange" id="scanTrue">-- fm</strong></div>
+      </div>
+      <canvas id="scanPlot" aria-label="Directional radius scan graph"></canvas>
+      <details class="sample-log-panel blue-log" open>
+        <summary>Blue automatic viewing-direction log</summary>
+        <div class="sample-log-toolbar"><span id="projectionAutoLogCount">0 samples retained</span><button id="exportProjectionLog" type="button" disabled>Export blue log</button></div>
+        <div class="sample-log" id="projectionAutoLog">No automatic blue samples logged.</div>
+      </details>
+      </div>
+      </details>
+
+      <details class="bridge-box collapsible-window">
+        <summary class="window-title" id="bridgeHeading">Live outer ↔ inner reconciliation — additional diagnostic</summary>
+        <div class="window-body">
+        <div class="bridge-clarifier"><strong>Read this in order:</strong> the STL outer bound is a geometric maximum, the purple scan measures empty gap, and the green scan measures center-to-facet distance. The experimental proton RMS charge radius is a different definition—not a hard outer wall.</div>
+        <ol class="bridge-steps">
+          <li><strong>R</strong> = center → STL outer sphere.</li>
+          <li><strong>G</strong> = mean purple sphere → nearest-triangle gap.</li>
+          <li><strong>S</strong> = mean green center → triangle-interior distance.</li>
+          <li>Compare <strong>C = R − G</strong> with <strong>S</strong>. This comparison is exact arithmetic, but C is not a new measured radius because purple lines may point sideways.</li>
+        </ol>
+        <div class="term-key"><strong>Main sum:</strong> <strong>T = S + G</strong> adds the direct facet mean and outside-gap mean. <strong>Individual-point symbols:</strong> <strong>gᵢ</strong> is one purple gap; <strong>pᵢ</strong> is one green triangle point; <strong>qᵢ</strong> is the nearest triangle point selected by one purple sphere point; <strong>|qᵢ|</strong> is center → qᵢ.</div>
+        <details class="reconciliation-details" open>
+          <summary>Optional reconciliation equations and symbols</summary>
+          <div class="bridge-equations">
+            M = (R + G) / 2 &nbsp; literal mean<br>
+            T = S + G &nbsp; sum reconstruction<br>
+            C = R − G = mean(R − gᵢ) &nbsp; scalar complement<br>
+            B = (S + C) / 2 &nbsp; midpoint of the two close values<br>
+            Δ = S − C &nbsp; difference between them
+          </div>
+        </details>
+        <div class="bridge-grid">
+          <div class="readout"><span>outer shell R</span><strong class="orange" id="bridgeOuter">-- fm</strong></div>
+          <div class="readout"><span>outside-gap mean G</span><strong id="bridgeGap">-- fm</strong></div>
+          <div class="readout featured"><span>sum reconstruction T = S + G</span><strong id="bridgeSum">-- fm</strong></div>
+          <div class="readout"><span>sum difference T − R</span><strong id="bridgeSumResidual">-- fm</strong></div>
+          <div class="readout"><span>literal mean (R + G) / 2</span><strong id="bridgeLiteralMean">-- fm</strong></div>
+          <div class="readout featured"><span>exact inward complement C = R − G</span><strong id="bridgeComplement">-- fm</strong></div>
+          <div class="readout"><span>direct facet mean S</span><strong class="green" id="bridgeSurface">-- fm</strong></div>
+          <div class="readout featured"><span>reconciliation midpoint (S + C) / 2</span><strong id="bridgeMidpoint">-- fm</strong></div>
+          <div class="readout"><span>closure residual S − C</span><strong id="bridgeResidual">-- fm</strong></div>
+          <div class="readout"><span>actual mean radius of nearest points</span><strong id="bridgeNearestRadius">-- fm</strong></div>
+          <div class="readout"><span>non-radial correction: mean |q| − C</span><strong id="bridgeNonRadial">-- fm</strong></div>
+          <div class="readout"><span>CODATA 2022 rms charge radius</span><strong class="gold">0.840750000 fm</strong></div>
+        </div>
+        <div class="bridge-verdict" id="bridgeVerdict">Run the outside-gap and classical-surface scans to resolve the relationship.</div>
+        <p class="bridge-explanation">Muonic-hydrogen spectroscopy infers a <strong>root-mean-square charge radius</strong> from the proton finite-size contribution to atomic energy levels; it does not observe a hard outer boundary. The geometric rows above remain distinct from that experimental observable. Sources: <a href="https://www.nature.com/articles/nature09250" target="_blank" rel="noopener">Pohl et al. (2010)</a> and <a href="https://physics.nist.gov/cuu/pdf/JPCRD2022CODATA.pdf" target="_blank" rel="noopener">CODATA 2022</a>.</p>
+        </div>
+      </details>
+    </aside>
+  </main>
+
+  <details class="panel verification-panel">
+    <summary id="verificationHeading">Calculation verification log — additional detail</summary>
+    <div class="window-body">
+    <div class="calc" id="calcLog" aria-live="polite"></div>
+    </div>
+  </details>
+
+  <details class="formula">
+    <summary>Geometric calculation from the STL — live details</summary>
+    <div class="window-body">
+    Median equilateral facet edge: <code id="edgeFormula">s_native = --</code><br>
+    Calibration supplied: <code>h = s√3/2 = 1 fm</code>, therefore <code>s = 2/√3 fm</code>.<br>
+    STL circumscribed outer bound: <code id="radiusFormula">R = max ||v_i - hub|| = -- fm</code><br>
+    Current projection: <code id="currentFormula">Rproj = -- fm</code><br>
+    All-direction scan: <code id="projectionFormula">mean Rproj over 720 directions = -- fm</code><br>
+    Classical surface average: <code id="surfaceFormula">mean ||p_i - hub|| over 720 area-weighted triangle points</code><br>
+    Outside-gap average: <code id="outsideFormula">mean min distance from 720 circumsphere points to any STL triangle</code><br>
+    Center-out radial reach: <code id="radialFormula">mean first triangle hit, otherwise R, over 720 center-out rays</code><br>
+    Outer/inner comparison: <code id="bridgeFormula">run the green and purple scans</code><br>
+    <span class="note">V67 samples the corrected 20-face regular exterior shell and presents its uniform-area mean S as this model's proposed classical surface-radius estimate. The exact weighting and distinct RMS calculation remain explicit.</span>
+    </div>
+  </details>
+
+  <details class="formula">
+    <summary>Why A and S cannot be turned into one unique “true radius”</summary>
+    <div class="window-body">
+      <p><strong>A</strong> averages the outer silhouette. For every viewing direction it deliberately selects the farthest projected vertex, so it is an outer-size statistic. Interior points play no part in that maximum.</p>
+      <p><strong>S</strong> averages distances from the center to points sampled across all 20 regular exterior triangle faces. It weights triangle area rather than viewing direction, so it remains distinct from A.</p>
+      <p>A midpoint such as (A + S) / 2 can always be computed, but it is only an arithmetic blend. Geometry supplies no law saying the two statistics should receive equal weight, so calling that midpoint the true proton radius would add an unsupported assumption.</p>
+      <p>The collapsed center-out radial check answers a third, explicit question: along each direction, stop at the first triangle in the way, or reach the outer sphere if nothing blocks the ray. It is useful for understanding this model, but it is still not the experimentally defined RMS charge radius.</p>
+    </div>
+  </details>
+
+  <footer class="page-credit">Proton Prover &copy; 2026 James M. Moore.<br>Tetryonics Geometry &copy; 2008 Kelvin C. Abraham.<br>Coding assistance: OpenAI Codex (GPT-5.6 Sol). Anthropic Claude (Sonnet 4.6).<br>Software licensed AGPL-3.0-or-later; see a copy of this license at <a href="LICENSE">LICENSE</a>.<br>Last updated: 09/04/2026.</footer>
+
+  <script>
+  (() => {
+    "use strict";
+
+    // Exact bytes of proton_9tetryons.stl, embedded so this HTML remains portable.
+    const STL_BASE64 = "bnVtcHktc3RsICg0LjAuMCkgMjAyNi0wOC0wOSAwMjozMToyMC44Mzc0NzkgcHJvdG9uXzl0ZXRyeW9ucy5zdGwgICAgICAgICAgICAgICAUAAAAKR4uQ6u0ksP8CxVEWLacQm05uELGzMFBrrvKQil+okLkg0JBPfzMQoo/1UL9isJBAADma0fDDmuKw/4LFUR3f/pCERC0QsbMwUE9/MxCij/VQv2KwkGuu8pCKX6iQuSDQkEAALtKrsP4vhBESt/1Qj38zEKKP9VC/YrCQWN8sELBTM5C+d+MPli2nEJtObhCxszBQQAAn1OnQ5wXMUJ4jxVErrvKQil+okLkg0JBWLacQm05uELGzMFB362kQv52gEK0esBBAADhaSfEZ8TAwmqn7UJcTZhCB26bQsqA9j3fraRC/naAQrR6wEFYtpxCbTm4QsbMwUEAAPqM/MPpk+DDtMb0wlxNmEIHbptCyoD2PZzDvUIPvGJCAAAAAN+tpEL+doBCtHrAQQAA37cYxGmQkUMcAuzCXE2YQgdum0LKgPY9WLacQm05uELGzMFBY3ywQsFMzkL534w+AABgmvlDvj+aw3+DskOuu8pCKX6iQuSDQkHfraRC/naAQrR6wEGcw71CD7xiQgAAAAAAAIG5fEMZf2RDhh0VxJzDvUIPvGJCAAAAAFxNmEIHbptCyoD2Pa67ykIpfqJC5INCQQAAbD/HQ1p1CEQ33/VCPfzMQoo/1UL9isJBd3/6QhEQtELGzMFB3MHoQorNy0L534w+AADYIfBBWB0pRPkT58I9/MxCij/VQv2KwkHcwehCis3LQvnfjD5jfLBCwUzOQvnfjD4AAFa1pMPgepNCeo8VRK67ykIpfqJC5INCQaOf7ULCdHpCtHrAQXd/+kIRELRCxszBQQAAXiQDxPSIg8N7g7JDrrvKQil+okLkg0JB0EzTQsnSYEIAAAAAo5/tQsJ0ekK0esBBAAAkzphDCqUNw9CpFcRjfLBCwUzOQvnfjD6uu8pCKX6iQuSDQkFcTZhCB26bQsqA9j0AAIBZbcGmJ6fDsPgVxK67ykIpfqJC5INCQWN8sELBTM5C+d+MPtzB6EKKzctC+d+MPgAAgJAeRM3ga0MyAuzCHVf8QqX9lkLJgPY93MHoQorNy0L534w+d3/6QhEQtELGzMFBAAAUnyRERlEbw3Kn7UIdV/xCpf2WQsmA9j13f/pCERC0QsbMwUGjn+1CwnR6QrR6wEEAAEB6nsMOCuTC0akVxNzB6EKKzctC+d+MPh1X/EKl/ZZCyYD2Pa67ykIpfqJC5INCQQAAN35nw5X7eUOIHRXE0EzTQsnSYEIAAAAArrvKQil+okLkg0JBHVf8QqX9lkLJgPY9AAC3qudDZRD2w7LG9MIdV/xCpf2WQsmA9j2jn+1CwnR6QrR6wEHQTNNCydJgQgAAAAAAAA==";
+    let SAMPLES = 720;
+    const GRAPH_POINTS = 120;
+    const AUTO_LOG_CAP = 50000;
+    const AUTO_LOG_VISIBLE = 80;
+    const CODATA_2022 = 0.84075;
+    const CODATA_UNCERTAINTY = 0.00064;
+    const palette = ["#6f86dc", "#e57975", "#76bf72", "#9c78c5", "#e4a15c", "#5caab2"];
+    const $ = id => document.getElementById(id);
+    function updateUncertaintyState(mean) {
+      const reached=Number.isFinite(mean)&&Math.abs(mean-CODATA_2022)<=CODATA_UNCERTAINTY;
+      $("surfaceMeanReadout").classList.toggle("uncertainty-hit",reached);
+      $("surfaceCodataReadout").classList.toggle("uncertainty-hit",reached);
+      $("surfaceDeltaReadout").classList.toggle("uncertainty-hit",reached);
+      $("primarySurfaceCard").classList.toggle("uncertainty-hit",reached);
+      $("surfaceDerivation").classList.toggle("uncertainty-text-hit",reached);
+      $("uncertaintyStatus").textContent=reached?"reached":"waiting";
+      if(reached&&$("stopAtUncertainty").checked&&runMode!=="manual") {
+        setCalculationsPaused(true);
+        $("uncertaintyStatus").textContent="reached · stopped";
+        return true;
+      }
+      return false;
+    }
+    function openRpGuide() {
+      const guide=window.open(new URL("howtosolveforrp.html",window.location.href).href,"protonRadiusGuide","popup=yes,width=820,height=850,resizable=yes,scrollbars=yes");
+      if(!guide){alert("Please allow pop-ups for this local page to open the proton-radius guide.");return;}
+      guide.focus();return;
+      guide.document.open();
+      guide.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>How to solve for rₚ</title><style>:root{color-scheme:light}*{box-sizing:border-box}body{margin:0;padding:28px;background:#f4f3ee;color:#242421;font:15px/1.55 Inter,system-ui,sans-serif}main{max-width:780px;margin:auto;background:#fff;padding:26px;border:1px solid #d6d3c8;border-radius:14px}h1{margin-top:0;font-size:25px}h2{margin:25px 0 8px;font-size:18px}ol,ul{padding-left:24px}.eq{padding:10px 12px;margin:9px 0;background:#f1f7f4;border-left:4px solid #168d6b;font:14px/1.55 ui-monospace,Consolas,monospace}.note{padding:12px;background:#fff8df;border:1px solid #dec36b;border-radius:8px}.blue{border-left-color:#3789c9;background:#eef6fc}.small{color:#66655f;font-size:13px}</style></head><body><main>
+      <h1>How to solve for rₚ in this geometric model</h1><p class="small">Drag this browser window to another screen while checking the live calculator.</p>
+      <h2>Step-by-step workflow</h2><ol>
+      <li><strong>Choose the experimental reference.</strong> CODATA 2022 gives <strong>rₚ = 0.840750000 fm</strong>, commonly rounded to 0.841 fm.</li>
+      <li><strong>Assign the proposed tetryonic geometry.</strong> Load the corrected nine-tetrahedron STL, identify its symmetric hub, retain all 20 regular exterior triangle facets, and measure coordinates relative to that hub.</li>
+      <li><strong>Gauge-fix the length scale.</strong> This build sets one reference equilateral triangle-face altitude to 1 fm: if its native face altitude is h, then k = 1/h fm per native unit. CODATA remains the comparison value rather than an input to this geometric scale.</li>
+      <li><strong>Sample the exposed surface.</strong> Select triangle j in proportion to its area, select a uniform point pᵢ inside it, and calculate rᵢ.</li>
+      <li><strong>Calculate the model radius.</strong> Average the distances to obtain S, then compare S with CODATA.</li></ol>
+      <div class="eq">pᵢ = (1−√u)a + √u(1−v)b + √u·v·c<br>rᵢ = k ||pᵢ − hub||<br>S = (1/N) Σ rᵢ</div>
+      <p>For the corrected embedded STL at the program's stated geometric gauge, the 720-point reference is <strong>S = 0.835045380 fm</strong>: <strong>−0.005704620 fm</strong>, about <strong>−0.679%</strong>, from CODATA.</p>
+      <div class="note"><strong>Calibration warning:</strong> To force the scale to CODATA, first compute the native mean Sₙ and set k<sub>CODATA</sub> = 0.840750000/Sₙ. Then S = k<sub>CODATA</sub>Sₙ = 0.840750000 fm by construction. That is a calibration convention, not an independent prediction. The present 1-fm-altitude gauge keeps the comparison separate.</div>
+      <h2>How to check it by hand</h2><ol><li>For each exposed triangle a,b,c, calculate Aⱼ = ½||(b−a)×(c−a)||.</li><li>Confirm its selection probability is Aⱼ/ΣA.</li><li>Choose u,v between 0 and 1 and use the barycentric point formula above; √u makes sampling uniform over area.</li><li>Subtract the hub, multiply by k, and calculate rᵢ = √(xᵢ²+yᵢ²+zᵢ²).</li><li>Repeat for a documented set, add all rᵢ, and divide by N. More samples reduce sampling noise.</li></ol>
+      <h2>Understanding S and surface RMS</h2><p><strong>S</strong> is the ordinary area-weighted mean:</p><div class="eq">S = (1/N) Σ rᵢ = 0.835045380 fm</div><p><strong>Surface RMS</strong> squares the same distances first:</p><div class="eq">R<sub>surface RMS</sub> = √[(1/N) Σ rᵢ²] = 0.868678484 fm</div><p>They are equal only when every surface point is the same distance from the center—a perfect sphere. This faceted surface has nearer and farther points, and squaring gives farther points more influence.</p><p>CODATA's value is an RMS over an inferred <em>charge-density distribution</em>; this STL surface RMS uses uniform triangle-area weighting. They are different measures. Here S is the proposed geometric correspondence, while surface RMS diagnoses radial spread.</p>
+      <h2>Outer projection check</h2><p>The blue scan is separate:</p><div class="eq blue">Rproj(n) = maxᵥ √(x′ᵥ²+y′ᵥ²)<br>A = (1/N) Σ Rproj(nᵢ)</div><p>A is the rotationally averaged outer silhouette. It is not averaged with S to create another radius.</p>
+      </main></body></html>`);
+      guide.document.close();guide.focus();
+    }
+    $("rpGuideButton").addEventListener("click",openRpGuide);
+    const fmt = n => Number(n).toFixed(9);
+    const short = n => Number(n).toFixed(9);
+    const vecText = p => "("+short(p.x)+", "+short(p.y)+", "+short(p.z)+")";
+    const len = p => Math.hypot(p.x, p.y, p.z);
+    const sub = (a,b) => ({x:a.x-b.x, y:a.y-b.y, z:a.z-b.z});
+    const dot = (a,b) => a.x*b.x + a.y*b.y + a.z*b.z;
+    const cross = (a,b) => ({x:a.y*b.z-a.z*b.y, y:a.z*b.x-a.x*b.z, z:a.x*b.y-a.y*b.x});
+
+    function parseStl(base64) {
+      const raw = atob(base64);
+      const buffer = new ArrayBuffer(raw.length);
+      const bytes = new Uint8Array(buffer);
+      for (let i=0; i<raw.length; i++) bytes[i] = raw.charCodeAt(i);
+      const dv = new DataView(buffer);
+      const count = dv.getUint32(80, true);
+      if (84 + count*50 !== buffer.byteLength) throw new Error("Invalid binary STL length");
+      const triangles = [];
+      const all = [];
+      for (let i=0; i<count; i++) {
+        const base = 84 + i*50 + 12;
+        const tri = [];
+        for (let j=0; j<3; j++) {
+          const o = base + j*12;
+          const p = {x:dv.getFloat32(o,true), y:dv.getFloat32(o+4,true), z:dv.getFloat32(o+8,true)};
+          tri.push(p); all.push(p);
+        }
+        triangles.push(tri);
+      }
+      const map = new Map();
+      all.forEach(p => map.set([p.x,p.y,p.z].map(v=>v.toFixed(5)).join(","), p));
+      return {triangles, unique:[...map.values()]};
+    }
+
+    function median(values) {
+      const a = values.slice().sort((x,y)=>x-y);
+      return a.length%2 ? a[(a.length-1)/2] : (a[a.length/2-1]+a[a.length/2])/2;
+    }
+
+    function detectHub(vertices) {
+      let best = null;
+      vertices.forEach(candidate => {
+        const ds = vertices.filter(v=>v!==candidate).map(v=>len(sub(v,candidate)));
+        const mean = ds.reduce((a,b)=>a+b,0)/ds.length;
+        const variance = ds.reduce((s,d)=>s+(d-mean)**2,0)/ds.length;
+        const score = Math.sqrt(variance)/mean;
+        if (!best || score < best.score) best = {point:candidate, score};
+      });
+      return best;
+    }
+
+    const source = parseStl(STL_BASE64);
+    const edges = source.triangles.flatMap(t => [
+      len(sub(t[0],t[1])), len(sub(t[1],t[2])), len(sub(t[2],t[0]))
+    ]);
+    const nativeEdge = median(edges);
+    const nativeFaceAltitude = nativeEdge * Math.sqrt(3)/2;
+    const fmPerUnit = 1/nativeFaceAltitude;
+    const hubResult = detectHub(source.unique);
+    const hub = hubResult.point;
+    const vertices = source.unique.map(p => {
+      const q=sub(p,hub); return {x:q.x*fmPerUnit,y:q.y*fmPerUnit,z:q.z*fmPerUnit};
+    });
+    const key = p => [p.x,p.y,p.z].map(v=>v.toFixed(5)).join(",");
+    const vertexByKey = new Map(source.unique.map((p,i)=>[key(p),vertices[i]]));
+    const triangles = source.triangles.map((t,i)=>({v:t.map(p=>vertexByKey.get(key(p))), color:palette[i%palette.length]}));
+    const faceAreas = triangles.map(t=>len(cross(sub(t.v[1],t.v[0]),sub(t.v[2],t.v[0])))/2);
+    const totalSurfaceArea = faceAreas.reduce((a,b)=>a+b,0);
+    const radii = vertices.map(len);
+    const trueRadius = Math.max(...radii);
+    const outerRadii = radii.filter(r=>r>trueRadius*.25);
+    const radiusSpread = Math.max(...outerRadii)-Math.min(...outerRadii);
+
+    $("meshCount").textContent = triangles.length + " exposed STL facets";
+    $("vertexCount").textContent = source.unique.length + " unique vertices · corrected regular exterior shell";
+    $("scaleReadout").textContent = "1 native unit = " + fmPerUnit.toFixed(9) + " fm";
+    $("trueRadius").textContent = fmt(trueRadius) + " fm";
+    $("scanTrue").textContent = fmt(trueRadius) + " fm";
+    $("edgeFormula").textContent = "s_native = " + nativeEdge.toFixed(9) + " units";
+    $("radiusFormula").textContent = "R = " + fmt(trueRadius) + " fm";
+    const initialLogRows = [
+      ["✓","binary STL parsed: "+source.triangles.length+" facets"],
+      ["✓","deduplicated: "+source.unique.length+" vertices"],
+      ["✓","hub score: "+hubResult.score.toExponential(2)],
+      ["✓","median edge: "+nativeEdge.toFixed(9)+" native"],
+      ["✓","native triangle-face altitude: "+nativeFaceAltitude.toFixed(9)],
+      ["✓","scale: 1 / altitude = "+fmPerUnit.toFixed(9)],
+      ["✓","outer-radius spread: "+radiusSpread.toExponential(2)+" fm"],
+      ["✓","R3D = "+fmt(trueRadius)+" fm"]
+    ];
+    const calcResults = new Map();
+    function renderCalcLog() {
+      const rows=initialLogRows.concat([...calcResults.values()].map(value=>["✓",value]));
+      $("calcLog").innerHTML=rows.map(r=>'<div><span class="ok">'+r[0]+'</span><span>'+r[1]+'</span></div>').join("");
+    }
+    function setCalcGroup(prefix, rows) {
+      [...calcResults.keys()].filter(key=>key.startsWith(prefix)).forEach(key=>calcResults.delete(key));
+      rows.forEach((value,index)=>calcResults.set(prefix+index,value));
+      renderCalcLog();
+    }
+    renderCalcLog();
+
+    let latestSurfaceMean=null, latestOutsideMean=null, latestNearestRadiusMean=null;
+    const signedFmt = n => (n>=0?"+":"")+fmt(n);
+    const surfaceDeltaText = delta => signedFmt(delta)+" fm · "+signedFmt(delta/CODATA_UNCERTAINTY)+" σ";
+    function updateBridge() {
+      $("bridgeOuter").textContent=fmt(trueRadius)+" fm";
+      $("bridgeGap").textContent=latestOutsideMean===null?"-- fm":fmt(latestOutsideMean)+" fm";
+      $("bridgeSurface").textContent=latestSurfaceMean===null?"-- fm":fmt(latestSurfaceMean)+" fm";
+      $("bridgeNearestRadius").textContent=latestNearestRadiusMean===null?"-- fm":fmt(latestNearestRadiusMean)+" fm";
+      $("bridgeSum").textContent=latestOutsideMean===null||latestSurfaceMean===null?"-- fm":fmt(latestSurfaceMean+latestOutsideMean)+" fm";
+      $("bridgeSumResidual").textContent=latestOutsideMean===null||latestSurfaceMean===null?"-- fm":signedFmt(latestSurfaceMean+latestOutsideMean-trueRadius)+" fm";
+
+      if(latestOutsideMean===null) {
+        $("bridgeLiteralMean").textContent="-- fm";
+        $("bridgeComplement").textContent="-- fm";
+        $("bridgeNonRadial").textContent="-- fm";
+      } else {
+        const literalMean=(trueRadius+latestOutsideMean)/2;
+        const complement=trueRadius-latestOutsideMean;
+        $("bridgeLiteralMean").textContent=fmt(literalMean)+" fm";
+        $("bridgeComplement").textContent=fmt(complement)+" fm";
+        $("bridgeNonRadial").textContent=latestNearestRadiusMean===null?"-- fm":signedFmt(latestNearestRadiusMean-complement)+" fm";
+      }
+
+      if(latestOutsideMean===null || latestSurfaceMean===null) {
+        $("bridgeMidpoint").textContent="-- fm";
+        $("bridgeResidual").textContent="-- fm";
+        $("bridgeVerdict").textContent=latestOutsideMean===null
+          ? "Run the outside-gap and classical-surface scans to resolve the relationship."
+          : "Outside complement calculated. Run the classical-surface scan to compare it with the direct facet mean.";
+        $("bridgeFormula").textContent="run the green and purple scans";
+        setCalcGroup("bridge:",[]);
+      } else {
+        const complement=trueRadius-latestOutsideMean;
+        const midpoint=(latestSurfaceMean+complement)/2;
+        const residual=latestSurfaceMean-complement;
+        const percent=residual/latestSurfaceMean*100;
+        const literalMean=(trueRadius+latestOutsideMean)/2;
+        const nonRadial=latestNearestRadiusMean===null?null:latestNearestRadiusMean-complement;
+        const sumReconstruction=latestSurfaceMean+latestOutsideMean;
+        const sumResidual=sumReconstruction-trueRadius;
+        $("bridgeMidpoint").textContent=fmt(midpoint)+" fm";
+        $("bridgeResidual").textContent=signedFmt(residual)+" fm ("+(percent>=0?"+":"")+percent.toFixed(3)+"%)";
+        $("bridgeVerdict").textContent="Main sum: T = S + G = "+fmt(sumReconstruction)+" fm. Compared with the fixed STL outer bound R = "+fmt(trueRadius)+" fm, T − R = "+signedFmt(sumResidual)+" fm ("+(100*sumResidual/trueRadius>=0?"+":"")+(100*sumResidual/trueRadius).toFixed(3)+"%). This is a close numerical reconstruction, not an exact identity, because the green and purple scans select geometry differently.";
+        $("bridgeFormula").textContent="T = S + G = "+fmt(sumReconstruction)+" fm; T − R = "+signedFmt(sumResidual)+" fm; R − G = "+fmt(complement)+" fm; S − (R − G) = "+signedFmt(residual)+" fm";
+        setCalcGroup("bridge:",[
+          "sum reconstruction T = S + G = "+fmt(sumReconstruction)+" fm",
+          "sum difference T − R = "+signedFmt(sumResidual)+" fm",
+          "literal mean (R + G)/2 = "+fmt(literalMean)+" fm",
+          "inward complement C = R − G = "+fmt(complement)+" fm",
+          "reconciliation midpoint B = "+fmt(midpoint)+" fm",
+          "closure residual S − C = "+signedFmt(residual)+" fm"
+        ]);
+      }
+    }
+    updateBridge();
+
+    const viewer = $("viewer");
+    const ctx = viewer.getContext("2d");
+    const surfaceLayer=document.createElement("canvas"), surfaceCtx=surfaceLayer.getContext("2d");
+    const plot = $("scanPlot");
+    const pctx = plot.getContext("2d");
+    const surfacePlot = $("surfacePlot");
+    const spctx = surfacePlot.getContext("2d");
+    let yaw=0, pitch=0, roll=0, zoom=1, meshDisplayMode="colored", meshOpacity=1, dragging=false, dragMode="orbit", lastX=0, lastY=0, dragStartX=0, dragStartY=0, dragMoved=false, showViewGuide=false;
+    let scanValues=[], surfaceValues=[], scanMeanValues=[], surfaceMeanValues=[], projectionGraphZoom=1, surfaceGraphZoom=1;
+    let runMode="continuous", continuousLoopToken=0;
+    let surfaceTrail=[];
+    let outsideTrail=[];
+    let radialTrail=[];
+    let manualKind=null, manualPending=null, manualLast=null, manualSequence=0, manualBothHover=false;
+    let manualSurfaceSamples=[], manualProjectionSamples=[];
+    let surfaceAutoLogEntries=[],projectionAutoLogEntries=[];
+    const TRAIL_LIFETIME_MS=500;
+    let trailExpiryTimer=null;
+    let projectionRun=0, surfaceRun=0, outsideRun=0, radialRun=0, calculationsPaused=false, projectionReadingAvailable=false;
+
+    function scheduleTrailExpiry() {
+      if(trailExpiryTimer!==null) return;
+      const entries=[...surfaceTrail,...outsideTrail,...radialTrail];
+      if(!entries.length) return;
+      const nextExpiry=Math.min(...entries.map(entry=>entry._expiresAt));
+      trailExpiryTimer=setTimeout(()=>{
+        trailExpiryTimer=null;
+        const now=performance.now();
+        surfaceTrail=surfaceTrail.filter(entry=>entry._expiresAt>now);
+        outsideTrail=outsideTrail.filter(entry=>entry._expiresAt>now);
+        radialTrail=radialTrail.filter(entry=>entry._expiresAt>now);
+        render();
+        scheduleTrailExpiry();
+      },Math.max(0,nextExpiry-performance.now())+8);
+    }
+
+    const SPEED_MAX=1440;
+    function calculationsPerSecond() {
+      const t=Math.max(0,Math.min(100,+$("calcSpeed").value||0))/100;
+      return Math.max(1,Math.round(Math.exp(Math.log(SPEED_MAX)*t)));
+    }
+    function batchSize() { return Math.max(1,Math.round(calculationsPerSecond()/60)); }
+    function scheduleNext(frame) {
+      const rate=calculationsPerSecond();
+      if(rate<60) setTimeout(frame,1000/rate);
+      else requestAnimationFrame(frame);
+    }
+    function updateSpeedReadout() {
+      const rate=calculationsPerSecond(), seconds=SAMPLES/rate;
+      const duration=seconds>=60?(seconds/60).toFixed(seconds>=600?0:1)+" min":seconds.toFixed(1)+" s";
+      $("calcSpeedOut").textContent=rate+" calculation"+(rate===1?"":"s")+"/second"+(runMode==="iterative"?" · about "+duration:"");
+    }
+    $("calcSpeed").value="0";updateSpeedReadout();
+
+    function fitCanvas(canvas) {
+      const rect=canvas.getBoundingClientRect(), dpr=Math.min(devicePixelRatio||1,2);
+      const w=Math.max(1,Math.round(rect.width*dpr)), h=Math.max(1,Math.round(rect.height*dpr));
+      if (canvas.width!==w || canvas.height!==h) { canvas.width=w; canvas.height=h; }
+      return {w:rect.width,h:rect.height,dpr};
+    }
+
+    const MODEL_YAW_ALIGNMENT_DEG=2.540733898;
+    function rotate(p, yawDeg=yaw, pitchDeg=pitch, rollDeg=roll) {
+      const a=yawDeg*Math.PI/180, b=pitchDeg*Math.PI/180, c=rollDeg*Math.PI/180;
+      const ca=Math.cos(a),sa=Math.sin(a),cb=Math.cos(b),sb=Math.sin(b),cc=Math.cos(c),sc=Math.sin(c);
+      const x=p.x*ca-p.y*sa;
+      const y=p.x*sa+p.y*ca;
+      const py=y*cb-p.z*sb, pz=y*sb+p.z*cb;
+      return {x:x*cc-py*sc, y:x*sc+py*cc, z:pz};
+    }
+    function rotateModel(p, yawDeg=yaw, pitchDeg=pitch, rollDeg=roll) {
+      const a=MODEL_YAW_ALIGNMENT_DEG*Math.PI/180,ca=Math.cos(a),sa=Math.sin(a);
+      return rotate({x:p.x*ca-p.y*sa,y:p.x*sa+p.y*ca,z:p.z},yawDeg,pitchDeg,rollDeg);
+    }
+
+    function viewMeasurement(yawDeg=yaw,pitchDeg=pitch,rollDeg=roll) {
+      let max=-1, far=null, vertex=null;
+      vertices.forEach(v => {
+        const q=rotateModel(v,yawDeg,pitchDeg,rollDeg), r=Math.hypot(q.x,q.y);
+        if (r>max) { max=r; far=q; vertex=v; }
+      });
+      return {radius:max, far, vertex};
+    }
+
+    function pickVisibleSurface(clientX,clientY) {
+      const rect=viewer.getBoundingClientRect(), w=rect.width, h=rect.height;
+      const cx=w/2,cy=h/2+4,scale=Math.min(w,h)*.365/trueRadius*zoom;
+      const px=(clientX-rect.left-cx)/scale,py=(cy-(clientY-rect.top))/scale;
+      let best=null,bestZ=-Infinity;
+      triangles.forEach((t,triangleIndex)=>{
+        const q=t.v.map(v=>rotateModel(v));
+        const denominator=(q[1].y-q[2].y)*(q[0].x-q[2].x)+(q[2].x-q[1].x)*(q[0].y-q[2].y);
+        if(Math.abs(denominator)<1e-12)return;
+        const w0=((q[1].y-q[2].y)*(px-q[2].x)+(q[2].x-q[1].x)*(py-q[2].y))/denominator;
+        const w1=((q[2].y-q[0].y)*(px-q[2].x)+(q[0].x-q[2].x)*(py-q[2].y))/denominator;
+        const w2=1-w0-w1;
+        if(w0<-.0001||w1<-.0001||w2<-.0001)return;
+        const z=w0*q[0].z+w1*q[1].z+w2*q[2].z;
+        if(z<=bestZ)return;
+        bestZ=z;
+        best={
+          triangleIndex,
+          barycentric:{a:w0,b:w1,c:w2},
+          point:{
+            x:w0*t.v[0].x+w1*t.v[1].x+w2*t.v[2].x,
+            y:w0*t.v[0].y+w1*t.v[1].y+w2*t.v[2].y,
+            z:w0*t.v[0].z+w1*t.v[1].z+w2*t.v[2].z
+          }
+        };
+      });
+      return best;
+    }
+
+    function nearProjectionSnapZone(clientX,clientY,measurement=viewMeasurement()) {
+      const rect=viewer.getBoundingClientRect(),w=rect.width,h=rect.height,cx=w/2,cy=h/2+4;
+      const scale=Math.min(w,h)*.365/trueRadius*zoom,px=clientX-rect.left,py=clientY-rect.top;
+      const ex=cx+measurement.far.x*scale,ey=cy-measurement.far.y*scale;
+      const sx=cx+(ex-cx)*.70,sy=cy+(ey-cy)*.70,dx=ex-sx,dy=ey-sy,length2=dx*dx+dy*dy;
+      const t=length2?Math.max(0,Math.min(1,((px-sx)*dx+(py-sy)*dy)/length2)):0;
+      const qx=sx+t*dx,qy=sy+t*dy;
+      return Math.hypot(px-ex,py-ey)<=22||Math.hypot(px-qx,py-qy)<=13;
+    }
+
+    function css(name,fallback) {
+      const v=getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+      return v || fallback;
+    }
+
+    function drawGreatCircle(cx,cy,scale,plane) {
+      ctx.beginPath();
+      for (let i=0;i<=100;i++) {
+        const a=i*Math.PI*2/100;
+        let p;
+        if (plane===0) p={x:trueRadius*Math.cos(a),y:trueRadius*Math.sin(a),z:0};
+        if (plane===1) p={x:trueRadius*Math.cos(a),y:0,z:trueRadius*Math.sin(a)};
+        if (plane===2) p={x:0,y:trueRadius*Math.cos(a),z:trueRadius*Math.sin(a)};
+        const q=rotate(p), x=cx+q.x*scale, y=cy-q.y*scale;
+        i ? ctx.lineTo(x,y) : ctx.moveTo(x,y);
+      }
+      ctx.stroke();
+    }
+
+    function render() {
+      const {w,h,dpr}=fitCanvas(viewer);
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+      ctx.clearRect(0,0,w,h);
+      const cx=w/2, cy=h/2+4, scale=Math.min(w,h)*.365/trueRadius*zoom;
+      const line=css("--line","rgba(80,78,70,.22)");
+      const text=css("--muted","#66655f");
+
+      ctx.strokeStyle=line; ctx.lineWidth=1;
+      for(let k=1;k<=3;k++) {
+        ctx.beginPath(); ctx.arc(cx,cy,scale*trueRadius*k/3,0,Math.PI*2); ctx.stroke();
+      }
+      ctx.fillStyle=text; ctx.font="10px system-ui"; ctx.textAlign="left";
+      ctx.fillText("center",cx+5,cy-5);
+
+      ctx.save();
+      ctx.strokeStyle="rgba(212,90,50,.52)"; ctx.lineWidth=1.3; ctx.setLineDash([5,4]);
+      drawGreatCircle(cx,cy,scale,0);drawGreatCircle(cx,cy,scale,1);drawGreatCircle(cx,cy,scale,2);
+      ctx.restore();
+
+      // Per-pixel depth buffer: all 20 exterior faces remain present, while edges and
+      // fills hidden behind nearer triangles cannot bleed through.
+      const rw=viewer.width,rh=viewer.height;
+      if(surfaceLayer.width!==rw||surfaceLayer.height!==rh){surfaceLayer.width=rw;surfaceLayer.height=rh;}
+      const image=surfaceCtx.createImageData(rw,rh), pixels=image.data;
+      const depths=new Float32Array(rw*rh);depths.fill(-Infinity);
+      triangles.forEach(t=>{
+        const q=t.v.map(v=>rotateModel(v));
+        const x0=(cx+q[0].x*scale)*dpr,y0=(cy-q[0].y*scale)*dpr;
+        const x1=(cx+q[1].x*scale)*dpr,y1=(cy-q[1].y*scale)*dpr;
+        const x2=(cx+q[2].x*scale)*dpr,y2=(cy-q[2].y*scale)*dpr;
+        const denominator=(y1-y2)*(x0-x2)+(x2-x1)*(y0-y2);
+        if(Math.abs(denominator)<1e-9)return;
+        const xmin=Math.max(0,Math.floor(Math.min(x0,x1,x2))),xmax=Math.min(rw-1,Math.ceil(Math.max(x0,x1,x2)));
+        const ymin=Math.max(0,Math.floor(Math.min(y0,y1,y2))),ymax=Math.min(rh-1,Math.ceil(Math.max(y0,y1,y2)));
+        const rgb=parseInt(t.color.slice(1),16),base=meshDisplayMode==="grey"?[174,174,174]:[rgb>>16,(rgb>>8)&255,rgb&255];
+        const normal=cross(sub(q[1],q[0]),sub(q[2],q[0]));
+        const light=.58+.38*Math.abs(normal.z)/(len(normal)||1);
+        for(let py=ymin;py<=ymax;py++)for(let px=xmin;px<=xmax;px++){
+          const sx=px+.5,sy=py+.5;
+          const w0=((y1-y2)*(sx-x2)+(x2-x1)*(sy-y2))/denominator;
+          const w1=((y2-y0)*(sx-x2)+(x0-x2)*(sy-y2))/denominator,w2=1-w0-w1;
+          if(w0<-.0001||w1<-.0001||w2<-.0001)continue;
+          const z=w0*q[0].z+w1*q[1].z+w2*q[2].z,index=py*rw+px;
+          if(z<=depths[index])continue;depths[index]=z;
+          const edge=Math.min(w0,w1,w2)<.018,o=index*4;
+          if(meshDisplayMode==="wireframe"&&!edge){pixels[o]=pixels[o+1]=pixels[o+2]=pixels[o+3]=0;continue;}
+          pixels[o]=edge?36:Math.round(base[0]*light);pixels[o+1]=edge?36:Math.round(base[1]*light);pixels[o+2]=edge?33:Math.round(base[2]*light);pixels[o+3]=Math.round(255*meshOpacity);
+        }
+      });
+      surfaceCtx.putImageData(image,0,0);
+      ctx.save();ctx.setTransform(1,0,0,1,0,0);ctx.drawImage(surfaceLayer,0,0);ctx.restore();
+
+      // True wireframe: show every corrected exterior-shell edge. Segments
+      // behind the nearest surface remain visible but are deliberately dimmer.
+      if(meshDisplayMode==="wireframe") {
+        const edgeMap=new Map(),rearPath=new Path2D(),frontPath=new Path2D();
+        triangles.forEach(t=>[[0,1],[1,2],[2,0]].forEach(([ia,ib])=>{
+          const a=t.v[ia],b=t.v[ib],ak=key(a),bk=key(b),ek=ak<bk?ak+"|"+bk:bk+"|"+ak;
+          if(!edgeMap.has(ek))edgeMap.set(ek,[a,b]);
+        }));
+        edgeMap.forEach(([a,b])=>{
+          const qa=rotateModel(a),qb=rotateModel(b);
+          const ax=cx+qa.x*scale,ay=cy-qa.y*scale,bx=cx+qb.x*scale,by=cy-qb.y*scale;
+          const steps=Math.max(2,Math.ceil(Math.hypot(bx-ax,by-ay)));
+          for(let s=0;s<steps;s++){
+            const t0=s/steps,t1=(s+1)/steps,tm=(t0+t1)/2;
+            const x0=ax+(bx-ax)*t0,y0=ay+(by-ay)*t0,x1=ax+(bx-ax)*t1,y1=ay+(by-ay)*t1;
+            const mx=ax+(bx-ax)*tm,my=ay+(by-ay)*tm,mz=qa.z+(qb.z-qa.z)*tm;
+            const ix=Math.max(0,Math.min(rw-1,Math.round(mx*dpr))),iy=Math.max(0,Math.min(rh-1,Math.round(my*dpr)));
+            const visible=mz>=depths[iy*rw+ix]-.006,path=visible?frontPath:rearPath;
+            path.moveTo(x0,y0);path.lineTo(x1,y1);
+          }
+        });
+        ctx.save();ctx.lineCap="round";ctx.lineJoin="round";
+        ctx.strokeStyle="rgba(20,36,43,"+(.22*meshOpacity).toFixed(3)+")";ctx.lineWidth=.9;ctx.stroke(rearPath);
+        ctx.strokeStyle="rgba(20,36,43,"+(.96*meshOpacity).toFixed(3)+")";ctx.lineWidth=1.55;ctx.stroke(frontPath);ctx.restore();
+      }
+
+      // Rolling visualization of the area-weighted interior surface samples.
+      if(surfaceTrail.length) {
+        ctx.save();
+        surfaceTrail.forEach((v,i)=>{
+          const q=rotateModel(v), x=cx+q.x*scale, y=cy-q.y*scale;
+          const alpha=.10+.65*(i+1)/surfaceTrail.length;
+          ctx.strokeStyle='rgba(0,230,118,'+Math.min(1,alpha+.18).toFixed(3)+')';
+          ctx.lineWidth=1.4;ctx.shadowColor="#00e676";ctx.shadowBlur=6;
+          ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(x,y);ctx.stroke();
+          ctx.fillStyle='rgba(22,141,107,'+Math.min(1,alpha+.2).toFixed(3)+')';
+          ctx.beginPath();ctx.arc(x,y,2.2,0,Math.PI*2);ctx.fill();
+        });
+        const latest=surfaceTrail[surfaceTrail.length-1], latestView=rotateModel(latest);
+        const latestX=cx+latestView.x*scale, latestY=cy-latestView.y*scale;
+        ctx.fillStyle="#00e676";ctx.font="800 15px system-ui";ctx.textAlign="left";
+        ctx.fillText("Rsample = "+fmt(len(latest))+" fm",Math.max(8,Math.min(rw-190,latestX+8)),Math.max(18,latestY-8));
+        ctx.restore();
+      }
+
+      // Rolling outside-gap visualization: circumsphere point to its closest
+      // point anywhere on the encoded STL triangle list.
+      if(outsideTrail.length) {
+        ctx.save();
+        outsideTrail.forEach((pair,i)=>{
+          const a=rotateModel(pair.sphere), b=rotateModel(pair.nearest);
+          const ax=cx+a.x*scale, ay=cy-a.y*scale, bx=cx+b.x*scale, by=cy-b.y*scale;
+          const alpha=.12+.72*(i+1)/outsideTrail.length;
+          ctx.strokeStyle='rgba(118,99,187,'+alpha.toFixed(3)+')';
+          ctx.lineWidth=1;
+          ctx.beginPath();ctx.moveTo(ax,ay);ctx.lineTo(bx,by);ctx.stroke();
+          ctx.fillStyle='rgba(118,99,187,'+Math.min(1,alpha+.15).toFixed(3)+')';
+          ctx.beginPath();ctx.arc(bx,by,2.2,0,Math.PI*2);ctx.fill();
+          ctx.strokeStyle='rgba(118,99,187,'+alpha.toFixed(3)+')';
+          ctx.beginPath();ctx.arc(ax,ay,2.5,0,Math.PI*2);ctx.stroke();
+        });
+        ctx.restore();
+      }
+
+      // Center-out radial samples: every line begins at the detected hub and
+      // ends either at the first positive triangle hit or at the outer sphere.
+      if(radialTrail.length) {
+        ctx.save();
+        radialTrail.forEach((sample,i)=>{
+          const q=rotateModel(sample.end), x=cx+q.x*scale, y=cy-q.y*scale;
+          const alpha=.12+.72*(i+1)/radialTrail.length;
+          ctx.strokeStyle=sample.blocked
+            ? 'rgba(118,99,187,'+alpha.toFixed(3)+')'
+            : 'rgba(212,90,50,'+alpha.toFixed(3)+')';
+          ctx.lineWidth=1;
+          ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(x,y);ctx.stroke();
+          ctx.fillStyle=ctx.strokeStyle;
+          ctx.beginPath();ctx.arc(x,y,2.1,0,Math.PI*2);ctx.fill();
+        });
+        ctx.restore();
+      }
+
+      // In combined mode the outer part of this guide is the blue snap zone.
+      if(runMode==="manual"&&manualKind==="both"&&!manualPending) {
+        const guide=viewMeasurement(),gx=cx+guide.far.x*scale,gy=cy-guide.far.y*scale;
+        ctx.save();ctx.strokeStyle=manualBothHover?"#00b7ff":"rgba(0,183,255,.52)";ctx.fillStyle="#00b7ff";
+        ctx.lineWidth=manualBothHover?5:2.2;ctx.shadowColor="#00b7ff";ctx.shadowBlur=manualBothHover?14:5;ctx.setLineDash(manualBothHover?[]:[6,5]);
+        ctx.beginPath();ctx.moveTo(cx+(gx-cx)*.70,cy+(gy-cy)*.70);ctx.lineTo(gx,gy);ctx.stroke();ctx.setLineDash([]);
+        ctx.beginPath();ctx.arc(gx,gy,manualBothHover?6:4,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;
+        ctx.font="800 12px system-ui";ctx.textAlign="center";ctx.fillText(manualBothHover?"Release to select blue A":"blue A snap zone",cx+(gx-cx)*.84,cy+(gy-cy)*.84-8);ctx.restore();
+      }
+
+      // Persistent reviewer-selected measurement. Manual S uses the exact
+      // depth-tested triangle point; manual A uses the farthest projected
+      // vertex for the captured view.
+      const manualDisplay=manualPending||manualLast;
+      const manualDisplays=manualDisplay?(manualDisplay.kind==="both"?[manualDisplay.surface,manualDisplay.projection]:[manualDisplay]):[];
+      manualDisplays.forEach(display=>{
+        const isSurface=display.kind==="surface",q=isSurface?rotateModel(display.point):display.far;
+        const x=cx+q.x*scale,y=cy-q.y*scale,color=isSurface?"#00e676":"#00b7ff";
+        ctx.save();ctx.strokeStyle=color;ctx.fillStyle=color;ctx.lineWidth=3.4;ctx.shadowColor=color;ctx.shadowBlur=9;ctx.setLineDash([]);
+        ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(x,y);ctx.stroke();ctx.beginPath();ctx.arc(x,y,4.4,0,Math.PI*2);ctx.fill();
+        ctx.shadowBlur=0;ctx.font="800 14px system-ui";ctx.textAlign="center";
+        ctx.fillText((isSurface?"Rsample = ":"Rview = ")+fmt(display.radius)+" fm",cx+(x-cx)*.55,cy+(y-cy)*.55+(isSurface?-11:13));ctx.restore();
+      });
+
+      ctx.save();ctx.globalAlpha=meshOpacity;
+      vertices.forEach(v=>{
+        const q=rotateModel(v);
+        if(len(v)<trueRadius*.25) return;
+        ctx.beginPath();ctx.arc(cx+q.x*scale,cy-q.y*scale,2.2,0,Math.PI*2);
+        ctx.fillStyle=css("--text","#242421");ctx.fill();
+      });
+      ctx.restore();
+      ctx.beginPath();ctx.arc(cx,cy,4,0,Math.PI*2);ctx.fillStyle=css("--green","#168d6b");ctx.fill();
+
+      const m=viewMeasurement();
+      if(showViewGuide && runMode!=="manual") {
+        const fx=cx+m.far.x*scale, fy=cy-m.far.y*scale;
+        ctx.strokeStyle="#00b7ff";ctx.lineWidth=3.2;ctx.shadowColor="#00b7ff";ctx.shadowBlur=8;ctx.setLineDash([]);
+        ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(fx,fy);ctx.stroke();
+        ctx.beginPath();ctx.arc(fx,fy,4.2,0,Math.PI*2);ctx.fillStyle=css("--blue","#3789c9");ctx.fill();
+        const tx=cx+(fx-cx)*.54,ty=cy+(fy-cy)*.54;
+        ctx.fillStyle="#00b7ff";ctx.font="700 13px system-ui";ctx.textAlign="center";
+        ctx.fillText("Rview = "+fmt(m.radius)+" fm",tx,ty-8);
+        ctx.shadowBlur=0;
+      }
+
+      // Fixed red circumscribed bound and current blue projected extent.
+      // Where their screen radii coincide, use green explicitly for clarity.
+      ctx.strokeStyle="rgba(212,90,50,.88)";ctx.lineWidth=1.7;
+      ctx.beginPath();ctx.arc(cx,cy,trueRadius*scale,0,Math.PI*2);ctx.stroke();
+      const aligned=m.radius.toFixed(4)===trueRadius.toFixed(4);
+      ctx.save();
+      ctx.strokeStyle=aligned?"#00ff66":css("--blue","#3789c9");
+      ctx.lineWidth=aligned?6:2;
+      ctx.shadowColor=aligned?"#00ff66":"transparent";ctx.shadowBlur=aligned?14:0;
+      ctx.beginPath();ctx.arc(cx,cy,m.radius*scale,0,Math.PI*2);ctx.stroke();
+      ctx.restore();
+      ctx.fillStyle=aligned?"#00d95f":css("--orange","#d45a32");ctx.textAlign="right";ctx.font=aligned?"800 12px system-ui":"600 10px system-ui";
+      ctx.fillText(aligned?"Rproj = R_STL (aligned)":"R_STL "+fmt(trueRadius)+" fm",cx+trueRadius*scale-5,cy-7);
+
+      $("viewRadius").textContent=fmt(m.radius)+" fm";
+      $("scanViewRadius").textContent=projectionReadingAvailable?fmt(m.radius)+" fm":"-- fm";
+      $("viewWidth").textContent="projected diameter = "+fmt(2*m.radius)+" fm";
+      $("trueDetail").textContent="fixed 3D maximum · current projection is "+(100*m.radius/trueRadius).toFixed(3)+"% of R";
+      $("currentFormula").textContent="Rproj(yaw "+yaw.toFixed(1)+"°, pitch "+pitch.toFixed(1)+"°, roll "+roll.toFixed(1)+"°) = "+fmt(m.radius)+" fm; Dproj = "+fmt(2*m.radius)+" fm; R − Rproj = "+fmt(trueRadius-m.radius)+" fm";
+      $("yawOut").textContent=yaw.toFixed(1)+"°";
+      $("pitchOut").textContent=pitch.toFixed(1)+"°";
+      $("rollOut").textContent=roll.toFixed(1)+"°";
+      $("cameraYaw").textContent="yaw "+(((yaw%360)+360)%360).toFixed(1)+"°";
+      $("cameraPitch").textContent="pitch "+((((pitch+180)%360+360)%360)-180).toFixed(1)+"°";
+      $("cameraRoll").textContent="roll "+(((roll%360)+360)%360).toFixed(1)+"°";
+      $("cameraZoom").textContent="zoom "+zoom.toFixed(3)+"×";
+      $("scaleRulerLine").style.width=scale.toFixed(2)+"px";
+      const manualSurface=manualDisplays.find(d=>d.kind==="surface"),manualProjection=manualDisplays.find(d=>d.kind==="projection");
+      const lastSurface=manualSurface?.point||surfaceAutoLogEntries.at(-1)?.point||null;
+      const lastProjection=projectionReadingAvailable?(manualProjection?.far||projectionAutoLogEntries.at(-1)?.far||m.far):null;
+      $("viewportSampleCoords").textContent=lastSurface?"Rsample pᵢ = "+vecText(lastSurface)+" fm":"Rsample pᵢ = (—, —, —)";
+      $("viewportProjectionCoords").textContent=lastProjection?"Rview v′ = "+vecText(lastProjection)+" fm":"Rview v′ = (—, —, —)";
+    }
+
+    function drawPlot(values) {
+      const {w,h,dpr}=fitCanvas(plot);
+      pctx.setTransform(dpr,0,0,dpr,0,0);
+      pctx.clearRect(0,0,w,h);
+      const pad={l:39,r:9,t:12,b:22};
+      const baseLo=trueRadius*.90, baseHi=trueRadius*1.006, reference=trueRadius;
+      const avg=scanMeanValues.length?scanMeanValues[scanMeanValues.length-1]:(baseLo+baseHi)/2;
+      const span=(baseHi-baseLo)/projectionGraphZoom;
+      const referencePosition=(baseHi-reference)/(baseHi-baseLo);
+      const hi=reference+referencePosition*span,lo=hi-span;
+      const graphSlots=runMode==="continuous"?GRAPH_POINTS:runMode==="manual"?Math.max(2,values.length):Math.min(SAMPLES,GRAPH_POINTS);
+      const X=i=>pad.l+(i/(Math.max(2,graphSlots)-1))*(w-pad.l-pad.r);
+      const Y=v=>pad.t+(hi-v)/(hi-lo)*(h-pad.t-pad.b);
+      pctx.strokeStyle=css("--line","rgba(80,78,70,.22)");pctx.lineWidth=.7;
+      [lo,(lo+hi)/2,trueRadius].forEach(v=>{
+        const y=Y(v);pctx.beginPath();pctx.moveTo(pad.l,y);pctx.lineTo(w-pad.r,y);pctx.stroke();
+        pctx.fillStyle=css("--muted","#66655f");pctx.font="9px system-ui";pctx.textAlign="right";
+        pctx.fillText(v.toFixed(3),pad.l-4,y+3);
+      });
+      pctx.fillStyle=css("--muted","#66655f");pctx.textAlign="center";
+      pctx.fillText("solid-angle sample",w/2,h-6);
+      if(!values.length) {
+        pctx.fillText("Press Take average to measure 720 directions",w/2,h/2);
+        return;
+      }
+      pctx.strokeStyle=css("--blue","#3789c9");pctx.lineWidth=1.5;pctx.beginPath();
+      values.forEach((v,i)=>i?pctx.lineTo(X(i),Y(v)):pctx.moveTo(X(i),Y(v)));pctx.stroke();
+      pctx.save();pctx.strokeStyle="#ff3b30";pctx.shadowColor="#ff3b30";pctx.shadowBlur=4;pctx.lineWidth=2.2;pctx.beginPath();
+      scanMeanValues.forEach((v,i)=>i?pctx.lineTo(X(i),Y(v)):pctx.moveTo(X(i),Y(v)));pctx.stroke();pctx.restore();
+      pctx.fillStyle="#ff3b30";pctx.font="700 11px system-ui";pctx.textAlign="right";pctx.fillText("running A = "+fmt(avg)+" fm",w-pad.r-3,Math.max(pad.t+11,Math.min(h-pad.b-4,Y(avg)+12)));
+      pctx.save();pctx.strokeStyle="#ffd84d";pctx.shadowColor="#ffd84d";pctx.shadowBlur=6;pctx.lineWidth=3;pctx.setLineDash([8,4]);
+      pctx.beginPath();pctx.moveTo(pad.l,Y(reference));pctx.lineTo(w-pad.r,Y(reference));pctx.stroke();pctx.restore();
+      const projectionReferenceLabel="fixed R_STL = "+fmt(reference)+" fm",projectionReferenceY=Math.max(pad.t+11,Math.min(h-pad.b-4,Y(reference)-5));
+      pctx.save();pctx.font="700 11px system-ui";pctx.textAlign="left";pctx.lineJoin="round";
+      pctx.strokeStyle="#000";pctx.lineWidth=1;pctx.strokeText(projectionReferenceLabel,pad.l+6,projectionReferenceY);
+      pctx.fillStyle="#ffd84d";pctx.fillText(projectionReferenceLabel,pad.l+6,projectionReferenceY);pctx.restore();
+    }
+
+    function drawSurfacePlot(values) {
+      const {w,h,dpr}=fitCanvas(surfacePlot);
+      spctx.setTransform(dpr,0,0,dpr,0,0);
+      spctx.clearRect(0,0,w,h);
+      const pad={l:39,r:9,t:12,b:22};
+      const baseLo=0,baseHi=trueRadius*1.012,reference=CODATA_2022;
+      const avg=surfaceMeanValues.length?surfaceMeanValues[surfaceMeanValues.length-1]:(baseLo+baseHi)/2;
+      const span=(baseHi-baseLo)/surfaceGraphZoom;
+      const referencePosition=(baseHi-reference)/(baseHi-baseLo);
+      const hi=reference+referencePosition*span,lo=hi-span;
+      const graphSlots=runMode==="continuous"?GRAPH_POINTS:runMode==="manual"?Math.max(2,values.length):Math.min(SAMPLES,GRAPH_POINTS);
+      const X=i=>pad.l+(i/(Math.max(2,graphSlots)-1))*(w-pad.l-pad.r);
+      const Y=v=>pad.t+(hi-v)/(hi-lo)*(h-pad.t-pad.b);
+      spctx.strokeStyle=css("--line","rgba(80,78,70,.22)");spctx.lineWidth=.7;
+      [lo,hi/2,trueRadius].forEach(v=>{
+        const y=Y(v);spctx.beginPath();spctx.moveTo(pad.l,y);spctx.lineTo(w-pad.r,y);spctx.stroke();
+        spctx.fillStyle=css("--muted","#66655f");spctx.font="9px system-ui";spctx.textAlign="right";
+        spctx.fillText(v.toFixed(3),pad.l-4,y+3);
+      });
+      spctx.fillStyle=css("--muted","#66655f");spctx.textAlign="center";
+      spctx.fillText("triangle-surface sample",w/2,h-6);
+      if(!values.length){spctx.fillText("Waiting for green surface samples",w/2,h/2);return;}
+      spctx.strokeStyle=css("--green","#168d6b");spctx.lineWidth=1.6;spctx.beginPath();
+      values.forEach((v,i)=>i?spctx.lineTo(X(i),Y(v)):spctx.moveTo(X(i),Y(v)));spctx.stroke();
+      spctx.save();spctx.strokeStyle="#ff3b30";spctx.shadowColor="#ff3b30";spctx.shadowBlur=4;spctx.lineWidth=2.2;spctx.beginPath();
+      surfaceMeanValues.forEach((v,i)=>i?spctx.lineTo(X(i),Y(v)):spctx.moveTo(X(i),Y(v)));spctx.stroke();spctx.restore();
+      spctx.fillStyle="#ff3b30";spctx.font="700 11px system-ui";spctx.textAlign="right";spctx.fillText("running S = "+fmt(avg)+" fm",w-pad.r-3,Math.max(pad.t+11,Math.min(h-pad.b-4,Y(avg)+12)));
+      spctx.save();spctx.strokeStyle="#ffd84d";spctx.shadowColor="#ffd84d";spctx.shadowBlur=6;spctx.lineWidth=3;spctx.setLineDash([8,4]);
+      spctx.beginPath();spctx.moveTo(pad.l,Y(reference));spctx.lineTo(w-pad.r,Y(reference));spctx.stroke();spctx.restore();
+      const surfaceReferenceLabel="fixed S = "+fmt(reference)+" fm (CODATA)",surfaceReferenceY=Math.max(pad.t+11,Math.min(h-pad.b-4,Y(reference)-5));
+      spctx.save();spctx.font="700 11px system-ui";spctx.textAlign="left";spctx.lineJoin="round";
+      spctx.strokeStyle="#000";spctx.lineWidth=1;spctx.strokeText(surfaceReferenceLabel,pad.l+6,surfaceReferenceY);
+      spctx.fillStyle="#ffd84d";spctx.fillText(surfaceReferenceLabel,pad.l+6,surfaceReferenceY);spctx.restore();
+    }
+    function syncSliders() {
+      yaw=((yaw%360)+360)%360;
+      pitch=((pitch+180)%360+360)%360-180;
+      $("yaw").value=yaw;
+      $("pitch").value=pitch;
+      $("roll").value=((roll%360)+360)%360;
+    }
+
+    function surfacePoint(index,total) {
+      // Stratify by cumulative triangle area, then sample uniformly inside
+      // the selected triangle with square-root barycentric coordinates.
+      const target=(index+.5)/total*totalSurfaceArea;
+      let ti=0,start=0,end=faceAreas[0];
+      while(target>end && ti<triangles.length-1) { start=end; end+=faceAreas[++ti]; }
+      const u=Math.max(0,Math.min(1,(target-start)/faceAreas[ti]));
+      const v=(index*.6180339887498949)%1;
+      const su=Math.sqrt(u), [a,b,c]=triangles[ti].v;
+      return {
+        x:(1-su)*a.x+su*(1-v)*b.x+su*v*c.x,
+        y:(1-su)*a.y+su*(1-v)*b.y+su*v*c.y,
+        z:(1-su)*a.z+su*(1-v)*b.z+su*v*c.z,
+        _triangleIndex:ti,_barycentric:{a:1-su,b:su*(1-v),c:su*v}
+      };
+    }
+
+    function closestPointOnTriangle(p,a,b,c) {
+      const ab=sub(b,a), ac=sub(c,a), ap=sub(p,a);
+      const d1=dot(ab,ap), d2=dot(ac,ap);
+      if(d1<=0 && d2<=0) return a;
+
+      const bp=sub(p,b), d3=dot(ab,bp), d4=dot(ac,bp);
+      if(d3>=0 && d4<=d3) return b;
+
+      const vc=d1*d4-d3*d2;
+      if(vc<=0 && d1>=0 && d3<=0) {
+        const v=d1/(d1-d3);
+        return {x:a.x+v*ab.x,y:a.y+v*ab.y,z:a.z+v*ab.z};
+      }
+
+      const cp=sub(p,c), d5=dot(ab,cp), d6=dot(ac,cp);
+      if(d6>=0 && d5<=d6) return c;
+
+      const vb=d5*d2-d1*d6;
+      if(vb<=0 && d2>=0 && d6<=0) {
+        const w=d2/(d2-d6);
+        return {x:a.x+w*ac.x,y:a.y+w*ac.y,z:a.z+w*ac.z};
+      }
+
+      const va=d3*d6-d5*d4;
+      if(va<=0 && (d4-d3)>=0 && (d5-d6)>=0) {
+        const bc=sub(c,b), w=(d4-d3)/((d4-d3)+(d5-d6));
+        return {x:b.x+w*bc.x,y:b.y+w*bc.y,z:b.z+w*bc.z};
+      }
+
+      const denom=1/(va+vb+vc), v=vb*denom, w=vc*denom;
+      return {x:a.x+ab.x*v+ac.x*w,y:a.y+ab.y*v+ac.y*w,z:a.z+ab.z*v+ac.z*w};
+    }
+
+    function outsideGapSample(index,total) {
+      const z=1-2*(index+.5)/total;
+      const phi=index*Math.PI*(3-Math.sqrt(5));
+      const radial=Math.sqrt(1-z*z);
+      const sphere={
+        x:trueRadius*radial*Math.cos(phi),
+        y:trueRadius*radial*Math.sin(phi),
+        z:trueRadius*z
+      };
+      let nearest=null, distance=Infinity;
+      triangles.forEach(t=>{
+        const candidate=closestPointOnTriangle(sphere,t.v[0],t.v[1],t.v[2]);
+        const d=len(sub(sphere,candidate));
+        if(d<distance) { distance=d; nearest=candidate; }
+      });
+      return {sphere,nearest,distance};
+    }
+
+    function sphereDirection(index,total) {
+      const z=1-2*(index+.5)/total;
+      const phi=index*Math.PI*(3-Math.sqrt(5));
+      const radial=Math.sqrt(Math.max(0,1-z*z));
+      return {x:radial*Math.cos(phi),y:radial*Math.sin(phi),z};
+    }
+
+    function rayTriangleDistance(direction,a,b,c) {
+      // Möller–Trumbore ray/triangle intersection. The ray origin is the hub
+      // (0,0,0); tiny t values are excluded so hub-sharing facets do not count
+      // as an immediate zero-distance obstruction.
+      const e1=sub(b,a), e2=sub(c,a), h=cross(direction,e2);
+      const determinant=dot(e1,h);
+      if(Math.abs(determinant)<1e-10) return null;
+      const inverse=1/determinant;
+      const fromA={x:-a.x,y:-a.y,z:-a.z};
+      const u=inverse*dot(fromA,h);
+      if(u<-1e-9 || u>1+1e-9) return null;
+      const q=cross(fromA,e1);
+      const v=inverse*dot(direction,q);
+      if(v<-1e-9 || u+v>1+1e-9) return null;
+      const distance=inverse*dot(e2,q);
+      return distance>1e-6 && distance<=trueRadius+1e-6 ? distance : null;
+    }
+
+    function radialReachSample(index,total) {
+      const direction=sphereDirection(index,total);
+      let firstHit=Infinity;
+      triangles.forEach(t=>{
+        const distance=rayTriangleDistance(direction,t.v[0],t.v[1],t.v[2]);
+        if(distance!==null && distance<firstHit) firstHit=distance;
+      });
+      const blocked=Number.isFinite(firstHit);
+      const reach=blocked?firstHit:trueRadius;
+      return {
+        direction, blocked, reach,
+        end:{x:direction.x*reach,y:direction.y*reach,z:direction.z*reach}
+      };
+    }
+
+    function pushCapped(entries,entry) {
+      entries.push(entry);
+      if(entries.length>AUTO_LOG_CAP)entries.splice(0,Math.min(1000,entries.length-AUTO_LOG_CAP+999));
+    }
+
+    function renderAutomaticLogs() {
+      const surfaceVisible=surfaceAutoLogEntries.slice(-AUTO_LOG_VISIBLE);
+      const projectionVisible=projectionAutoLogEntries.slice(-AUTO_LOG_VISIBLE);
+      $("surfaceAutoLog").innerHTML=surfaceVisible.length?surfaceVisible.map(e=>'<div>#'+e.index+' · '+e.mode+' · face '+(e.triangleIndex+1)+' · p='+vecText(e.point)+' · r='+fmt(e.radius)+' · S='+fmt(e.mean)+' · RMS='+fmt(e.rms)+' fm</div>').join(""):"No automatic green samples logged.";
+      $("projectionAutoLog").innerHTML=projectionVisible.length?projectionVisible.map(e=>'<div>#'+e.index+' · '+e.mode+' · n='+vecText(e.direction)+' · Rview='+fmt(e.radius)+' · A='+fmt(e.mean)+' fm</div>').join(""):"No automatic blue samples logged.";
+      $("surfaceAutoLogCount").textContent=surfaceAutoLogEntries.length.toLocaleString("en-US")+" samples retained"+(surfaceAutoLogEntries.length>=AUTO_LOG_CAP?" (rolling limit)":"");
+      $("projectionAutoLogCount").textContent=projectionAutoLogEntries.length.toLocaleString("en-US")+" samples retained"+(projectionAutoLogEntries.length>=AUTO_LOG_CAP?" (rolling limit)":"");
+      $("exportSurfaceLog").disabled=!surfaceAutoLogEntries.length;$("exportProjectionLog").disabled=!projectionAutoLogEntries.length;
+      $("surfaceAutoLog").scrollTop=$("surfaceAutoLog").scrollHeight;$("projectionAutoLog").scrollTop=$("projectionAutoLog").scrollHeight;
+    }
+
+    function clearAutomaticLogs(kind="both") {
+      if(kind==="both"||kind==="surface")surfaceAutoLogEntries=[];
+      if(kind==="both"||kind==="projection")projectionAutoLogEntries=[];
+      renderAutomaticLogs();
+    }
+
+    function csvCell(value) { return '"'+String(value??"").replaceAll('"','""')+'"'; }
+    function exportCsv(filename,headers,rows) {
+      const csv=[headers.map(csvCell).join(","),...rows.map(row=>row.map(csvCell).join(","))].join("\r\n");
+      const url=URL.createObjectURL(new Blob([csv],{type:"text/csv;charset=utf-8"}));
+      const link=document.createElement("a");link.href=url;link.download=filename;document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+    }
+    function visibleManualEntries() {
+      if(manualKind==="surface")return manualSurfaceSamples.slice();
+      if(manualKind==="projection")return manualProjectionSamples.slice();
+      return manualSurfaceSamples.concat(manualProjectionSamples).sort((a,b)=>a.sequence-b.sequence);
+    }
+
+    $("exportSurfaceLog").addEventListener("click",()=>exportCsv("v67_green_surface_samples.csv",["sample","mode","face","barycentric_a","barycentric_b","barycentric_c","x_fm","y_fm","z_fm","radius_fm","running_S_fm","running_RMS_fm"],surfaceAutoLogEntries.map(e=>[e.index,e.mode,(e.triangleIndex??-1)+1,e.barycentric?.a,e.barycentric?.b,e.barycentric?.c,e.point.x,e.point.y,e.point.z,e.radius,e.mean,e.rms])));
+    $("exportProjectionLog").addEventListener("click",()=>exportCsv("v67_blue_projection_samples.csv",["sample","mode","direction_x","direction_y","direction_z","yaw_deg","pitch_deg","roll_deg","far_x_fm","far_y_fm","far_z_fm","Rview_fm","running_A_fm"],projectionAutoLogEntries.map(e=>[e.index,e.mode,e.direction.x,e.direction.y,e.direction.z,e.yaw,e.pitch,e.roll,e.far.x,e.far.y,e.far.z,e.radius,e.mean])));
+    $("exportManualLog").addEventListener("click",()=>{
+      const entries=visibleManualEntries();
+      exportCsv("v67_manual_samples.csv",["sequence","type","type_index","face","x_or_far_x_fm","y_or_far_y_fm","z_or_far_z_fm","radius_fm","yaw_deg","pitch_deg","roll_deg"],entries.map(e=>[e.sequence,e.kind==="surface"?"S":"A",e.index,e.kind==="surface"?e.triangleIndex+1:"",e.kind==="surface"?e.point.x:e.far.x,e.kind==="surface"?e.point.y:e.far.y,e.kind==="surface"?e.point.z:e.far.z,e.radius,e.yaw??"",e.pitch??"",e.roll??""]));
+    });
+
+    function manualMean(samples) {
+      return samples.length?samples.reduce((sum,s)=>sum+s.radius,0)/samples.length:null;
+    }
+
+    function updateManualCombinedDisplay() {
+      const surfaceMean=manualMean(manualSurfaceSamples),projectionMean=manualMean(manualProjectionSamples);
+      const combined=surfaceMean===null||projectionMean===null?null:(surfaceMean+projectionMean)/2;
+      $("manualCombinedEquation").textContent=combined===null
+        ? "Smart mode requires at least one S and one A sample."
+        : "("+fmt(surfaceMean)+" + "+fmt(projectionMean)+") / 2 = "+fmt(combined)+" fm";
+      if(manualKind==="both")$("manualRunningMean").textContent=combined===null?"C -- fm":"C "+fmt(combined)+" fm";
+      return combined;
+    }
+
+    function refreshManualLog() {
+      const entries=visibleManualEntries();
+      $("manualLog").innerHTML=entries.length?entries.map(entry=>{
+        if(entry.kind==="surface") return '<div><strong>S'+entry.index+'</strong> · face '+(entry.triangleIndex+1)+' · barycentric ('+short(entry.barycentric.a)+', '+short(entry.barycentric.b)+', '+short(entry.barycentric.c)+') · p='+vecText(entry.point)+' · r='+fmt(entry.radius)+' fm</div>';
+        return '<div><strong>A'+entry.index+'</strong> · yaw '+entry.yaw.toFixed(2)+'°, pitch '+entry.pitch.toFixed(2)+'°, roll '+entry.roll.toFixed(2)+'° · Rview='+fmt(entry.radius)+' fm</div>';
+      }).join(""):"No manual samples logged.";
+      $("manualClear").disabled=!entries.length;
+      $("exportManualLog").disabled=!entries.length;
+      const activeCount=entries.length;
+      $("manualUndo").disabled=runMode!=="manual"||!activeCount;
+    }
+
+    function refreshManualSurfaceStats() {
+      const values=manualSurfaceSamples.map(s=>s.radius),means=[];
+      let sum=0,sum2=0,min=Infinity,max=-Infinity;
+      values.forEach((value,index)=>{sum+=value;sum2+=value*value;means.push(sum/(index+1));min=Math.min(min,value);max=Math.max(max,value);});
+      surfaceValues=values.slice(-GRAPH_POINTS);surfaceMeanValues=means.slice(-GRAPH_POINTS);
+      if(!values.length){
+        latestSurfaceMean=null;updateBridge();setCalcGroup("surface:",[]);$("surfaceState").textContent="manual surface samples · N = 0";
+        $("surfaceMean").textContent="-- fm";$("surfaceRms").textContent="-- fm";$("surfaceDelta").textContent="-- fm · -- σ";$("surfaceSampleRadius").textContent="-- fm";
+        $("primarySurface").textContent="-- fm";$("primarySurfaceN").textContent="N = 0 manually selected triangle points";$("surfaceDescriptionMean").textContent="-- fm";
+        $("headlineSurface").textContent="-- fm";$("headlineAbsDelta").textContent="-- fm";$("headlinePercent").textContent="--%";
+        updateUncertaintyState(null);
+        drawSurfacePlot([]);return;
+      }
+      const n=values.length,mean=sum/n,rms=Math.sqrt(sum2/n),delta=mean-CODATA_2022,last=manualSurfaceSamples[n-1];
+      latestSurfaceMean=mean;updateBridge();
+      $("surfaceState").textContent="manual surface samples · N = "+n;
+      $("surfaceMean").textContent=fmt(mean)+" fm mean";$("surfaceRms").textContent=fmt(rms)+" fm";$("surfaceDelta").textContent=surfaceDeltaText(delta);
+      $("primarySurface").textContent=fmt(mean)+" fm";$("primarySurfaceN").textContent="N = "+n+" manually selected triangle points";
+      $("headlineSurface").textContent=fmt(mean)+" fm";$("headlineAbsDelta").textContent=fmt(Math.abs(delta))+" fm";$("headlinePercent").textContent=(100*Math.abs(delta)/CODATA_2022).toFixed(3)+"%";
+      $("surfaceDescriptionMean").textContent=fmt(mean)+" fm";$("surfaceSampleRadius").textContent=fmt(last.radius)+" fm";
+      updateUncertaintyState(mean);
+      $("surfaceLiveEquation").textContent="manual sample "+n+": face "+(last.triangleIndex+1)+", p="+vecText(last.point)+"; r="+fmt(last.radius)+" fm; S=(Σr)/"+n+"="+fmt(mean)+" fm";
+      $("surfaceDerivation").innerHTML='<span class="math-label">Clicked face '+(last.triangleIndex+1)+':</span> barycentric weights = ('+short(last.barycentric.a)+', '+short(last.barycentric.b)+', '+short(last.barycentric.c)+')<br><span class="math-label">Selected point:</span> p = '+vecText(last.point)+' fm<br><span class="math-label">Individual distance:</span> r_'+n+' = ||p − hub|| = '+fmt(last.radius)+' fm<br><span class="math-mean" id="streamingSurfaceMean">Manual running S:</span> (Σ rᵢ = '+fmt(sum)+' fm) / '+n+' = '+fmt(mean)+' fm<br><span class="math-rms">Manual RMS:</span> √[(Σ rᵢ² = '+fmt(sum2)+' fm²) / '+n+'] = '+fmt(rms)+' fm';
+      $("surfaceFormula").textContent="manual S("+n+")="+fmt(mean)+" fm; RMS="+fmt(rms)+" fm; S−CODATA="+signedFmt(delta)+" fm";
+      setCalcGroup("surface:",["manual surface mean R = "+fmt(mean)+" fm (N="+n+")","manual surface RMS = "+fmt(rms)+" fm","mean − CODATA = "+signedFmt(delta)+" fm","manual sample range = "+fmt(min)+" … "+fmt(max)+" fm"]);
+      if(manualKind==="surface")$("manualRunningMean").textContent=fmt(mean)+" fm";
+      drawSurfacePlot(surfaceValues);
+    }
+
+    function refreshManualProjectionStats() {
+      const values=manualProjectionSamples.map(s=>s.radius),means=[];
+      let sum=0,min=Infinity,max=-Infinity;
+      values.forEach((value,index)=>{sum+=value;means.push(sum/(index+1));min=Math.min(min,value);max=Math.max(max,value);});
+      scanValues=values.slice(-GRAPH_POINTS);scanMeanValues=means.slice(-GRAPH_POINTS);
+      if(!values.length){
+        projectionReadingAvailable=false;
+        setCalcGroup("projection:",[]);$("scanState").textContent="manual viewing directions · N = 0";$("avgRadius").textContent="-- fm";$("scanMin").textContent="-- fm";$("scanMax").textContent="-- fm";
+        $("primaryProjection").textContent="-- fm";$("primaryProjectionN").textContent="N = 0 manually selected viewing directions";drawPlot([]);return;
+      }
+      const n=values.length,mean=sum/n,last=manualProjectionSamples[n-1];
+      projectionReadingAvailable=true;
+      $("scanState").textContent="manual viewing directions · N = "+n;
+      $("avgRadius").textContent=fmt(mean)+" fm";$("scanMin").textContent=fmt(min)+" fm";$("scanMax").textContent=fmt(max)+" fm";
+      $("primaryProjection").textContent=fmt(mean)+" fm";$("primaryProjectionN").textContent="N = "+n+" manually selected viewing directions";
+      $("scanViewRadius").textContent=fmt(last.radius)+" fm";
+      $("projectionLiveEquation").textContent="manual view "+n+": farthest projected vertex="+vecText(last.far)+"; Rview="+fmt(last.radius)+" fm; A=(ΣRview)/"+n+"="+fmt(mean)+" fm";
+      $("projectionDerivation").innerHTML='<span class="math-label">Captured view '+n+':</span> yaw='+last.yaw.toFixed(2)+'°, pitch='+last.pitch.toFixed(2)+'°, roll='+last.roll.toFixed(2)+'°<br><span class="math-label">Snapped farthest projected vertex:</span> v′ = '+vecText(last.far)+' fm<br><span class="math-label">Individual distance:</span> Rview_'+n+' = √(x′²+y′²) = '+fmt(last.radius)+' fm<br><span class="math-mean">Manual running A:</span> (Σ Rview = '+fmt(sum)+' fm) / '+n+' = '+fmt(mean)+' fm';
+      $("projectionFormula").textContent="manual A("+n+")="+fmt(mean)+" fm; min="+fmt(min)+" fm; max="+fmt(max)+" fm";
+      setCalcGroup("projection:",["manual mean projected R = "+fmt(mean)+" fm (N="+n+")","smallest manual projected R = "+fmt(min)+" fm","largest manual projected R = "+fmt(max)+" fm","circumscribed R3D = "+fmt(trueRadius)+" fm"]);
+      if(manualKind==="projection")$("manualRunningMean").textContent=fmt(mean)+" fm";
+      drawPlot(scanValues);
+    }
+
+    function clearManualPreviewForViewChange() {
+      if(runMode!=="manual")return;
+      manualBothHover=false;if(!manualPending&&!manualLast)return;
+      manualPending=null;manualLast=null;$("manualNext").disabled=true;$("manualSelectedValue").textContent="-- fm";
+      $("manualStatus").textContent="View changed. Click the visible proton to select a new "+(manualKind==="surface"?"S point":manualKind==="projection"?"A view":"combined S+A sample")+".";
+    }
+
+    function enterManualMode(kind) {
+      if(runMode!=="manual")setRunMode("manual");
+      manualKind=kind;manualPending=null;manualBothHover=false;
+      const active=kind==="surface"?manualSurfaceSamples:kind==="projection"?manualProjectionSamples:[];
+      const combined=kind==="both"?visibleManualEntries():[];
+      manualLast=kind==="both"?(combined.length?combined[combined.length-1]:null):(active.length?active[active.length-1]:null);
+      $("manualSurfaceMode").classList.toggle("active",kind==="surface");
+      $("manualProjectionMode").classList.toggle("active",kind==="projection");
+      $("manualBothMode").classList.toggle("active",kind==="both");
+      $("manualStatus").textContent=kind==="surface"?"Manual S ready: click any visible point on a triangle.":kind==="projection"?"Manual A ready: rotate to a view, then click the proton; the blue line will snap to that view’s farthest projected vertex.":"Manual S+A ready: click a surface for green S, or move near the outer blue guide and click to select blue A. Each click selects only one value.";
+      $("manualSelectedValue").textContent=!manualLast?"-- fm":(manualLast.kind==="surface"?"S ":"A ")+fmt(manualLast.radius)+" fm";
+      const mean=manualMean(active);
+      $("manualRunningMean").textContent=kind==="both"?"C -- fm":(mean===null?"-- fm":fmt(mean)+" fm");
+      updateManualCombinedDisplay();
+      $("manualNext").disabled=true;refreshManualLog();render();
+    }
+
+    function selectManualAt(clientX,clientY) {
+      if(runMode!=="manual"||!manualKind)return;
+      const measurement=viewMeasurement();
+      const chooseProjection=manualKind==="projection"||(manualKind==="both"&&nearProjectionSnapZone(clientX,clientY,measurement));
+      const hit=pickVisibleSurface(clientX,clientY);
+      if(manualKind==="projection"&&!hit){$("manualStatus").textContent="Click directly on the visible proton to capture this A view.";return;}
+      if(!chooseProjection&&!hit){$("manualStatus").textContent="No visible STL face was found there. Click directly on a colored proton triangle, or use the outer blue snap zone.";return;}
+      if(manualKind==="surface") {
+        const surfaceSelection={kind:"surface",point:hit.point,triangleIndex:hit.triangleIndex,barycentric:hit.barycentric,radius:len(hit.point)};
+        manualPending=surfaceSelection;
+        $("manualStatus").textContent="Selected S point on face "+(hit.triangleIndex+1)+" at "+vecText(hit.point)+". Review the green line, then log it.";
+      } else if(chooseProjection) {
+        const projectionSelection={kind:"projection",far:measurement.far,vertex:measurement.vertex,radius:measurement.radius,yaw,pitch,roll};
+        projectionReadingAvailable=true;
+        manualPending=projectionSelection;
+        $("manualStatus").textContent="A snapped to the farthest projected vertex for this view. Review the blue line, then log it.";
+      } else {
+        const surfaceSelection={kind:"surface",point:hit.point,triangleIndex:hit.triangleIndex,barycentric:hit.barycentric,radius:len(hit.point)};
+        manualPending=surfaceSelection;
+        $("manualStatus").textContent="Selected one green S point on face "+(hit.triangleIndex+1)+". Review it, then add it to the combined log.";
+      }
+      manualBothHover=false;manualLast=null;showViewGuide=false;$("manualSelectedValue").textContent=(manualKind==="both"?(manualPending.kind==="surface"?"S ":"A "):"")+fmt(manualPending.radius)+" fm";$("manualNext").disabled=false;render();
+    }
+
+    function clearManualSamples() {
+      if(manualKind==="surface"){manualSurfaceSamples=[];surfaceValues=[];surfaceMeanValues=[];latestSurfaceMean=null;refreshManualSurfaceStats();}
+      else if(manualKind==="projection"){manualProjectionSamples=[];scanValues=[];scanMeanValues=[];refreshManualProjectionStats();}
+      else{manualSurfaceSamples=[];manualProjectionSamples=[];manualSequence=0;scanValues=[];scanMeanValues=[];surfaceValues=[];surfaceMeanValues=[];latestSurfaceMean=null;refreshManualSurfaceStats();refreshManualProjectionStats();}
+      manualPending=null;manualLast=null;
+      $("manualSelectedValue").textContent="-- fm";$("manualRunningMean").textContent=manualKind==="both"?"C -- fm":"-- fm";$("manualNext").disabled=true;updateManualCombinedDisplay();
+      $("manualStatus").textContent="Manual log cleared. Click the proton to select a new "+(manualKind==="projection"?"A view":manualKind==="both"?"combined S+A sample":"S point")+".";
+      refreshManualLog();render();
+    }
+
+    $("manualSurfaceMode").addEventListener("click",()=>enterManualMode("surface"));
+    $("manualProjectionMode").addEventListener("click",()=>enterManualMode("projection"));
+    $("manualBothMode").addEventListener("click",()=>enterManualMode("both"));
+    $("manualReturnAuto").addEventListener("click",()=>setRunMode("continuous"));
+    $("manualNext").addEventListener("click",()=>{
+      if(!manualPending)return;
+      const pending=manualPending,sequence=++manualSequence;
+      const record={...pending,sequence};
+      if(record.kind==="surface"){record.index=manualSurfaceSamples.length+1;manualSurfaceSamples.push(record);refreshManualSurfaceStats();}
+      else{record.index=manualProjectionSamples.length+1;manualProjectionSamples.push(record);refreshManualProjectionStats();}
+      manualLast=record;manualPending=null;$("manualNext").disabled=true;$("manualSelectedValue").textContent=(manualKind==="both"?(record.kind==="surface"?"S ":"A "):"")+fmt(record.radius)+" fm";
+      const combined=updateManualCombinedDisplay();
+      $("manualStatus").textContent=manualKind==="both"?(record.kind==="surface"?"Green S":"Blue A")+" sample "+record.index+" logged. "+(combined===null?"Add a sample of the other color to calculate C.":"Combined average C = (S + A) / 2 = "+fmt(combined)+" fm."):(record.kind==="surface"?"S":"A")+" sample "+record.index+" logged. Click the proton to select the next one.";
+      refreshManualLog();render();
+    });
+    $("manualUndo").addEventListener("click",()=>{
+      if(manualKind==="both"){
+        const entries=visibleManualEntries();if(!entries.length)return;const lastSequence=Math.max(...entries.map(e=>e.sequence));
+        manualSurfaceSamples=manualSurfaceSamples.filter(e=>e.sequence!==lastSequence);manualProjectionSamples=manualProjectionSamples.filter(e=>e.sequence!==lastSequence);manualPending=null;manualLast=null;
+        refreshManualSurfaceStats();refreshManualProjectionStats();updateManualCombinedDisplay();$("manualSelectedValue").textContent="-- fm";
+      }else{
+        const active=manualKind==="surface"?manualSurfaceSamples:manualProjectionSamples;if(!active.length)return;active.pop();manualPending=null;manualLast=active.length?active[active.length-1]:null;
+        $("manualSelectedValue").textContent=manualLast?fmt(manualLast.radius)+" fm":"-- fm";const mean=manualMean(active);$("manualRunningMean").textContent=mean===null?"-- fm":fmt(mean)+" fm";
+        if(manualKind==="surface")refreshManualSurfaceStats();else refreshManualProjectionStats();
+      }
+      $("manualNext").disabled=true;$("manualStatus").textContent="Last "+(manualKind==="surface"?"S point":manualKind==="projection"?"A view":"combined-log entry")+" removed.";refreshManualLog();render();
+    });
+    $("manualClear").addEventListener("click",clearManualSamples);
+
+    $("calcSpeed").addEventListener("input",updateSpeedReadout);
+    $("yaw").addEventListener("input",e=>{clearManualPreviewForViewChange();yaw=+e.target.value;showViewGuide=runMode!=="manual";render();});
+    $("pitch").addEventListener("input",e=>{clearManualPreviewForViewChange();pitch=+e.target.value;showViewGuide=runMode!=="manual";render();});
+    $("roll").addEventListener("input",e=>{clearManualPreviewForViewChange();roll=+e.target.value;showViewGuide=runMode!=="manual";render();});
+    $("yaw").addEventListener("change",()=>{showViewGuide=false;render();});
+    $("pitch").addEventListener("change",()=>{showViewGuide=false;render();});
+    $("roll").addEventListener("change",()=>{showViewGuide=false;render();});
+    function setMeshDisplayMode(mode) {
+      meshDisplayMode=mode;
+      [["meshColored","colored"],["meshWireframe","wireframe"],["meshGrey","grey"]].forEach(([id,value])=>$(id).classList.toggle("active",value===mode));
+      render();
+    }
+    $("meshColored").addEventListener("click",()=>setMeshDisplayMode("colored"));
+    $("meshWireframe").addEventListener("click",()=>setMeshDisplayMode("wireframe"));
+    $("meshGrey").addEventListener("click",()=>setMeshDisplayMode("grey"));
+    $("meshOpacity").addEventListener("input",e=>{meshOpacity=+e.target.value;render();});
+    $("reset").addEventListener("click",()=>{
+      clearManualPreviewForViewChange();yaw=0;pitch=0;roll=0;zoom=1;surfaceTrail=[];outsideTrail=[];radialTrail=[];showViewGuide=false;
+      syncSliders();render();
+    });
+    $("viewTop").addEventListener("click",()=>{clearManualPreviewForViewChange();yaw=0;pitch=90;roll=0;showViewGuide=false;syncSliders();render();});
+    $("viewBottom").addEventListener("click",()=>{clearManualPreviewForViewChange();yaw=0;pitch=-90;roll=0;showViewGuide=false;syncSliders();render();});
+    $("viewSide").addEventListener("click",()=>{clearManualPreviewForViewChange();yaw=90;pitch=0;roll=0;showViewGuide=false;syncSliders();render();});
+    function setCalculationsPaused(paused) {
+      calculationsPaused=paused;
+      $("stopCalculations").disabled=paused;
+      $("startCalculations").disabled=!paused;
+    }
+    $("stopCalculations").addEventListener("click",()=>setCalculationsPaused(true));
+    $("startCalculations").addEventListener("click",()=>setCalculationsPaused(false));
+    $("stopAtUncertainty").addEventListener("change",()=>updateUncertaintyState(runMode==="continuous"?(continuousSurfaceTotal?continuousSurfaceMean:null):latestSurfaceMean));
+    $("resetCalculations").addEventListener("click",()=>{
+      setCalculationsPaused(true);
+      projectionRun++;surfaceRun++;outsideRun++;radialRun++;
+      $("average").disabled=false;$("surfaceAverage").disabled=false;$("outsideAverage").disabled=false;$("radialAverage").disabled=false;
+      $("average").dataset.running="false";$("surfaceAverage").dataset.running="false";
+      scanValues=[];surfaceValues=[];scanMeanValues=[];surfaceMeanValues=[];surfaceTrail=[];outsideTrail=[];radialTrail=[];showViewGuide=false;projectionReadingAvailable=false;clearAutomaticLogs();
+      $("scanState").textContent="ready · 0 / "+SAMPLES;
+      $("surfaceState").textContent="surface scan ready · 0 / "+SAMPLES;
+      $("outsideState").textContent="outside scan ready · 0 / "+SAMPLES;
+      $("radialState").textContent="radial check ready · 0 / "+SAMPLES;
+      $("progressBar").style.width="0";$("surfaceProgressBar").style.width="0";$("outsideProgressBar").style.width="0";$("radialProgressBar").style.width="0";
+      $("avgRadius").textContent="-- fm";$("scanMin").textContent="-- fm";$("scanMax").textContent="-- fm";
+      $("primaryProjection").textContent="-- fm";$("primarySurface").textContent="-- fm";
+      $("primaryProjectionN").textContent="N = 0 / "+SAMPLES.toLocaleString("en-US")+" viewing directions";
+      $("primarySurfaceN").textContent="N = 0 / "+SAMPLES.toLocaleString("en-US")+" area-weighted triangle points";
+      $("headlineSurface").textContent="-- fm";$("headlineAbsDelta").textContent="-- fm";$("headlinePercent").textContent="--%";
+      $("surfaceMean").textContent="-- fm";$("surfaceRms").textContent="-- fm";$("surfaceDelta").textContent="-- fm · -- σ";
+      $("surfaceDescriptionMean").textContent="-- fm";
+      $("surfaceSampleRadius").textContent="-- fm";
+      $("scanViewRadius").textContent="-- fm";
+      updateUncertaintyState(null);
+      $("outsideMean").textContent="-- fm";$("outsideRms").textContent="-- fm";$("outsideMin").textContent="-- fm";$("outsideMax").textContent="-- fm";
+      $("radialMean").textContent="-- fm";$("radialBlocked").textContent="--";$("radialHitMean").textContent="-- fm";$("radialMisses").textContent="--";
+      $("projectionLiveEquation").textContent="ready · N = "+SAMPLES;
+      $("surfaceLiveEquation").textContent="ready · N = "+SAMPLES;
+      $("projectionDerivation").innerHTML='<span class="math-label">Current direction:</span> n = --<br><span class="math-label">Current outer extent:</span> Rproj = max √(x′²+y′²)<br><span class="math-label">Running mean:</span> A = (Σ Rproj) / N';
+      $("surfaceDerivation").innerHTML='<span class="math-label">Ordinary mean:</span> S = (Σ rᵢ) / N<br><span class="math-label">Root mean square:</span> RMS = √[(Σ rᵢ²) / N]<br><span class="math-label">Difference:</span> RMS − S = -- fm';
+      $("outsideLiveEquation").textContent="ready · N = "+SAMPLES;
+      $("radialLiveEquation").textContent="ready · N = "+SAMPLES;
+      $("projectionFormula").textContent="mean Rproj over "+SAMPLES+" directions = -- fm";
+      $("surfaceFormula").textContent="mean ||p_i - hub|| over "+SAMPLES+" area-weighted triangle points";
+      $("outsideFormula").textContent="mean min distance from "+SAMPLES+" circumsphere points to any STL triangle";
+      $("radialFormula").textContent="mean first triangle hit, otherwise R, over "+SAMPLES+" center-out rays";
+      latestSurfaceMean=null;latestOutsideMean=null;latestNearestRadiusMean=null;updateBridge();
+      calcResults.clear();renderCalcLog();drawPlot([]);drawSurfacePlot([]);render();
+    });
+    viewer.addEventListener("contextmenu",e=>e.preventDefault());
+    viewer.addEventListener("pointerdown",e=>{dragging=true;manualBothHover=false;dragMode=(e.shiftKey||e.button===2)?"roll":"orbit";showViewGuide=runMode!=="manual";lastX=dragStartX=e.clientX;lastY=dragStartY=e.clientY;dragMoved=false;viewer.setPointerCapture(e.pointerId);viewer.classList.add("dragging");render();});
+    viewer.addEventListener("pointermove",e=>{
+      if(!dragging){
+        if(runMode==="manual"&&manualKind==="both"&&!manualPending){const next=nearProjectionSnapZone(e.clientX,e.clientY);if(next!==manualBothHover){manualBothHover=next;render();}}
+        return;
+      }
+      const dx=e.clientX-lastX,dy=e.clientY-lastY;
+      if(!dragMoved&&Math.hypot(e.clientX-dragStartX,e.clientY-dragStartY)>4){dragMoved=true;clearManualPreviewForViewChange();}
+      if(dragMode==="roll") roll+=dx*.7+dy*.15;
+      else {
+        yaw+=dx*.65;
+        pitch+=dy*.55;
+      }
+      lastX=e.clientX;lastY=e.clientY;syncSliders();render();
+    });
+    const stopDrag=(e,cancelled=false)=>{const shouldSelect=!cancelled&&runMode==="manual"&&!dragMoved&&e.button===0;dragging=false;showViewGuide=false;viewer.classList.remove("dragging");if(shouldSelect)selectManualAt(e.clientX,e.clientY);else render();};
+    viewer.addEventListener("pointerup",e=>stopDrag(e));viewer.addEventListener("pointercancel",e=>stopDrag(e,true));
+    viewer.addEventListener("pointerleave",()=>{if(!dragging&&manualBothHover){manualBothHover=false;render();}});
+    viewer.addEventListener("wheel",e=>{e.preventDefault();zoom=Math.max(.72,Math.min(1.45,zoom*Math.exp(-e.deltaY*.001)));render();},{passive:false});
+    plot.title="Mouse wheel zooms the solid-angle graph vertically";
+    surfacePlot.title="Mouse wheel zooms the triangle-surface graph vertically";
+    plot.addEventListener("wheel",e=>{e.preventDefault();projectionGraphZoom=Math.max(.5,Math.min(10,projectionGraphZoom*Math.exp(-e.deltaY*.0015)));drawPlot(scanValues);},{passive:false});
+    surfacePlot.addEventListener("wheel",e=>{e.preventDefault();surfaceGraphZoom=Math.max(.5,Math.min(10,surfaceGraphZoom*Math.exp(-e.deltaY*.0015)));drawSurfacePlot(surfaceValues);},{passive:false});
+
+    $("average").addEventListener("click",()=>{
+      if(runMode!=="iterative") return;
+      const button=$("average");
+      if(button.dataset.running==="true"){
+        projectionRun++;button.dataset.running="false";button.disabled=false;
+        button.textContent="Start blue iterative scan - "+SAMPLES.toLocaleString("en-US")+" directions";
+        $("scanState").textContent="iterative scan stopped";if($("surfaceAverage").dataset.running!=="true")setCalculationsPaused(true);showViewGuide=false;render();return;
+      }
+      const run=++projectionRun;
+      setCalculationsPaused(false);
+      button.dataset.running="true";button.disabled=false;button.textContent="Stop blue iterative scan";scanValues=[];scanMeanValues=[];clearAutomaticLogs("projection");showViewGuide=true;let i=0,sum=0,min=Infinity,max=-Infinity,lastDirection=null,lastMeasurement=null;
+      $("scanState").textContent="scanning · 0 / "+SAMPLES;
+      $("projectionLiveEquation").textContent="starting A = (1/N) Σ Rproj(nᵢ)";
+      setCalcGroup("projection:",[]);
+      const frame=()=>{
+        if(run!==projectionRun) return;
+        if(calculationsPaused){scheduleNext(frame);return;}
+        const batch=batchSize();
+        for(let b=0;b<batch && i<SAMPLES;b++,i++) {
+          // Fibonacci hemisphere: opposite camera directions have the same projection.
+          const z=(i+.5)/SAMPLES;
+          const phi=i*Math.PI*(3-Math.sqrt(5));
+          const r=Math.sqrt(1-z*z);
+          const n={x:r*Math.cos(phi),y:r*Math.sin(phi),z};
+          const p=Math.acos(n.z);
+          const y=Math.atan2(n.x,n.y);
+          pitch=p*180/Math.PI;yaw=y*180/Math.PI;roll=(i*137.507764)%360;
+          const measurement=viewMeasurement(yaw,pitch), value=measurement.radius;
+          projectionReadingAvailable=true;
+          lastDirection=n;lastMeasurement=measurement;
+          scanValues.push(value);sum+=value;scanMeanValues.push(sum/(i+1));if(scanValues.length>GRAPH_POINTS){scanValues.shift();scanMeanValues.shift();}min=Math.min(min,value);max=Math.max(max,value);
+          pushCapped(projectionAutoLogEntries,{index:i+1,mode:"iterative",direction:n,yaw,pitch,roll,far:measurement.far,radius:value,mean:sum/(i+1)});
+        }
+        $("progressBar").style.width=(100*i/SAMPLES).toFixed(1)+"%";
+        $("scanState").textContent="scanning · "+i+" / "+SAMPLES;
+        $("avgRadius").textContent=fmt(sum/i)+" fm";
+        $("scanMin").textContent=fmt(min)+" fm";
+        $("scanMax").textContent=fmt(max)+" fm";
+        $("primaryProjection").textContent=fmt(sum/i)+" fm";
+        $("primaryProjectionN").textContent="N = "+i.toLocaleString("en-US")+" / "+SAMPLES.toLocaleString("en-US")+" viewing directions";
+        const projectionSample="sample "+i+": n="+vecText(lastDirection)+", far rotated vertex v′="+vecText(lastMeasurement.far)+" fm; Rproj=√("+short(lastMeasurement.far.x)+"² + "+short(lastMeasurement.far.y)+"²)="+fmt(lastMeasurement.radius)+" fm";
+        $("projectionLiveEquation").textContent=projectionSample+"; running A=(Σ Rproj)/"+i+"="+fmt(sum/i)+" fm";
+        $("projectionDerivation").innerHTML='<span class="math-label">Sample '+i+' direction:</span> n = '+vecText(lastDirection)+'; yaw='+yaw.toFixed(2)+'°, pitch='+pitch.toFixed(2)+'°, roll='+roll.toFixed(2)+'°<br><span class="math-label">Selected farthest vertex:</span> v′ = '+vecText(lastMeasurement.far)+' fm<br><span class="math-label">Individual distance:</span> Rproj_'+i+' = √('+short(lastMeasurement.far.x)+'² + '+short(lastMeasurement.far.y)+'²) = '+fmt(lastMeasurement.radius)+' fm<br><span class="math-mean">Running A:</span> (Σ Rproj = '+fmt(sum)+' fm) / '+i+' = '+fmt(sum/i)+' fm';
+        $("projectionFormula").textContent=projectionSample+"; A("+i+"/"+SAMPLES+")="+fmt(sum/i)+" fm; min="+fmt(min)+" fm; max="+fmt(max)+" fm";
+        setCalcGroup("projection:",[
+          "mean projected R = "+fmt(sum/i)+" fm ("+i+"/"+SAMPLES+")",
+          "smallest projected R = "+fmt(min)+" fm",
+          "largest projected R = "+fmt(max)+" fm",
+          "circumscribed R3D = "+fmt(trueRadius)+" fm"
+        ]);
+        renderAutomaticLogs();syncSliders();render();drawPlot(scanValues);
+        if(i<SAMPLES) scheduleNext(frame);
+        else {
+          $("scanState").textContent="complete · "+SAMPLES+" directions";
+          $("projectionLiveEquation").textContent=projectionSample+"; complete A=(Σ Rproj)/"+SAMPLES+"="+fmt(sum/SAMPLES)+" fm; max Rproj=R="+fmt(max)+" fm";
+          $("projectionDerivation").innerHTML='<span class="math-label">Completed '+SAMPLES+' directions:</span> yaw, pitch, and roll were animated<br><span class="math-label">Accumulated projected distances:</span> Σ Rproj = '+fmt(sum)+' fm<br><span class="math-mean">Final rotational mean:</span> A = '+fmt(sum)+' / '+SAMPLES+' = '+fmt(sum/SAMPLES)+' fm<br><span class="math-label">Observed range:</span> '+fmt(min)+' … '+fmt(max)+' fm';
+          $("projectionFormula").textContent=projectionSample+"; complete A="+fmt(sum/SAMPLES)+" fm; min Rproj="+fmt(min)+" fm; max Rproj="+fmt(max)+" fm; fixed R="+fmt(trueRadius)+" fm";
+          button.dataset.running="false";button.disabled=false;button.textContent="Start blue iterative scan - "+SAMPLES.toLocaleString("en-US")+" directions";if($("surfaceAverage").dataset.running!=="true")setCalculationsPaused(true);showViewGuide=false;render();
+          setCalcGroup("projection:",[
+            "mean projected R = "+fmt(sum/SAMPLES)+" fm",
+            "smallest projected R = "+fmt(min)+" fm",
+            "largest projected R = "+fmt(max)+" fm",
+            "circumscribed R3D = "+fmt(trueRadius)+" fm"
+          ]);
+        }
+      };
+      scheduleNext(frame);
+    });
+
+    $("surfaceAverage").addEventListener("click",()=>{
+      if(runMode!=="iterative") return;
+      const button=$("surfaceAverage");
+      if(button.dataset.running==="true"){
+        surfaceRun++;button.dataset.running="false";button.disabled=false;
+        button.textContent="Start green iterative scan - "+SAMPLES.toLocaleString("en-US")+" points";
+        $("surfaceState").textContent="iterative surface scan stopped";if($("average").dataset.running!=="true")setCalculationsPaused(true);return;
+      }
+      const run=++surfaceRun;
+      setCalculationsPaused(false);
+      button.dataset.running="true";button.disabled=false;button.textContent="Stop green iterative scan";surfaceTrail=[];surfaceValues=[];surfaceMeanValues=[];clearAutomaticLogs("surface");
+      let i=0,sum=0,sum2=0,min=Infinity,max=-Infinity,lastPoint=null,lastDistance=0;
+      latestSurfaceMean=null;updateBridge();
+      $("surfaceState").textContent="surface scanning · 0 / "+SAMPLES;
+      $("surfaceLiveEquation").textContent="starting S = (1/N) Σ ||pᵢ||";
+      $("surfaceSampleRadius").textContent="-- fm";
+      $("surfaceProgressBar").style.width="0";
+      setCalcGroup("surface:",[]);
+      const frame=()=>{
+        if(run!==surfaceRun) return;
+        if(calculationsPaused){scheduleNext(frame);return;}
+        const batch=batchSize();
+        for(let b=0;b<batch && i<SAMPLES;b++,i++) {
+          const point=surfacePoint(i,SAMPLES), r=len(point);
+          lastPoint=point;lastDistance=r;
+          sum+=r;sum2+=r*r;min=Math.min(min,r);max=Math.max(max,r);
+          surfaceTrail.push({...point,_expiresAt:performance.now()+TRAIL_LIFETIME_MS});
+          surfaceValues.push(r);surfaceMeanValues.push(sum/(i+1));if(surfaceValues.length>GRAPH_POINTS){surfaceValues.shift();surfaceMeanValues.shift();}
+          pushCapped(surfaceAutoLogEntries,{index:i+1,mode:"iterative",triangleIndex:point._triangleIndex,barycentric:point._barycentric,point:{x:point.x,y:point.y,z:point.z},radius:r,mean:sum/(i+1),rms:Math.sqrt(sum2/(i+1))});
+        }
+        scheduleTrailExpiry();
+        const mean=sum/i, rms=Math.sqrt(sum2/i), delta=mean-CODATA_2022;
+        latestSurfaceMean=mean;updateBridge();
+        $("surfaceProgressBar").style.width=(100*i/SAMPLES).toFixed(1)+"%";
+        $("surfaceState").textContent="surface scanning · "+i+" / "+SAMPLES;
+        $("surfaceMean").textContent=fmt(mean)+" fm mean";
+        $("surfaceRms").textContent=fmt(rms)+" fm";
+        $("surfaceDelta").textContent=surfaceDeltaText(delta);
+        $("primarySurface").textContent=fmt(mean)+" fm";
+        $("surfaceDescriptionMean").textContent=fmt(mean)+" fm";
+        $("primarySurfaceN").textContent="N = "+i.toLocaleString("en-US")+" / "+SAMPLES.toLocaleString("en-US")+" area-weighted triangle points";
+        $("surfaceSampleRadius").textContent=fmt(lastDistance)+" fm";
+        const surfaceSample="sample "+i+": hub=(0,0,0), p="+vecText(lastPoint)+" fm; d=√("+short(lastPoint.x)+"² + "+short(lastPoint.y)+"² + "+short(lastPoint.z)+"²)="+fmt(lastDistance)+" fm";
+        $("surfaceLiveEquation").textContent=surfaceSample+"; running S=(Σ d)/"+i+"="+fmt(mean)+" fm; RMS="+fmt(rms)+" fm";
+        $("surfaceDerivation").innerHTML='<span class="math-label">Sample '+i+':</span> r_'+i+' = √('+short(lastPoint.x)+'² + '+short(lastPoint.y)+'² + '+short(lastPoint.z)+'²) = '+fmt(lastDistance)+' fm<br><span class="math-mean" id="streamingSurfaceMean">Ordinary mean:</span> S = (Σ rᵢ = '+fmt(sum)+' fm) / '+i+' = '+fmt(mean)+' fm<br><span class="math-rms">Root mean square:</span> RMS = √[(Σ rᵢ² = '+fmt(sum2)+' fm²) / '+i+'] = '+fmt(rms)+' fm<br><span class="math-label">Why different:</span> RMS − S = '+fmt(rms-mean)+' fm; squaring gives larger radii more weight.';
+        $("surfaceFormula").textContent=surfaceSample+"; S("+i+"/"+SAMPLES+")="+fmt(mean)+" fm; RMS="+fmt(rms)+" fm; S−CODATA="+signedFmt(delta)+" fm";
+        setCalcGroup("surface:",[
+          "surface mean R = "+fmt(mean)+" fm ("+i+"/"+SAMPLES+")",
+          "surface RMS = "+fmt(rms)+" fm",
+          "mean − CODATA = "+(delta>=0?"+":"")+fmt(delta)+" fm",
+          "sample range = "+fmt(min)+" … "+fmt(max)+" fm"
+        ]);
+        updateUncertaintyState(mean);
+        renderAutomaticLogs();render();drawSurfacePlot(surfaceValues);
+        if(i<SAMPLES) scheduleNext(frame);
+        else {
+          $("surfaceState").textContent="complete · "+SAMPLES+" triangle-interior points";
+          $("surfaceLiveEquation").textContent=surfaceSample+"; complete S=(Σ d)/"+SAMPLES+"="+fmt(mean)+" fm; RMS="+fmt(rms)+" fm";
+          $("surfaceDerivation").innerHTML='<span class="math-label">Completed '+SAMPLES+' triangle-interior points:</span><br><span class="math-mean" id="streamingSurfaceMean">S = (Σ rᵢ = '+fmt(sum)+' fm) / '+SAMPLES+' = '+fmt(mean)+' fm</span><br><span class="math-rms">RMS = √[(Σ rᵢ² = '+fmt(sum2)+' fm²) / '+SAMPLES+'] = '+fmt(rms)+' fm</span><br><span class="math-label">Difference:</span> RMS − S = '+fmt(rms-mean)+' fm. RMS is higher because each distance is squared before averaging.';
+          $("surfaceFormula").textContent=surfaceSample+"; complete S="+fmt(mean)+" fm; RMS="+fmt(rms)+" fm";
+          button.dataset.running="false";button.disabled=false;button.textContent="Start green iterative scan - "+SAMPLES.toLocaleString("en-US")+" points";if($("average").dataset.running!=="true")setCalculationsPaused(true);render();
+          setCalcGroup("surface:",[
+            "surface mean R = "+fmt(mean)+" fm",
+            "surface RMS = "+fmt(rms)+" fm",
+            "mean − CODATA = "+(delta>=0?"+":"")+fmt(delta)+" fm",
+            "sample range = "+fmt(min)+" … "+fmt(max)+" fm"
+          ]);
+        }
+      };
+      scheduleNext(frame);
+    });
+
+    $("radialAverage").addEventListener("click",()=>{
+      const button=$("radialAverage");
+      const run=++radialRun;
+      button.disabled=true;radialTrail=[];
+      let i=0,sum=0,hitSum=0,hitCount=0,min=Infinity,max=-Infinity,lastSample=null;
+      $("radialState").textContent="center-out scanning · 0 / "+SAMPLES;
+      $("radialLiveEquation").textContent="starting L = (1/N) Σ [first hit, otherwise R]";
+      $("radialProgressBar").style.width="0";
+      setCalcGroup("radial:",[]);
+      const frame=()=>{
+        if(run!==radialRun) return;
+        if(calculationsPaused){scheduleNext(frame);return;}
+        const batch=batchSize();
+        for(let b=0;b<batch && i<SAMPLES;b++,i++) {
+          const sample=radialReachSample(i,SAMPLES);
+          lastSample=sample;sum+=sample.reach;min=Math.min(min,sample.reach);max=Math.max(max,sample.reach);
+          if(sample.blocked){hitCount++;hitSum+=sample.reach;}
+          radialTrail.push({...sample,_expiresAt:performance.now()+TRAIL_LIFETIME_MS});
+        }
+        scheduleTrailExpiry();
+        const mean=sum/i,hitMean=hitCount?hitSum/hitCount:0,misses=i-hitCount;
+        $("radialProgressBar").style.width=(100*i/SAMPLES).toFixed(1)+"%";
+        $("radialState").textContent="center-out scanning · "+i+" / "+SAMPLES;
+        $("radialMean").textContent=fmt(mean)+" fm mean";
+        $("radialBlocked").textContent=hitCount+" / "+i+" ("+(100*hitCount/i).toFixed(2)+"%)";
+        $("radialHitMean").textContent=hitCount?fmt(hitMean)+" fm":"-- fm";
+        $("radialMisses").textContent=misses+" / "+i;
+        const choice=lastSample.blocked?"first triangle hit":"no hit, outer sphere R";
+        const radialSample="sample "+i+": n="+vecText(lastSample.direction)+"; "+choice+"; ℓ="+fmt(lastSample.reach)+" fm";
+        $("radialLiveEquation").textContent=radialSample+"; running L=(Σ ℓ)/"+i+"="+fmt(mean)+" fm";
+        $("radialFormula").textContent=radialSample+"; L("+i+"/"+SAMPLES+")="+fmt(mean)+" fm; blocked="+(100*hitCount/i).toFixed(2)+"%";
+        setCalcGroup("radial:",[
+          "center-out mean reach = "+fmt(mean)+" fm ("+i+"/"+SAMPLES+")",
+          "first-hit rays = "+hitCount+" / "+i+" ("+(100*hitCount/i).toFixed(2)+"%)",
+          "unblocked rays reaching R = "+misses+" / "+i,
+          "mean first-hit distance = "+(hitCount?fmt(hitMean):"--")+" fm"
+        ]);
+        render();drawSurfacePlot(surfaceValues);
+        if(i<SAMPLES) scheduleNext(frame);
+        else {
+          $("radialState").textContent="complete · "+SAMPLES+" center-out rays";
+          $("radialLiveEquation").textContent="complete L=(Σ ℓ)/"+SAMPLES+"="+fmt(mean)+" fm; first-hit fraction="+(100*hitCount/SAMPLES).toFixed(2)+"%";
+          $("radialFormula").textContent="complete L="+fmt(mean)+" fm; first-hit mean="+fmt(hitMean)+" fm; blocked="+(100*hitCount/SAMPLES).toFixed(2)+"%; range="+fmt(min)+" … "+fmt(max)+" fm";
+          button.disabled=false;render();
+          setCalcGroup("radial:",[
+            "center-out mean reach = "+fmt(mean)+" fm",
+            "first-hit rays = "+hitCount+" / "+SAMPLES+" ("+(100*hitCount/SAMPLES).toFixed(2)+"%)",
+            "unblocked rays reaching R = "+(SAMPLES-hitCount)+" / "+SAMPLES,
+            "mean first-hit distance = "+fmt(hitMean)+" fm"
+          ]);
+        }
+      };
+      scheduleNext(frame);
+    });
+
+    $("outsideAverage").addEventListener("click",()=>{
+      const button=$("outsideAverage");
+      const run=++outsideRun;
+      button.disabled=true;outsideTrail=[];
+      let i=0,sum=0,sum2=0,nearestRadiusSum=0,min=Infinity,max=-Infinity,lastSample=null;
+      latestOutsideMean=null;latestNearestRadiusMean=null;updateBridge();
+      $("outsideState").textContent="outside scanning · 0 / "+SAMPLES;
+      $("outsideLiveEquation").textContent="starting G = (1/N) Σ min distance(sᵢ, mesh)";
+      $("outsideProgressBar").style.width="0";
+      setCalcGroup("outside:",[]);
+      const frame=()=>{
+        if(run!==outsideRun) return;
+        if(calculationsPaused){scheduleNext(frame);return;}
+        const batch=batchSize();
+        for(let b=0;b<batch && i<SAMPLES;b++,i++) {
+          const sample=outsideGapSample(i,SAMPLES), d=sample.distance;
+          lastSample=sample;
+          sum+=d;sum2+=d*d;min=Math.min(min,d);max=Math.max(max,d);
+          nearestRadiusSum+=len(sample.nearest);
+          outsideTrail.push({...sample,_expiresAt:performance.now()+TRAIL_LIFETIME_MS});
+        }
+        scheduleTrailExpiry();
+        const mean=sum/i, rms=Math.sqrt(sum2/i), nearestRadiusMean=nearestRadiusSum/i;
+        latestOutsideMean=mean;latestNearestRadiusMean=nearestRadiusMean;updateBridge();
+        $("outsideProgressBar").style.width=(100*i/SAMPLES).toFixed(1)+"%";
+        $("outsideState").textContent="outside scanning · "+i+" / "+SAMPLES;
+        $("outsideMean").textContent=fmt(mean)+" fm mean";
+        $("outsideRms").textContent=fmt(rms)+" fm";
+        $("outsideMin").textContent=fmt(min)+" fm";
+        $("outsideMax").textContent=fmt(max)+" fm";
+        const gapVector=sub(lastSample.sphere,lastSample.nearest);
+        const outsideSample="sample "+i+": sphere s="+vecText(lastSample.sphere)+" fm (|s|=R), nearest q="+vecText(lastSample.nearest)+" fm; g=√("+short(gapVector.x)+"² + "+short(gapVector.y)+"² + "+short(gapVector.z)+"²)="+fmt(lastSample.distance)+" fm";
+        $("outsideLiveEquation").textContent=outsideSample+"; running G=(Σ g)/"+i+"="+fmt(mean)+" fm";
+        $("outsideFormula").textContent=outsideSample+"; G("+i+"/"+SAMPLES+")="+fmt(mean)+" fm; RMS="+fmt(rms)+" fm; range="+fmt(min)+" … "+fmt(max)+" fm";
+        setCalcGroup("outside:",[
+          "outside-gap mean = "+fmt(mean)+" fm ("+i+"/"+SAMPLES+")",
+          "outside-gap RMS = "+fmt(rms)+" fm",
+          "outside-gap range = "+fmt(min)+" … "+fmt(max)+" fm",
+          "mean nearest-point radius = "+fmt(nearestRadiusMean)+" fm"
+        ]);
+        render();drawSurfacePlot(surfaceValues);
+        if(i<SAMPLES) scheduleNext(frame);
+        else {
+          $("outsideState").textContent="complete · "+SAMPLES+" circumsphere points";
+          $("outsideLiveEquation").textContent=outsideSample+"; complete G=(Σ g)/"+SAMPLES+"="+fmt(mean)+" fm; RMS="+fmt(rms)+" fm";
+          $("outsideFormula").textContent=outsideSample+"; complete G="+fmt(mean)+" fm; RMS="+fmt(rms)+" fm";
+          button.disabled=false;render();
+          setCalcGroup("outside:",[
+            "outside-gap mean = "+fmt(mean)+" fm",
+            "outside-gap RMS = "+fmt(rms)+" fm",
+            "outside-gap range = "+fmt(min)+" … "+fmt(max)+" fm",
+            "mean nearest-point radius = "+fmt(nearestRadiusMean)+" fm"
+          ]);
+        }
+      };
+      scheduleNext(frame);
+    });
+
+    const CONTINUOUS_N_CAP=9999999;
+    let continuousProjectionTotal=0,continuousSurfaceTotal=0,continuousProjectionMean=0,continuousSurfaceMean=0,continuousSurfaceMeanSquare=0;
+    let continuousProjectionMin=Infinity, continuousProjectionMax=-Infinity;
+    let continuousProjectionEnabled=true,continuousSurfaceEnabled=true;
+
+    function randomSurfacePoint() {
+      const target=Math.random()*totalSurfaceArea;
+      let ti=0,end=faceAreas[0];
+      while(target>end && ti<triangles.length-1) end+=faceAreas[++ti];
+      const u=Math.random(),v=Math.random(),su=Math.sqrt(u),[a,b,c]=triangles[ti].v;
+      return {
+        x:(1-su)*a.x+su*(1-v)*b.x+su*v*c.x,
+        y:(1-su)*a.y+su*(1-v)*b.y+su*v*c.y,
+        z:(1-su)*a.z+su*(1-v)*b.z+su*v*c.z,
+        _triangleIndex:ti,_barycentric:{a:1-su,b:su*(1-v),c:su*v}
+      };
+    }
+
+    function resetContinuousStats() {
+      continuousProjectionTotal=0;continuousSurfaceTotal=0;continuousProjectionMean=0;continuousSurfaceMean=0;continuousSurfaceMeanSquare=0;
+      continuousProjectionMin=Infinity;continuousProjectionMax=-Infinity;scanValues=[];surfaceValues=[];scanMeanValues=[];surfaceMeanValues=[];surfaceTrail=[];projectionReadingAvailable=false;
+      clearAutomaticLogs();
+      continuousProjectionEnabled=true;continuousSurfaceEnabled=true;
+      $("average").textContent="Pause blue automatic sampling";
+      $("surfaceAverage").textContent="Pause green automatic sampling";
+      $("surfaceDescriptionMean").textContent="-- fm";
+      $("average").dataset.running="false";$("surfaceAverage").dataset.running="false";
+      $("average").disabled=false;$("surfaceAverage").disabled=false;
+      $("primaryProjectionN").textContent="N = 0 / ∞ viewing directions";
+      $("primarySurfaceN").textContent="N = 0 / ∞ area-weighted triangle points";
+      updateUncertaintyState(null);
+    }
+
+    function continuousFrame(token) {
+      if(token!==continuousLoopToken||runMode!=="continuous") return;
+      if(calculationsPaused){scheduleNext(()=>continuousFrame(token));return;}
+      const batch=batchSize();
+      let lastDirection=null,lastMeasurement=null,lastPoint=null,lastSurfaceRadius=0;
+      for(let b=0;b<batch;b++) {
+        if(continuousProjectionEnabled){
+          const z=Math.random(),phi=Math.random()*Math.PI*2,r=Math.sqrt(1-z*z);
+          lastDirection={x:r*Math.cos(phi),y:r*Math.sin(phi),z};
+          pitch=Math.acos(z)*180/Math.PI;yaw=Math.atan2(lastDirection.x,lastDirection.y)*180/Math.PI;roll=Math.random()*360;
+          lastMeasurement=viewMeasurement(yaw,pitch);
+          continuousProjectionTotal=Math.min(Number.MAX_SAFE_INTEGER,continuousProjectionTotal+1);
+          const w=continuousProjectionTotal<Number.MAX_SAFE_INTEGER?1/continuousProjectionTotal:1/CONTINUOUS_N_CAP;
+          continuousProjectionMean+=(lastMeasurement.radius-continuousProjectionMean)*w;
+          continuousProjectionMin=Math.min(continuousProjectionMin,lastMeasurement.radius);continuousProjectionMax=Math.max(continuousProjectionMax,lastMeasurement.radius);
+          scanValues.push(lastMeasurement.radius);scanMeanValues.push(continuousProjectionMean);if(scanValues.length>GRAPH_POINTS){scanValues.shift();scanMeanValues.shift();}
+          pushCapped(projectionAutoLogEntries,{index:continuousProjectionTotal,mode:"continuous",direction:lastDirection,yaw,pitch,roll,far:lastMeasurement.far,radius:lastMeasurement.radius,mean:continuousProjectionMean});
+        }
+        if(continuousSurfaceEnabled){
+          lastPoint=randomSurfacePoint();lastSurfaceRadius=len(lastPoint);
+          continuousSurfaceTotal=Math.min(Number.MAX_SAFE_INTEGER,continuousSurfaceTotal+1);
+          const w=continuousSurfaceTotal<Number.MAX_SAFE_INTEGER?1/continuousSurfaceTotal:1/CONTINUOUS_N_CAP;
+          continuousSurfaceMean+=(lastSurfaceRadius-continuousSurfaceMean)*w;
+          continuousSurfaceMeanSquare+=(lastSurfaceRadius*lastSurfaceRadius-continuousSurfaceMeanSquare)*w;
+          surfaceTrail.push({...lastPoint,_expiresAt:performance.now()+TRAIL_LIFETIME_MS});
+          surfaceValues.push(lastSurfaceRadius);surfaceMeanValues.push(continuousSurfaceMean);if(surfaceValues.length>GRAPH_POINTS){surfaceValues.shift();surfaceMeanValues.shift();}
+          pushCapped(surfaceAutoLogEntries,{index:continuousSurfaceTotal,mode:"continuous",triangleIndex:lastPoint._triangleIndex,barycentric:lastPoint._barycentric,point:{x:lastPoint.x,y:lastPoint.y,z:lastPoint.z},radius:lastSurfaceRadius,mean:continuousSurfaceMean,rms:Math.sqrt(continuousSurfaceMeanSquare)});
+        }
+      }
+      scheduleTrailExpiry();renderAutomaticLogs();
+      const projectionN=Math.min(continuousProjectionTotal,CONTINUOUS_N_CAP),surfaceN=Math.min(continuousSurfaceTotal,CONTINUOUS_N_CAP);
+      const projectionNText=projectionN.toLocaleString("en-US"),surfaceNText=surfaceN.toLocaleString("en-US");
+      $("primaryProjectionN").textContent="N = "+projectionNText+" / ∞ viewing directions";
+      $("primarySurfaceN").textContent="N = "+surfaceNText+" / ∞ area-weighted triangle points";
+      const surfaceRms=Math.sqrt(continuousSurfaceMeanSquare),delta=continuousSurfaceMean-CODATA_2022;
+      $("scanState").textContent=(continuousProjectionEnabled?"continuous random scan":"blue sampling paused")+" · N = "+projectionNText+" / ∞";
+      $("surfaceState").textContent=(continuousSurfaceEnabled?"continuous random surface scan":"green sampling paused")+" · N = "+surfaceNText+" / ∞";
+      $("progressBar").style.width=(100*projectionN/CONTINUOUS_N_CAP)+"%";$("surfaceProgressBar").style.width=(100*surfaceN/CONTINUOUS_N_CAP)+"%";
+      if(lastMeasurement){
+        projectionReadingAvailable=true;
+        $("avgRadius").textContent=fmt(continuousProjectionMean)+" fm";$("scanMin").textContent=fmt(continuousProjectionMin)+" fm";$("scanMax").textContent=fmt(continuousProjectionMax)+" fm";$("primaryProjection").textContent=fmt(continuousProjectionMean)+" fm";
+        $("projectionLiveEquation").textContent="random sample N="+projectionNText+": Rproj="+fmt(lastMeasurement.radius)+" fm; running A="+fmt(continuousProjectionMean)+" fm";
+        $("projectionDerivation").innerHTML='<span class="math-label">Continuous random direction:</span> n = '+vecText(lastDirection)+'<br><span class="math-label">Current outer extent:</span> Rproj = '+fmt(lastMeasurement.radius)+' fm<br><span class="math-mean">Streaming mean:</span> A = '+fmt(continuousProjectionMean)+' fm at N = '+projectionNText;
+      }
+      if(lastPoint){
+        $("surfaceMean").textContent=fmt(continuousSurfaceMean)+" fm mean";$("surfaceRms").textContent=fmt(surfaceRms)+" fm";$("surfaceDelta").textContent=surfaceDeltaText(delta);$("primarySurface").textContent=fmt(continuousSurfaceMean)+" fm";$("surfaceSampleRadius").textContent=fmt(lastSurfaceRadius)+" fm";$("surfaceDescriptionMean").textContent=fmt(continuousSurfaceMean)+" fm";
+        $("headlineSurface").textContent=fmt(continuousSurfaceMean)+" fm";$("headlineAbsDelta").textContent=fmt(Math.abs(delta))+" fm";$("headlinePercent").textContent=(100*Math.abs(delta)/CODATA_2022).toFixed(3)+"%";
+        $("surfaceLiveEquation").textContent="random sample N="+surfaceNText+": Rsample="+fmt(lastSurfaceRadius)+" fm; running S="+fmt(continuousSurfaceMean)+" fm; RMS="+fmt(surfaceRms)+" fm";
+        $("surfaceDerivation").innerHTML='<span class="math-label">Continuous random triangle point:</span> p = '+vecText(lastPoint)+' fm<br><span class="math-label">Current sample:</span> Rsample = '+fmt(lastSurfaceRadius)+' fm<br><span class="math-mean" id="streamingSurfaceMean">Streaming mean: S = '+fmt(continuousSurfaceMean)+' fm</span>; RMS = '+fmt(surfaceRms)+' fm at N = '+surfaceNText;
+        updateUncertaintyState(continuousSurfaceMean);
+      }
+      syncSliders();showViewGuide=true;render();drawPlot(scanValues);drawSurfacePlot(surfaceValues);
+      scheduleNext(()=>continuousFrame(token));
+    }
+
+    function updateIterativeControls() {
+      SAMPLES=+$("iterationCount").value;
+      $("iterationCountOut").textContent="Iterative N = "+SAMPLES.toLocaleString("en-US");
+      updateSpeedReadout();
+      if(runMode==="iterative") {
+        $("average").textContent="Start blue iterative scan - "+SAMPLES.toLocaleString("en-US")+" directions";
+        $("surfaceAverage").textContent="Start green iterative scan - "+SAMPLES.toLocaleString("en-US")+" points";
+      }
+    }
+    function setRunMode(nextMode) {
+      continuousLoopToken++;
+      runMode=nextMode;
+      const continuous=runMode==="continuous";
+      const manual=runMode==="manual";
+      document.body.classList.toggle("continuous",continuous);
+      document.body.classList.toggle("manual",manual);
+      viewer.classList.toggle("manual-picking",manual);
+      $("iterationCount").disabled=continuous||manual;
+      $("modeToggle").textContent=continuous?"Mode: Continuous random":manual?"Mode: Manual reviewer":"Mode: Iterative finite";
+      $("manualReturnAuto").disabled=!manual;
+      updateSpeedReadout();
+      projectionRun++;surfaceRun++;
+      setCalculationsPaused(false);
+      if(continuous) {
+        manualPending=null;manualLast=null;manualKind=null;manualBothHover=false;
+        $("manualSurfaceMode").classList.remove("active");$("manualProjectionMode").classList.remove("active");$("manualBothMode").classList.remove("active");
+        $("manualStatus").textContent="Automatic sampling is active. Choose a manual mode to begin.";$("manualSelectedValue").textContent="-- fm";$("manualRunningMean").textContent="-- fm";
+        resetContinuousStats();refreshManualLog();
+        $("primaryProjectionN").textContent="N = 0 / ∞ viewing directions";
+        $("primarySurfaceN").textContent="N = 0 / ∞ area-weighted triangle points";
+        const token=continuousLoopToken;
+        scheduleNext(()=>continuousFrame(token));
+      } else if(!manual) {
+        manualPending=null;manualLast=null;manualKind=null;manualBothHover=false;
+        $("manualSurfaceMode").classList.remove("active");$("manualProjectionMode").classList.remove("active");$("manualBothMode").classList.remove("active");
+        $("manualStatus").textContent="Iterative automatic sampling is selected. Choose a manual mode to inspect points yourself.";$("manualSelectedValue").textContent="-- fm";$("manualRunningMean").textContent="-- fm";
+        continuousProjectionEnabled=false;continuousSurfaceEnabled=false;
+        $("resetCalculations").click();
+        updateIterativeControls();
+        setCalculationsPaused(true);refreshManualLog();
+      } else {
+        continuousProjectionEnabled=false;continuousSurfaceEnabled=false;surfaceTrail=[];showViewGuide=false;
+        $("average").dataset.running="false";$("surfaceAverage").dataset.running="false";
+        $("average").disabled=true;$("surfaceAverage").disabled=true;
+        $("average").textContent="Blue automatic sampling paused for manual mode";
+        $("surfaceAverage").textContent="Green automatic sampling paused for manual mode";
+        setCalculationsPaused(true);$("startCalculations").disabled=true;
+        refreshManualProjectionStats();refreshManualSurfaceStats();refreshManualLog();render();
+      }
+    }
+    $("average").addEventListener("click",()=>{if(runMode!=="continuous")return;continuousProjectionEnabled=!continuousProjectionEnabled;$("average").textContent=(continuousProjectionEnabled?"Pause":"Start")+" blue automatic sampling";});
+    $("surfaceAverage").addEventListener("click",()=>{if(runMode!=="continuous")return;continuousSurfaceEnabled=!continuousSurfaceEnabled;$("surfaceAverage").textContent=(continuousSurfaceEnabled?"Pause":"Start")+" green automatic sampling";});
+    $("resetCalculations").addEventListener("click",()=>{if(runMode==="continuous"){resetContinuousStats();$("scanState").textContent="paused · N = 0 / ∞";$("surfaceState").textContent="paused · N = 0 / ∞";setCalculationsPaused(true);}else if(runMode==="iterative"){updateIterativeControls();setCalculationsPaused(true);}else{clearManualSamples();$("average").disabled=true;$("surfaceAverage").disabled=true;$("startCalculations").disabled=true;}});
+    $("modeToggle").addEventListener("click",()=>setRunMode(runMode==="continuous"?"iterative":"continuous"));
+    $("iterationCount").addEventListener("input",()=>{updateIterativeControls();if(runMode==="iterative"){$("resetCalculations").click();updateIterativeControls();}});
+    $("startCalculations").addEventListener("click",()=>{if(runMode!=="iterative")return;if($("average").dataset.running!=="true")$("average").click();if($("surfaceAverage").dataset.running!=="true")$("surfaceAverage").click();});
+    updateIterativeControls();setRunMode("continuous");setCalculationsPaused(true);
+    $("scanState").textContent="paused at startup · press Start calculations";
+    $("surfaceState").textContent="paused at startup · press Start calculations";
+
+    function enableWindowReordering() {
+      const grid=document.querySelector(".layout"), rowHeight=20, gap=12;
+      let dragged=null;
+      const windows=[...document.querySelectorAll("details.collapsible-window")];
+      const primaryPair=[...document.querySelectorAll("details.primary-measurement-window")];
+      let syncingPrimaryScroll=false;
+      primaryPair.forEach(source=>source.addEventListener("scroll",()=>{
+        if(syncingPrimaryScroll)return;
+        syncingPrimaryScroll=true;
+        const sourceRange=Math.max(1,source.scrollHeight-source.clientHeight),ratio=source.scrollTop/sourceRange;
+        primaryPair.forEach(target=>{if(target!==source)target.scrollTop=ratio*Math.max(0,target.scrollHeight-target.clientHeight);});
+        requestAnimationFrame(()=>{syncingPrimaryScroll=false;});
+      }));
+      const fitWindow=win=>{
+        if(win.dataset.userRows)return;
+        if(!win.open){win.style.setProperty("--grid-rows",2);return;}
+        requestAnimationFrame(()=>{
+          const rows=Math.max(2,Math.ceil((Math.max(52,win.scrollHeight)+gap)/(rowHeight+gap)));
+          win.style.setProperty("--grid-rows",rows);
+        });
+      };
+      const equalizePrimaryWindows=()=>requestAnimationFrame(()=>{
+        if(primaryPair.length!==2||primaryPair.some(win=>!win.open))return;
+        const rows=Math.max(...primaryPair.map(win=>Math.max(2,Math.ceil((Math.max(52,win.scrollHeight)+gap)/(rowHeight+gap)))));
+        primaryPair.forEach(win=>win.style.setProperty("--grid-rows",rows));
+      });
+      windows.forEach((win,index)=>{
+        const cols=index===0?12:6;
+        win.dataset.gridCols=cols;
+        win.style.setProperty("--grid-cols",cols);
+        const handle=win.querySelector(":scope > summary.window-title");
+        if(handle){
+          handle.draggable=true;
+          handle.title="Drag to move this window";
+          handle.addEventListener("dragstart",e=>{dragged=win;handle.classList.add("dragging-window");e.dataTransfer.setData("text/plain","window");e.dataTransfer.effectAllowed="move";});
+          handle.addEventListener("dragend",()=>{handle.classList.remove("dragging-window");dragged=null;});
+          handle.addEventListener("dragover",e=>{if(dragged)e.preventDefault();});
+          handle.addEventListener("drop",e=>{if(!dragged)return;e.preventDefault();const target=win;if(dragged===target)return;const rect=handle.getBoundingClientRect(),after=e.clientX>rect.left+rect.width/2;target.parentElement.insertBefore(dragged,after?target.nextSibling:target);});
+        }
+        const resizer=document.createElement("div");
+        resizer.className="window-resizer";
+        resizer.textContent="↘";
+        resizer.title="Drag to resize; snaps to the dashboard grid";
+        win.appendChild(resizer);
+        resizer.addEventListener("pointerdown",e=>{
+          e.preventDefault();e.stopPropagation();resizer.setPointerCapture(e.pointerId);
+          const gridRect=grid.getBoundingClientRect(),colStep=(gridRect.width-11*gap)/12+gap;
+          const startX=e.clientX,startY=e.clientY,startCols=+(win.dataset.gridCols||6),startRows=+(win.style.getPropertyValue("--grid-rows")||4);
+          const move=ev=>{
+            const nextCols=Math.max(3,Math.min(12,startCols+Math.round((ev.clientX-startX)/colStep)));
+            const nextRows=Math.max(2,Math.min(100,startRows+Math.round((ev.clientY-startY)/(rowHeight+gap))));
+            const resizeTargets=win.classList.contains("primary-measurement-window")?primaryPair:[win];
+            resizeTargets.forEach(target=>{target.dataset.gridCols=nextCols;target.dataset.userRows=nextRows;target.style.setProperty("--grid-cols",nextCols);target.style.setProperty("--grid-rows",nextRows);});
+          };
+          const end=()=>{resizer.removeEventListener("pointermove",move);resizer.removeEventListener("pointerup",end);resizer.removeEventListener("pointercancel",end);};
+          resizer.addEventListener("pointermove",move);resizer.addEventListener("pointerup",end);resizer.addEventListener("pointercancel",end);
+        });
+        win.addEventListener("toggle",()=>{delete win.dataset.userRows;fitWindow(win);equalizePrimaryWindows();});
+        fitWindow(win);
+      });
+      equalizePrimaryWindows();
+      grid.addEventListener("dragover",e=>{if(dragged){e.preventDefault();e.dataTransfer.dropEffect="move";}});
+      grid.addEventListener("drop",e=>{if(!dragged)return;e.preventDefault();const target=e.target.closest("details.collapsible-window");if(!target||target===dragged)return;const rect=target.getBoundingClientRect(),after=e.clientY>rect.top+rect.height/2;target.parentElement.insertBefore(dragged,after?target.nextSibling:target);});
+    }
+    enableWindowReordering();
+    new ResizeObserver(()=>{render();drawPlot(scanValues);drawSurfacePlot(surfaceValues);}).observe(viewer.parentElement);
+    render();drawPlot([]);drawSurfacePlot([]);
+  })();
+  </script>
+</body>
+</html>
