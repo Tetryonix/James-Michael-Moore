@@ -1,0 +1,13 @@
+quantity,value,std_uncertainty,unit,note,reference,status
+h (SI definition since 20 May 2019),6.62607015e-34,0,J s,exact by definition; the kilogram is derived from it,SI Brochure 9th ed.,ok
+N_A (SI definition since 20 May 2019),6.02214076e23,0,1/mol,exact by definition,SI Brochure 9th ed.,ok
+"h, CODATA 2017 special adjustment (old SI, kg = IPK)",6.626070150e-34,6.9e-42,J s,least-squares of Kibble balance + Si-sphere results,"Mohr et al., Metrologia 55, 125 (2018)",VERIFY
+"h, NRC Kibble balance 2017",6.626070133e-34,6.0e-42,J s,electrical vs mechanical power; mass traceable to IPK,"Wood et al., Metrologia 54, 399 (2017)",VERIFY
+"h, NIST-4 Kibble balance 2017",6.626069934e-34,8.9e-42,J s,electrical vs mechanical power; mass traceable to IPK,"Haddad et al., Metrologia 54, 633 (2017)",VERIFY
+"N_A, IAC 28Si sphere (XRCD) 2017",6.022140526e23,7.0e15,1/mol,atom counting in a silicon crystal; gives h via N_A h,"Bartl et al., Metrologia 54, 693 (2017)",VERIFY
+"N_A h (molar Planck constant), CODATA 2014",3.9903127110e-10,1.8e-19,J s/mol,from c alpha^2 A_r(e) M_u / (2 R_inf); independent of any mass artefact,CODATA 2014,VERIFY
+h/m(87Rb) atom recoil,4.59135925890e-9,6.5e-19,m^2/s,atom interferometry; needs only the metre and the second,"Morel et al., Nature 588, 61 (2020)",VERIFY
+1/alpha from h/m(87Rb),137.035999206,1.1e-8,,dimensionless,"Morel et al., Nature 588, 61 (2020)",VERIFY
+1/alpha from h/m(133Cs),137.035999046,2.7e-8,,dimensionless,"Parker et al., Science 360, 191 (2018)",VERIFY
+1/alpha CODATA 2022,137.035999177,2.1e-08,,dimensionless,CODATA 2022,ok
+Tetryonics claimed h,6.629432672e-34,,J s,relative offset from SI value: 5.074685e-04,README of this repository,claim
