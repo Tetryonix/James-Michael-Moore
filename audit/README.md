@@ -10,16 +10,39 @@ these two repositories.
 
 | File | Contents |
 |---|---|
-| `claims_ledger.csv` / `.json` | 344 claims extracted from the papers, each with its inputs, output number, an arithmetic recheck, and notes on unit dependence and circularity. Ids: A = Planck constant, B = vacuum frequency and wavelength cutoff, C = gauge invariance, D = wavefunction, summaries and code, E = Yang-Mills papers. |
-| `reference/` | Reference tables as dimensionless ratios: CODATA 2022 (138 rows), PDG particle masses (319), AME2020 isotope masses (2939), plus Planck-constant and spectroscopy anchors. `build_reference.py` regenerates them. |
+| `claims_ledger.csv` / `.json` | 665 claims extracted from the papers, each with its inputs, output number, an arithmetic recheck, and notes on unit dependence and circularity. |
+| `reference/` | Reference tables as dimensionless ratios: CODATA 2022 (139 rows), PDG particle masses (319), AME2020 isotope masses (2939), plus Planck-constant and spectroscopy anchors. `build_reference.py` regenerates them. |
 | `compare.py` | Scores a CSV of predictions against the reference tables (relative deviation and pull in standard deviations). |
 | `corpus_predictions_v0.csv` | The dimensionless claims the papers already make, in the input format of `compare.py`. `_scored.csv` is the result. |
 
+Ledger id prefixes:
+
+| Prefix | Source group | Claims |
+|---|---|---|
+| A | Planck-constant papers (this repo and the Yang-Mills repo) | 86 |
+| B | Vacuum frequency, wavelength cutoff, ProtonProver | 69 |
+| C | Universal gauge invariance files, README | 67 |
+| D | Wavefunction papers, summaries, `main.cpp`, detector page | 78 |
+| E | Yang-Mills papers | 44 |
+| F | Principia corpus outline 2026 (uploaded) | 51 |
+| G | Equilateral Triangle as Universal Key, GEM papers (uploaded) | 47 |
+| H | TetraCodex, corpus primitives, GUFE primer, Vacuum Observer, Spectral Prime Line (uploaded) | 43 |
+| I | Planck quoins in proton fascia, Equilateral Geometrics of Matter, SQRT 3 paper (uploaded) | 49 |
+| J | Spectral primes and Riemann zeta papers and CSVs (uploaded) | 23 |
+| K | PQ/EM/SR canon, Quoin Suite stress test, proton radius proof, Yang-Mills LaTeX, GUFE conversation (uploaded) | 66 |
+| L | Minkowski-Abraham-Blankenship metric PDFs (uploaded) | 42 |
+
+Groups F to L were uploaded to the audit session and are not stored in this
+repository.
+
 ## How the ledger was made
 
-Five automated readers each read one group of files in full and recomputed
+Twelve automated readers each read one group of files in full and recomputed
 every formula-to-number step. The ledger has not been reviewed line by line.
 The numbers quoted in the findings below were recomputed separately.
+Text was extracted from Word and PDF files; numbers that exist only inside
+embedded images (about 20 in the TetraCodex paper, 19 in the spectral line
+bosons paper) are not captured.
 Rows marked `VERIFY` in `reference/planck_constant_anchors.csv` and
 `reference/spectroscopy_anchors.csv` were entered from the literature from
 memory because the primary sites were unreachable; check them before relying
@@ -27,11 +50,11 @@ on them.
 
 ## Ledger statistics
 
-- 344 claims: 75 derivations from postulates, 61 postulates, 58 mathematical
-  statements, 52 interpretive, 37 definitions, 34 fits or target-as-input,
-  18 testable predictions, 9 numerical coincidences.
-- Of 215 claims with a checkable number, 159 reproduce and 56 do not.
-- 98 claims are dimensionless.
+- 665 claims: 122 mathematical statements, 120 postulates, 117 interpretive,
+  101 definitions, 97 derivations from postulates, 55 fits or
+  target-as-input, 27 testable predictions, 26 numerical coincidences.
+- Of 390 claims with a checkable number or identity, 285 reproduce and 105
+  do not.
 
 ## Main findings
 
@@ -70,6 +93,11 @@ on them.
    | deuterium/hydrogen atomic mass | 1.999467 | 1.998464 | +0.050 % |
    | helium-4/hydrogen atomic mass | 3.998934 | 3.971526 | +0.69 % |
    | carbon-12/hydrogen atomic mass | 11.996802 | 11.906829 | +0.76 % |
+   | oxygen-16/hydrogen atomic mass | 15.995736 | 15.870726 | +0.79 % |
+   | iron-56/hydrogen atomic mass | 51.986141 | 55.500641 | -6.3 % |
+   | electron mass in atomic mass units (12/22,512) | 5.3305e-4 | 5.4858e-4 | -2.8 % |
+   | proton radius / reduced Compton wavelength (1 fm) | 4.752 | 3.9977(30) | +19 % |
+   | same, with the proof's 1.1547 fm | 5.487 | 3.9977(30) | +37 % |
 
    The isotope ratios are close to the mass numbers, so the counts as written
    carry no nuclear binding energy.
@@ -98,7 +126,93 @@ on them.
    is not in the corpus, but it is the kind of pure-number statement a
    geometric framework could try to derive.
 
+## Findings from the uploaded papers (groups F to L)
+
+10. **The open questions are not answered in any of the 29 additional
+    files.** Each reader looked for: a unit-independence argument; the origin
+    of the 10^19 factor, the 1 Hz quantum and the 10^-15 m gauge; a derivation
+    of 22,500 and 12; the proton-neutron difference; a binding-energy term;
+    and the reason for the h offset. In every file these are stated as
+    premises or not mentioned (ledger entries with topic `open_q:`).
+    - Unit independence is argued once, in the corpus outline, Vol I Ch 8
+      (F-016): SI units "are human conventions" and the canonical metric
+      "arises from equilateral geometry". No number is shown to survive a
+      change of units. The outline contains no numerical values at all
+      (F-001).
+    - The 10^19 factor is attributed to "my calculations based on observable
+      rest-mass for electrons and protons" (H-002), i.e. it is calibrated to
+      measured masses in SI units.
+    - The counts are calibrated so that 22,512 x 10^19 quanta equal one
+      atomic mass unit (I-009, I-010, I-019).
+
+11. **Element masses have no binding-energy term.** The rule is
+    N = Z x 45,012 quanta (I-027, I-028), which makes every nucleus have
+    equal proton and neutron numbers. Iron comes out with 52 nucleons;
+    iron-56 is 7 % heavier than the rule gives. One paper proposes storing the
+    excess in electron field energy E = E_0 n^2 with E_0 = 4.088 MeV, but the
+    value is fitted and marked unconfirmed (I-012, I-013).
+
+12. **The engine constants are internally derived, not measured.** From the
+    Quoin Suite stress-test report (K-027 to K-030), reproduced bit for bit:
+    - quoin charge q_q = (1.2 x 10^-3)/c^2, so 12 q_q is 25 ppm above the
+      elementary charge;
+    - electron mass = 12 x 10^19 h/c^2 = 8.8515 x 10^-31 kg, 2.8 % below the
+      measured value;
+    - Bohr magneton = 9.549 x 10^-24 J/T, 3.0 % above the measured value.
+    The 1,527 passing tests check internal consistency (finite values,
+    Newton's third law, the r^-3 dipole law, energy conservation in an ideal
+    circuit). None compares an output with a measured quantity (K-038 to
+    K-041).
+
+13. **Proton radius proof.** The derived radius is (2/sqrt3) x 10^-15 m =
+    1.1547 fm, 37 % above the muonic-hydrogen value the paper itself cites
+    (K-010). The paper says the measured values fall inside its bounds
+    [0.866, 1.1547] fm; 0.8409 fm does not (K-012).
+
+14. **Spectral primes and zeta zeros.**
+    - No proof of the Riemann Hypothesis is claimed; the source says so
+      (J-008). The operator is defined to have the zeros as its spectrum.
+    - The stated regression t_n = 0.497 sqrt(dM^2) + 0.826 with error 0.66
+      does not reproduce; it gives 1.69 for the first zero, which is 14.13
+      (J-006).
+    - The level-difference formula n^2 - m^2 = (n-m)(n+m) is prime only for
+      adjacent levels, so the prime lists assigned to spectral series are
+      inserted, not derived (J-003, J-009).
+    - `zeta_zeros_v36_alpha.csv`: the `gpu_zero` column has mean error 0.227,
+      against 0.468 for the standard smooth zero-counting estimate with no
+      theory input and about 1.0 for random guesses. That is better than
+      either baseline on these 13 rows, but no algorithm is documented, so
+      it cannot be attributed to the geometry: a direct scan of the zeta
+      function would give the same (J-019). This needs the generating code.
+    - `spectral_prime_scaling_results_v14_gpu.csv`: both converging columns
+      are the zero-frequency bin of the transform, i.e. the sum of the input
+      series, not a resonance (J-021, J-022).
+
+15. **Minkowski-Abraham-Blankenship metric.** The equilateral metric
+    [[1, 1/2], [1/2, 1]] is the standard Gram matrix of the hexagonal lattice.
+    With a time component it is related to the Minkowski metric by a linear
+    change of basis, so it is the same flat geometry in oblique coordinates,
+    not a different one (L-017, L-018). A constant metric has zero curvature,
+    so the curvature claims do not follow (L-033). The file named "AUDIT" is a
+    revised edition of the same paper by the same author; it names no auditor
+    and reports no test results (L-001). Neither file contains a number that
+    can be compared with measurement (L-040).
+
+16. **Several files are assistant transcripts.** Much of the arithmetic and
+    the evaluative wording ("canonical", "valid", "strong move") in groups H,
+    I, J and K is an AI assistant's, given without derivation; the ledger
+    notes flag these. In the GUFE conversation the result M = I_em is obtained
+    by defining M to be the right-hand side (K-057).
+
 ## Internal inconsistencies to resolve before the CAD run
+
+- Quantum mass: 7.376e-51 kg, 7.376e-32 kg and 7.380e-32 kg in three papers
+  (I-006, I-020, I-038). The count 22,512 is hydrogen (proton + electron) in
+  one paper and the proton alone in another (I-009, I-017).
+- Tetryon: three faces or four (F-004, F-005, H-007, H-032); one quantum or
+  four (I-045).
+- Planck constant: 6.629432672e-34 in most files, 6.62934259e-34 in the
+  SQRT 3 paper (I-033).
 
 - Avogadro constant: 6.02214076e23 in one paper, 6.02214157908737e26 in
   another; only the second reproduces h_geo to all digits (A-003, A-009, A-011).

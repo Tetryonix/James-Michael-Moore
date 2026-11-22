@@ -6,3 +6,7 @@ isotope,H-2,,1.999467,,ledger D-034: 45012 / 22512 quanta
 isotope,He-4,,3.998934,,ledger D-036: 90024 / 22512 quanta
 isotope,C-12,,11.996802,,ledger D-037: 270072 / 22512 quanta
 pdg,n,mass_over_proton,1,,ledger D-031: proton and neutron both 22500 quanta
+isotope,O-16,,15.995736,,ledger I-028: 360096 / 22512 quanta
+isotope,Fe-56,,51.986141,,ledger I-028: 1170312 / 22512 quanta (rule N = Z x 45012 gives 52 nucleons for iron)
+codata,electron mass in u,,5.330490e-4,,ledger K-030 D-029: 12 / 22512 quanta
+codata,proton rms charge radius / reduced proton Compton wavelength,,5.487465,,ledger K-010: geometric proton radius (2/sqrt3) x 1e-15 m
