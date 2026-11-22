@@ -11,7 +11,7 @@ these two repositories.
 | File | Contents |
 |---|---|
 | `claims_ledger.csv` / `.json` | 665 claims extracted from the papers, each with its inputs, output number, an arithmetic recheck, and notes on unit dependence and circularity. |
-| `reference/` | Reference tables as dimensionless ratios: CODATA 2022 (139 rows), PDG particle masses (319), AME2020 isotope masses (2939), plus Planck-constant and spectroscopy anchors. `build_reference.py` regenerates them. |
+| `reference/` | Reference tables as dimensionless ratios: CODATA 2022 (140 rows), PDG particle masses (319), AME2020 isotope masses (2939), plus Planck-constant and spectroscopy anchors. `build_reference.py` regenerates them. |
 | `compare.py` | Scores a CSV of predictions against the reference tables (relative deviation and pull in standard deviations). |
 | `corpus_predictions_v0.csv` | The dimensionless claims the papers already make, in the input format of `compare.py`. `_scored.csv` is the result. |
 
