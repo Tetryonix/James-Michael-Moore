@@ -1,0 +1,8 @@
+table,key,column,predicted,pred_uncertainty,reference,ref_uncertainty,rel_deviation,pull_sigma,status,note
+codata,proton-electron mass ratio,value,1875,,1836.152673426,3.2e-08,0.02115691529153527,1213978955.4374971,ok,ledger A-021 D-033 E-009: 22500 proton quanta / 12 electron quanta
+codata,atomic mass constant Compton frequency / Cs-133 hyperfine frequency,value,2.448918921e13,,24501609312802.92,7614.794299543666,-0.000506909674558885,-1631049.0230400811,ok,ledger A-007 E-010: 22512e19 Hz / 9192631770 Hz (unit-free form of the h_geo claim)
+codata,proton rms charge radius / reduced proton Compton wavelength,value,4.75228,,3.9976908244020963,0.003043142584142199,0.18875626173786503,247.96379227515135,ok,ledger B-001: gauge length 1e-15 m taken as the proton radius; 1e-15 m / (hbar/(m_p c))
+isotope,H-2,mass_over_1H,1.999467,,1.9984637353598165,1.984471447617752e-11,0.0005020179362939492,50555760.89986055,ok,ledger D-034: 45012 / 22512 quanta
+isotope,He-4,mass_over_1H,3.998934,,3.9715259369814433,1.5875771580942015e-10,0.006901141640129487,172640824.9124646,ok,ledger D-036: 90024 / 22512 quanta
+isotope,C-12,mass_over_1H,11.996802,,11.906828685706513,0.0,0.007556446528998585,,ok,ledger D-037: 270072 / 22512 quanta
+pdg,n,mass_over_proton,1,,1.001378419420731,5.327333191318288e-10,-0.0013765219960784564,-2587447.36104973,ok,ledger D-031: proton and neutron both 22500 quanta

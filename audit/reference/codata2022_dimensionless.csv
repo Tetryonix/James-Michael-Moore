@@ -136,3 +136,4 @@ Bohr radius / Compton wavelength,21.809956650540286,3.2876241217893865e-09,1.51e
 Rydberg constant x Compton wavelength,2.662567722413195e-05,8.027087820815637e-15,3.01e-10,derived: R_inf * lambda_C = alpha^2 / 2
 neutron-proton mass difference / electron mass,2.5309885744324534,7.291553955373165e-07,2.88e-07,derived: (m_n - m_p)/m_e
 gravitational coupling of the proton G m_p^2/(hbar c),5.90614942976554e-39,1.327363790157516e-43,2.25e-05,derived: G m_p^2/(hbar c)
+atomic mass constant Compton frequency / Cs-133 hyperfine frequency,24501609312802.92,7614.794299543666,3.11e-10,"derived: (m_u c^2/h)/nu_Cs; fixed by h/m atom-recoil and Rydberg data, no mass artefact involved"

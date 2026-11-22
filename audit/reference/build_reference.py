@@ -18,6 +18,8 @@ from particle import Particle
 import particle as _particle
 import periodictable as pt
 
+import os
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
 PC = sc.physical_constants
 
 
@@ -79,6 +81,10 @@ derived("gravitational coupling of the proton G m_p^2/(hbar c)",
         val("Newtonian constant of gravitation") * val("proton mass") ** 2
         / (sc.hbar * sc.c), rel("Newtonian constant of gravitation"),
         "G m_p^2/(hbar c)")
+nu_u, nu_cs = "atomic mass unit-hertz relationship", 9192631770.0
+derived("atomic mass constant Compton frequency / Cs-133 hyperfine frequency",
+        val(nu_u) / nu_cs, rel(nu_u),
+        "(m_u c^2/h)/nu_Cs; fixed by h/m atom-recoil and Rydberg data, no mass artefact involved")
 write("codata2022_dimensionless.csv",
       ["quantity", "value", "std_uncertainty", "rel_uncertainty", "source"], rows)
 

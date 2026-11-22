@@ -1,5 +1,0 @@
-table,key,column,predicted,pred_uncertainty,note
-codata,proton rms charge radius / reduced proton Compton wavelength,,4,,illustration only: tests the relation r_p = 4 hbar/(m_p c)
-codata,proton-electron mass ratio,,1836,,illustration only: an integer guess
-isotope,He-4,,4,,illustration only: mass number as mass ratio
-pdg,n,mass_over_proton,1.001378,,illustration only: rounded neutron/proton ratio
