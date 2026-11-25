@@ -10,7 +10,7 @@ these two repositories.
 
 | File | Contents |
 |---|---|
-| `claims_ledger.csv` / `.json` | 670 claims extracted from the papers, each with its inputs, output number, an arithmetic recheck, and notes on unit dependence and circularity. |
+| `claims_ledger.csv` / `.json` | 672 claims extracted from the papers, each with its inputs, output number, an arithmetic recheck, and notes on unit dependence and circularity. |
 | `reference/` | Reference tables as dimensionless ratios: CODATA 2022 (141 rows), PDG particle masses (319), AME2020 isotope masses (2939), plus Planck-constant and spectroscopy anchors. `build_reference.py` regenerates them. |
 | `compare.py` | Scores a CSV of predictions against the reference tables (relative deviation and pull in standard deviations). |
 | `corpus_predictions_v0.csv` | The dimensionless claims the papers already make, in the input format of `compare.py`. `_scored.csv` is the result. |
@@ -32,7 +32,7 @@ Ledger id prefixes:
 | J | Spectral primes and Riemann zeta papers and CSVs (uploaded) | 23 |
 | K | PQ/EM/SR canon, Quoin Suite stress test, proton radius proof, Yang-Mills LaTeX, GUFE conversation (uploaded) | 66 |
 | L | Minkowski-Abraham-Blankenship metric PDFs (uploaded) | 42 |
-| M | Atomic topology atlas: transcription of chemistry plates 51 and 53 series, H to Ca and Xe (uploaded) | 5 |
+| M | Atomic topology atlas: transcription of chemistry plates 51 and 53 series, H to Ca and Xe; carbon isotope plates (uploaded) | 7 |
 
 Groups F to L were uploaded to the audit session and are not stored in this
 repository.
@@ -234,6 +234,17 @@ changes two earlier findings, which were drawn from the papers.
     earlier remark that the level counts go only as n^2: the plates take the
     Rydberg 1/n^2 form as given. What is not shown is how the base frequency
     is obtained from the geometry.
+
+20. **Isotope plates (M-006, M-007).** Carbon-12 to carbon-19 are modelled
+    as six deuterium nuclei raised to level n = 1 to 8, with
+    N = Z x (72 (24+n)^2 + 12 n^2). Against measured masses in atomic mass
+    units: C-12 -0.03 %, C-13 -0.14 %, C-14 +0.11 %, then growing to +4.3 % at
+    C-19. The step per level is Z x 0.1647 u, which is near 1 u only for
+    carbon. For other elements the same rule gives isotope spacings
+    proportional to Z (oxygen 1.32 u, tin 8.2 u, lead 13.5 u), while measured
+    isotopes of every element are spaced by about 1 u. Ground-level masses
+    (Z x 45,012) are within 0.1 % for nuclides with mass number 2Z, which
+    follows from calibrating 22,512 quanta to one atomic mass unit.
 
 ## Internal inconsistencies to resolve before the CAD run
 

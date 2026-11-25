@@ -27825,5 +27825,69 @@
   "mainstream_value_cited_in_source": null,
   "conflicts": [],
   "notes": "Several kg strings are marked unclear by the transcriber; raster resolution limits legibility."
+ },
+ {
+  "id": "M-006",
+  "topic": "isotope_rule",
+  "sources": [
+   {
+    "file": "plates: Carbon Isotopes, carbon isotope levels C12-C19, Carbon Allotropes (images sent in session)",
+    "where": "whole plate"
+   }
+  ],
+  "statement": "Isotopes have no extra neutrons; carbon-12 to carbon-19 are six deuterium nuclei all raised to level n = 1 to 8. Printed counts 270,072 to 446,976 are reproduced exactly by 6 x (72 x (24+n)^2 + 12 n^2).",
+  "formula": "N(Z,n) = Z x (72 (24+n)^2 + 12 n^2)",
+  "inputs": [],
+  "output": {
+   "quantity": "relative masses",
+   "value": "11.996, 12.9850, 14.0181, 15.0959, 16.218, 17.385, 18.598, 19.855",
+   "unit": "count / 22512"
+  },
+  "recomputed": {
+   "value": "all eight counts and relative masses reproduce",
+   "matches_source": true,
+   "note": "rule inferred by the auditor from the printed counts"
+  },
+  "kind": "postulate",
+  "dimensionless": true,
+  "unit_dependence": "none for mass ratios",
+  "circularity": "none found",
+  "mainstream_value_cited_in_source": null,
+  "conflicts": [
+   "M-001: element cards add 12 per unit in every shell; isotope plates add 12 n^2"
+  ],
+  "notes": "Against measured masses in u: C12 -0.03%, C13 -0.14%, C14 +0.11%, C15 +0.57%, C16 +1.27%, C17 +2.13%, C18 +3.17%, C19 +4.31%. The step per level is Z x 0.1647 u, which is close to 1 u only for Z = 6; for other elements the rule gives isotope spacings proportional to Z (O 1.32 u, Sn 8.2 u, Pb 13.5 u, U 15.2 u), whereas measured isotopes of every element are spaced by about 1 u. He-3 is lighter than the ground level. Plate slips: charge label 504 [254-254] sums to 508; C14 excess labelled 1.8828 MeV on one plate and 1.882 GeV on the other (GeV is consistent); C18 relative mass 18.589 on the figure and 18.598 in the table; C19 mass printed 23.297000164e-26 kg, the count gives 3.297e-26."
+ },
+ {
+  "id": "M-007",
+  "topic": "ground_state_masses",
+  "sources": [
+   {
+    "file": "plates: Carbon Isotopes, carbon isotope levels C12-C19, Carbon Allotropes (images sent in session)",
+    "where": "whole plate"
+   }
+  ],
+  "statement": "With all units in the K level the rule gives Z x 45,012 quanta, i.e. relative mass 1.99947 Z.",
+  "formula": "Z x 45012 / 22512",
+  "inputs": [],
+  "output": {
+   "quantity": "relative mass",
+   "value": "He 3.9989, C 11.9968, O 15.9957, Ca 39.9893",
+   "unit": ""
+  },
+  "recomputed": {
+   "value": "within 0.1% of measured masses in u for He-4, C-12, O-16, Ne-20, Mg-24, Si-28, S-32, Ca-40",
+   "matches_source": true,
+   "note": ""
+  },
+  "kind": "fit_or_uses_target_as_input",
+  "dimensionless": true,
+  "unit_dependence": "none for mass ratios",
+  "circularity": "none found",
+  "mainstream_value_cited_in_source": null,
+  "conflicts": [
+   "M-001: element cards add 12 per unit in every shell; isotope plates add 12 n^2"
+  ],
+  "notes": "The agreement follows from calibrating 22,512 quanta to one atomic mass unit: every nuclide's mass in u is within 0.1% of its mass number by the definition of u. The residuals, which are the measured binding-energy differences, are not reproduced: H 1.0000 against 1.00783, D 1.9995 against 2.01410."
  }
 ]
