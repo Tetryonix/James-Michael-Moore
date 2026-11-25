@@ -10,10 +10,11 @@ these two repositories.
 
 | File | Contents |
 |---|---|
-| `claims_ledger.csv` / `.json` | 665 claims extracted from the papers, each with its inputs, output number, an arithmetic recheck, and notes on unit dependence and circularity. |
-| `reference/` | Reference tables as dimensionless ratios: CODATA 2022 (140 rows), PDG particle masses (319), AME2020 isotope masses (2939), plus Planck-constant and spectroscopy anchors. `build_reference.py` regenerates them. |
+| `claims_ledger.csv` / `.json` | 670 claims extracted from the papers, each with its inputs, output number, an arithmetic recheck, and notes on unit dependence and circularity. |
+| `reference/` | Reference tables as dimensionless ratios: CODATA 2022 (141 rows), PDG particle masses (319), AME2020 isotope masses (2939), plus Planck-constant and spectroscopy anchors. `build_reference.py` regenerates them. |
 | `compare.py` | Scores a CSV of predictions against the reference tables (relative deviation and pull in standard deviations). |
 | `corpus_predictions_v0.csv` | The dimensionless claims the papers already make, in the input format of `compare.py`. `_scored.csv` is the result. |
+| `plate_predictions_v0.csv` | Element masses and the hydrogen base frequency as printed on the chemistry plates (atlas, group M). `_scored.csv` is the result. |
 
 Ledger id prefixes:
 
@@ -31,6 +32,7 @@ Ledger id prefixes:
 | J | Spectral primes and Riemann zeta papers and CSVs (uploaded) | 23 |
 | K | PQ/EM/SR canon, Quoin Suite stress test, proton radius proof, Yang-Mills LaTeX, GUFE conversation (uploaded) | 66 |
 | L | Minkowski-Abraham-Blankenship metric PDFs (uploaded) | 42 |
+| M | Atomic topology atlas: transcription of chemistry plates 51 and 53 series, H to Ca and Xe (uploaded) | 5 |
 
 Groups F to L were uploaded to the audit session and are not stored in this
 repository.
@@ -203,6 +205,35 @@ on them.
     I, J and K is an AI assistant's, given without derivation; the ledger
     notes flag these. In the GUFE conversation the result M = I_em is obtained
     by defining M to be the right-hand side (K-057).
+
+## Findings from the atomic topology atlas (group M)
+
+This is the first source in the audit taken from the plates themselves. It
+changes two earlier findings, which were drawn from the papers.
+
+17. **The plates carry a different element mass rule from the papers.** The
+    printed quanta counts for deuterium to calcium and for xenon are all
+    reproduced exactly by one rule (M-001): each deuterium unit in shell
+    K, L, M, N, O carries 72 x n^2 quanta with n = 25, 26, 27, 28, 29, plus
+    12 for its electron. The Equilateral Geometrics paper instead uses
+    Z x 45,012 (I-028). The two disagree from lithium onward (carbon 284,760
+    against 270,072).
+
+18. **Scored against measured atomic masses** (most abundant isotope,
+    relative to hydrogen-1; `plate_predictions_v0_scored.csv`): 4 of 21 are
+    within 1 % (D +0.05 %, He +0.7 %, Ar +0.8 %, Xe -0.7 %); the mean
+    deviation is 6.3 %; the range is Li -11.5 % to Ca +13.4 %. Two structural
+    reasons: every element is given 2Z nucleons, so neutron excess is absent
+    (lithium-7, argon-40 with 22 neutrons), and outer-shell units are made
+    heavier, where measured binding makes bound nucleons lighter. The origin
+    of the starting index 25 is not given.
+
+19. **The hydrogen plate does use the 1/n^2 pattern**, with base frequency
+    3.268969693e15 Hz and ionisation energy 13.525 eV (M-003). Measured:
+    3.288051e15 Hz and 13.598 eV. The plate is 0.58 % low. This corrects the
+    earlier remark that the level counts go only as n^2: the plates take the
+    Rydberg 1/n^2 form as given. What is not shown is how the base frequency
+    is obtained from the geometry.
 
 ## Internal inconsistencies to resolve before the CAD run
 

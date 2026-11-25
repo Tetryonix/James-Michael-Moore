@@ -137,4 +137,5 @@ Rydberg constant x Compton wavelength,2.662567722413195e-05,8.027087820815637e-1
 neutron-proton mass difference / electron mass,2.5309885744324534,7.291553955373165e-07,2.88e-07,derived: (m_n - m_p)/m_e
 gravitational coupling of the proton G m_p^2/(hbar c),5.90614942976554e-39,1.327363790157516e-43,2.25e-05,derived: G m_p^2/(hbar c)
 electron mass / atomic mass constant,0.0005485799090441,9.7e-15,1.77e-11,derived: m_e / m_u
+hydrogen ionisation frequency / Rydberg frequency,0.9994556794247615,9.394883386592758e-15,9.40e-15,"derived: reduced-mass factor 1/(1+m_e/m_p); leading order, excludes QED and relativistic terms (~1e-5)"
 atomic mass constant Compton frequency / Cs-133 hyperfine frequency,24501609312802.92,7614.794299543666,3.11e-10,"derived: (m_u c^2/h)/nu_Cs; fixed by h/m atom-recoil and Rydberg data, no mass artefact involved"

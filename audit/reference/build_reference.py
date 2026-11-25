@@ -83,6 +83,9 @@ derived("gravitational coupling of the proton G m_p^2/(hbar c)",
         "G m_p^2/(hbar c)")
 derived("electron mass / atomic mass constant", val("electron mass in u"),
         rel("electron mass in u"), "m_e / m_u")
+derived("hydrogen ionisation frequency / Rydberg frequency",
+        1 / (1 + val("electron-proton mass ratio")), rel("electron-proton mass ratio") * val("electron-proton mass ratio"),
+        "reduced-mass factor 1/(1+m_e/m_p); leading order, excludes QED and relativistic terms (~1e-5)")
 nu_u, nu_cs = "atomic mass unit-hertz relationship", 9192631770.0
 derived("atomic mass constant Compton frequency / Cs-133 hyperfine frequency",
         val(nu_u) / nu_cs, rel(nu_u),

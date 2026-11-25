@@ -27687,5 +27687,143 @@
   "mainstream_value_cited_in_source": null,
   "conflicts": [],
   "notes": "Notebook sketch (PDF image) shows the same min(i,j) values 1..8. No software, test harness or constants are involved in either file (Q11 not applicable). Citations in audit version: Minkowski 1908; Abraham Tetryonics; Eisenstein; Bandara 2016; Heath; Einstein (listed as 1912, 'Die Feldgleichungen der Gravitation', pp. 844-847 - that paper is 1915); Roberts 2003; F. Jones; Kircher 1678."
+ },
+ {
+  "id": "M-001",
+  "topic": "element_mass_rule",
+  "sources": [
+   {
+    "file": "atomic_topology_atlas.pdf",
+    "where": "transcription of Abraham chemistry volume plates 51.00-51.20, 51.54, 53.00-53.20, 53.54"
+   }
+  ],
+  "statement": "Each element card prints a quanta count. The counts for H to Ca and Xe are reproduced exactly by: each deuterium unit in shell K, L, M, N, O carries 72 x n^2 quanta with n = 25, 26, 27, 28, 29, plus 12 per unit for its electron; hydrogen is 22,500 + 12.",
+  "formula": "N = sum over shells of k_shell x (72 x (24 + shell)^2 + 12)",
+  "inputs": [],
+  "output": {
+   "quantity": "quanta counts",
+   "value": "D 45,012; He 90,024; Li 138,708; C 284,760; O 382,128; Ne 479,496; Na 531,996; Ar 899,496; Ca 1,012,416; Xe 2,925,288",
+   "unit": "quanta"
+  },
+  "recomputed": {
+   "value": "all 21 counts from D to Ca and Xe reproduced exactly",
+   "matches_source": true,
+   "note": "rule inferred by the auditor from the printed counts and the visible formula terms [72(n^2)] + [12e19]; shell occupancies as printed (Xe: K2 L8 M18 N18 O8)"
+  },
+  "kind": "postulate",
+  "dimensionless": true,
+  "unit_dependence": "none for the count ratios",
+  "circularity": "none found",
+  "mainstream_value_cited_in_source": null,
+  "conflicts": [],
+  "notes": "The shell index range starting at 25 (72 x 25^2 = 45,000) is not derived in the atlas. Outer-shell units are heavier than inner ones, the opposite sign to nuclear binding. Number of nucleons is 2Z for every element."
+ },
+ {
+  "id": "M-002",
+  "topic": "element_mass_rule",
+  "sources": [
+   {
+    "file": "atomic_topology_atlas.pdf",
+    "where": "transcription of Abraham chemistry volume plates 51.00-51.20, 51.54, 53.00-53.20, 53.54"
+   }
+  ],
+  "statement": "Upper-right card numeral is the count divided by 22,512 (mass relative to hydrogen).",
+  "formula": "count / 22512",
+  "inputs": [],
+  "output": {
+   "quantity": "relative mass",
+   "value": "He 3.9989; Li 6.1615; C 12.6483; O 16.9744; Ne 21.2996; Ar 39.9563; Ca 44.9723; Xe 129.9435",
+   "unit": ""
+  },
+  "recomputed": {
+   "value": "all reproduce except C: 284760/22512 = 12.6493, printed or transcribed 12.6483",
+   "matches_source": true,
+   "note": "one fourth-decimal discrepancy for carbon"
+  },
+  "kind": "derivation_from_postulates",
+  "dimensionless": true,
+  "unit_dependence": "none",
+  "circularity": "none found",
+  "mainstream_value_cited_in_source": null,
+  "conflicts": [],
+  "notes": "Compared with measured atomic masses relative to hydrogen-1 (most abundant isotope): He +0.7%, Li -11.5%, Be -6.9%, C +6.2%, O +7.0%, Ne +7.4%, Si +10.3%, S +11.3%, Ar +0.8%, K +9.8%, Ca +13.4%, Xe -0.7%. Conflicts with I-028 (Z x 45,012: C 270,072, O 360,096)."
+ },
+ {
+  "id": "M-003",
+  "topic": "hydrogen_levels",
+  "sources": [
+   {
+    "file": "atomic_topology_atlas.pdf",
+    "where": "transcription of Abraham chemistry volume plates 51.00-51.20, 51.54, 53.00-53.20, 53.54"
+   }
+  ],
+  "statement": "Hydrogen plate lists level frequencies for K to R that follow nu_K / n^2 with nu_K = 3.268969693e15 Hz, and a photo-electron ionisation energy of 13.525 eV.",
+  "formula": "nu_n = nu_K / n^2",
+  "inputs": [],
+  "output": {
+   "quantity": "nu_K",
+   "value": "3.268969693e15",
+   "unit": "Hz"
+  },
+  "recomputed": {
+   "value": "n = 2,3,4,5,7 equal nu_K/n^2 to 1e-9; n = 6 printed or transcribed 9.078047137e13 where nu_K/36 = 9.080471369e13; h_geo x nu_K = 13.526 eV",
+   "matches_source": true,
+   "note": "one level has a digit slip"
+  },
+  "kind": "prediction_testable",
+  "dimensionless": false,
+  "unit_dependence": "frequency ratio to the measured Rydberg frequency is unit-independent",
+  "circularity": "none found",
+  "mainstream_value_cited_in_source": null,
+  "conflicts": [],
+  "notes": "Measured hydrogen ionisation frequency is 3.288051e15 Hz (13.5983 eV); the plate value is 0.58% lower. The 1/n^2 form is the Rydberg pattern taken as given; the atlas does not show how nu_K is obtained."
+ },
+ {
+  "id": "M-004",
+  "topic": "charge_legend",
+  "sources": [
+   {
+    "file": "atomic_topology_atlas.pdf",
+    "where": "transcription of Abraham chemistry volume plates 51.00-51.20, 51.54, 53.00-53.20, 53.54"
+   }
+  ],
+  "statement": "Component legend: proton [24-12], electron [0-12], neutron [18-18]; card charge corners are 84 per deuterium unit split equally (e.g. C 504 [252-252]); hydrogen 48 [24-24].",
+  "formula": "84 x Z",
+  "inputs": [],
+  "output": null,
+  "recomputed": {
+   "value": "84 x Z reproduces every card from D to Ca and Xe (4,536)",
+   "matches_source": true,
+   "note": ""
+  },
+  "kind": "postulate",
+  "dimensionless": true,
+  "unit_dependence": "none",
+  "circularity": "none found",
+  "mainstream_value_cited_in_source": null,
+  "conflicts": [],
+  "notes": "Bookkeeping is internally consistent: 24+0+18 = 42 and 12+12+18 = 42 per deuterium."
+ },
+ {
+  "id": "M-005",
+  "topic": "provenance",
+  "sources": [
+   {
+    "file": "atomic_topology_atlas.pdf",
+    "where": "transcription of Abraham chemistry volume plates 51.00-51.20, 51.54, 53.00-53.20, 53.54"
+   }
+  ],
+  "statement": "The atlas is a visual transcription of plates dated 25 November 2026; it states it is not an experimental validation and that no masses were recalculated. It records a locator mismatch: the reply document cites plates 51.49/53.49 for xenon, which are indium; xenon is 51.54/53.54.",
+  "formula": null,
+  "inputs": [],
+  "output": null,
+  "recomputed": null,
+  "kind": "interpretive",
+  "dimensionless": true,
+  "unit_dependence": "none",
+  "circularity": "none found",
+  "mainstream_value_cited_in_source": null,
+  "conflicts": [],
+  "notes": "Several kg strings are marked unclear by the transcriber; raster resolution limits legibility."
  }
 ]

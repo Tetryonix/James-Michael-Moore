@@ -1,0 +1,23 @@
+table,key,column,predicted,pred_uncertainty,note
+isotope,H-2,,1.999467,,ledger M-001: plate 51.01 count 45012 / 22512
+isotope,He-4,,3.998934,,ledger M-001: plate 51.02 count 90024 / 22512
+isotope,Li-7,,6.161514,,ledger M-001: plate 51.03 count 138708 / 22512
+isotope,Be-9,,8.324094,,ledger M-001: plate 51.04
+isotope,B-11,,10.486674,,ledger M-001: plate 51.05
+isotope,C-12,,12.649254,,ledger M-001: plate 51.06
+isotope,N-14,,14.811834,,ledger M-001: plate 51.07
+isotope,O-16,,16.974414,,ledger M-001: plate 51.08
+isotope,F-19,,19.136994,,ledger M-001: plate 51.09
+isotope,Ne-20,,21.299574,,ledger M-001: plate 51.10
+isotope,Na-23,,23.631663,,ledger M-001: plate 51.11
+isotope,Mg-24,,25.963753,,ledger M-001: plate 51.12
+isotope,Al-27,,28.295842,,ledger M-001: plate 51.13
+isotope,Si-28,,30.627932,,ledger M-001: plate 51.14
+isotope,P-31,,32.960021,,ledger M-001: plate 51.15
+isotope,S-32,,35.292111,,ledger M-001: plate 51.16
+isotope,Cl-35,,37.624200,,ledger M-001: plate 51.17
+isotope,Ar-40,,39.956290,,ledger M-001: plate 51.18
+isotope,K-39,,42.464286,,ledger M-001: plate 51.19
+isotope,Ca-40,,44.972281,,ledger M-001: plate 51.20
+isotope,Xe-132,,129.943497,,ledger M-001: plate 51.54
+codata,hydrogen ionisation frequency / Rydberg frequency,,0.993655544,,ledger M-003: plate 51.00 nu_K 3.268969693e15 Hz / (c R_inf)
